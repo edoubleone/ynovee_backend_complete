@@ -31,7 +31,7 @@ for route in directions["routes"]:
       print (step["html_instructions"])
       updated_instrunction = cleanhtml(step["html_instructions"])
       translated_text = translate(updated_instrunction, input_format=english_language, output_format=language).text
-      step['speech_obj'] = get_speech_obj(translated_text)
+      # step['speech_obj'] = get_speech_obj(translated_text)
       step['translated_text'] = translated_text
 
 print (directions)
