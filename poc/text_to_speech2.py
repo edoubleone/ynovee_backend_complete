@@ -15,7 +15,9 @@ def get_speech_obj(input):
 if __name__ == "__main__":
     language = "en"
 
-    tts = gTTS('hello world, This is Parkash Testing API', lang=language)
+    tts = gTTS('"Ori ila-oorun lori banki OLI St t Morolaji Johnson Ajesara nipasẹ Ormpia Eye (ni apa ọtun)"',
+               lang="en",
+               tld="co.uk")
 
     tts.save('hello.mp3')
 
