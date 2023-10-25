@@ -50,7 +50,8 @@ if __name__ == "__main__":
 
     params = {
         "inputtype": "textquery",
-        "input": "restaurant"
+        "input": "restaurant",
+        "key": API_KEY
     }
 
     res = requests.get(BASE_URL, params=params)
@@ -59,3 +60,18 @@ if __name__ == "__main__":
     else:
         response = res.content
     print(f"Request {BASE_URL}, {params} : Status Code : {res.status_code}, Response: {response}")
+
+    place_id = "ChIJM5i5EKSDGjkRpnLcq-dzWP0"
+    place_url = "https://maps.googleapis.com/maps/api/place/details/json"
+    params = {
+        "place_id": place_id,
+        "key": API_KEY
+    }
+
+    res = requests.get(place_url, params=params)
+    if res.status_code == 200:
+        response = res.json()
+    else:
+        response = res.content
+    print(f"Request {place_url}, {params} : Status Code : {res.status_code}, Response: {response}")
+

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'apis'
+    'apis',
+    "users",
+    "places"
 ]
 
 MIDDLEWARE = [
@@ -76,7 +78,22 @@ WSGI_APPLICATION = 'roadersmap.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["POSTGRES_USER"],
+        'PASSWORD': os.environ["POSTGRES_PASSWORD"],
+        'HOST':os.environ["POSTGRES_HOST"],
+        'PORT': os.environ.get("POSTGRES_PORT", 5432),
+    }
+    # 'default': {
+    #     'ENGINE': 'mysql.connector.django',
+    #     'NAME': os.environ["DB_NAME"],
+    #     'USER': os.environ["MYSQL_USER"],
+    #     'PASSWORD': os.environ["MYSQL_PASSWORD"],
+    #     'HOST':os.environ["MYSQL_HOST"],
+    #     'PORT': os.environ.get("MYSQL_PORT", 5432),
+    # }
 }
 
 
