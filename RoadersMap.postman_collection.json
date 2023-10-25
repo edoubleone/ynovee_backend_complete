@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "fa1c7bdc-5e1e-44e5-9929-c6b339629e93",
+		"name": "RoadersMap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4180532"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Parkash\",\n    \"last_name\": \"Sharma\",\n    \"email\": \"parkashsharm01@gmail.com\",\n    \"user_id\": \"parkash-sharma-01\",\n    \"password\": \"par123\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Api",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"parkashsharm01@gmail.com\",\n    \"password\": \"par123\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-02",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-02"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invalid User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/user_does_not_exist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"user_does_not_exist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Fav Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-01/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-01",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-01\",\n    \"place_id\": \"ChIJlYIkPZHtDzkRLgm4BYM96jE\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-01/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-01",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding Invalid User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-02\",\n    \"place_id\": \"INVALID_PLACE_ID\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-02/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-02",
+								"places"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Get Nearby Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/nearby_places?q=Near PGI Sector 12",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"nearby_places"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Near PGI Sector 12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"place_id\": \"ChIJ\",\n    \"name\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"address\": \"Madhya Marg, Sector 12, Chandigarh, 160012, India\",\n    \"contact\": \"0172 274 7585\",\n    \"rating\": 4.2\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place/ChIJ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place",
+								"ChIJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place/ChIJ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place",
+								"ChIJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
