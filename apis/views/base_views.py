@@ -11,9 +11,10 @@ class BaseAPIView(APIView):
             response = super(BaseAPIView, self).handle_exception(exc)
         except ApiException as exc:
             message = exc.args[0]
+            internal_message = exc.args[2]
             service_status_code = exc.args[1]
             response = {
-                "error": {"message": message},
+                "error": {"message": internal_message, "detailed_error": message},
                 "statusCode": service_status_code
             }
             return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

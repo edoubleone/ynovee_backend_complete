@@ -18,13 +18,15 @@ class NearbyPlacesView(BaseAPIView):
 
     def get(self, request):
         params = request.query_params
-        nearby_place = params.get("q")
+        latitude = params.get("latitude")
+        longitude = params.get("longitude")
+        radius = params.get("radius")
+        keyword = params.get("keyword")
         try:
-            places = self.place_handler.get_nearby_places(nearby_place)
-            # places = self.place_handler.get_all_places()
+            places = self.place_handler.get_nearby_places(latitude, longitude, radius, keyword)
             return Response({"data": places}, status=status.HTTP_200_OK)
         except Exception as exc:
-            raise ApiException(str(exc), 6001, f"Not able to Fetch Places nearby {nearby_place}")
+            raise ApiException(str(exc), 6001, f"Not able to Fetch Places nearby {latitude}, {longitude} in {radius} radius")
 
 
 class PlaceView(BaseAPIView):
@@ -65,13 +67,3 @@ class PlacesView(BaseAPIView):
         except Exception as exc:
             print (traceback.format_exc())
             raise ApiException(str(exc), 6001, f"Not able to Fetch Place")
-
-    # def post(self, request, place_id):
-    #     try:
-    #         data = request.data
-    #         data["place_id"] = place_id
-    #         self.place_handler.add_place(data)
-    #         return Response({"data": f"Place Saved with ID {place_id}"}, status=status.HTTP_201_CREATED)
-    #     except Exception as exc:
-    #         print (traceback.format_exc())
-    #         raise ApiException(str(exc), 6001, f"Not able to Save Place for {place_id}")

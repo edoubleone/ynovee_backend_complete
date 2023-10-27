@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'apis',
     "users",
-    "places"
+    "places",
+    "trips"
 ]
 
 MIDDLEWARE = [
