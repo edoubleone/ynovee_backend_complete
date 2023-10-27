@@ -36,3 +36,4 @@ googlemaps.egg-info
 .vscode/
 .idea/
 index.py
+*/migrations/*
