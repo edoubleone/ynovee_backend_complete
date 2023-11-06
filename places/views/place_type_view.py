@@ -7,7 +7,7 @@ from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
 
 
-from places.handlers.place_type_handler import GeoTagHandler
+from places.handlers.geo_tag_handler import GeoTagHandler
 
 
 class GeoTagsView(BaseAPIView):

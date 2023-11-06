@@ -13,3 +13,5 @@ export MYSQL_PORT=3306
 
 
 export DB_NAME="roadersmap"
+
+export GOOGLE_API_KEY="AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"

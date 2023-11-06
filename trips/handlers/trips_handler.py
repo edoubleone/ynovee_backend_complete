@@ -1,10 +1,12 @@
 from trips.models.trips import Trips
 from users.handlers.user import UserHandler
+from commons.utils.logger import Logger
 
 
 class TripsHandler(object):
     def __init__(self):
         self.user_handler = UserHandler()
+        self._logger = Logger.get_instance(__name__)
 
     def add_trip(self, data):
         user_obj = self.user_handler.get_user(data["user_id"])
@@ -28,8 +30,8 @@ class TripsHandler(object):
         data = model_filter.values()
         return self.format_data_for_trips(data)
 
-    @staticmethod
-    def format_data_for_trips(data):
+    def format_data_for_trips(self, data):
+        self._logger.info("Formatting Data of Trip")
         response = {}
         for record in data:
             month = record["trip_date"].strftime("%b")

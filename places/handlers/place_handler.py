@@ -3,24 +3,27 @@ from places.models.place import Place
 from places.handlers.gpa_handler import GooglePlaceHandler
 from users.handlers.user import UserHandler
 
+from commons.utils.logger import Logger
+
 
 class PlaceHandler(object):
     def __init__(self):
         self.gpa_handler = GooglePlaceHandler()
         self.user_handler = UserHandler()
+        self._logger = Logger.get_instance(__name__)
 
-    @staticmethod
-    def add_place(data):
+    def add_place(self, data):
         place = Place(**data)
         place.save()
+        self._logger.info(f"Saved Place for {place.place_id} in DB")
 
-    @staticmethod
-    def get_place(place_id):
+    def get_place(self, place_id):
+        self._logger.info(f"Fetching Place for {place_id} from DB")
         place = Place.objects.filter(place_id=place_id).get()
         return place
 
-    @staticmethod
-    def get_places(places_id):
+    def get_places(self, places_id):
+        self._logger.info(f"Fetching Place Meta for multiple places {places_id} from DB")
         places = Place.objects.filter(place_id__in=places_id).all()
         return [place.__dict__ for place in places]
 
@@ -33,6 +36,7 @@ class PlaceHandler(object):
 
     def get_nearby_places(self, latitude, longitude, radius=100, keyword=None):
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        self._logger.info(f"Fetching Nearby Places for Latitude {latitude}, Longitude {longitude} and Radius {radius}")
         matching_places = self.gpa_handler.get_nearby_places(latitude, longitude, radius, keyword)
         places_obj = []
         keys = ["place_id", "name", "vicinity", "rating", "types", "business_status"]

@@ -1,21 +1,27 @@
 """
 Google Place API Handler
 """
+import os
 import requests
+
+from commons.utils.logger import Logger
+
 from places.exceptions import GoogleApiException
 
 
-API_KEY = "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+API_KEY = os.environ["GOOGLE_API_KEY"]
 
 
 class GooglePlaceHandler(object):
 
     def __init__(self):
+        self._logger = Logger.get_instance(__name__)
         self.GET_PLACES_FROM_TEXT = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
         self.PLACE_URL = "https://maps.googleapis.com/maps/api/place/details/json"
         self.GET_NEARBY_PLACES = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 
     def get_places_from_text(self, text_search):
+        self._logger.info(f"Fetching places based on text {text_search}")
         places = []
         matching_places = self.get_nearby_places_from_text(text_search)
         for place in matching_places["candidates"]:
@@ -32,6 +38,7 @@ class GooglePlaceHandler(object):
         return places
 
     def get_nearby_places_from_text(self, nearby_area):
+
         params = {
             "inputtype": "textquery",
             "input": nearby_area,
@@ -39,6 +46,7 @@ class GooglePlaceHandler(object):
         }
         res = requests.get(self.GET_PLACES_FROM_TEXT, params=params)
         if res.status_code != 200:
+            self._logger.info(f"Response from {self.GET_PLACES_FROM_TEXT} is {res.status_code}, {res.content}")
             raise GoogleApiException(message=res.content,
                                      service_status_code=6001,
                                      internal_message=f"Failed to get place info {self.GET_PLACES_FROM_TEXT} for {nearby_area}")
@@ -46,11 +54,14 @@ class GooglePlaceHandler(object):
         return response
 
     def get_place_info(self, place_id):
+
         params = {
             "place_id": place_id,
             "key": API_KEY
         }
         res = requests.get(self.PLACE_URL, params=params)
+        self._logger.info(f"Fetched place detail from API {self.PLACE_URL} for {place_id},"
+                          f" Response {res.status_code}, {res.content}")
         if res.status_code != 200:
             raise GoogleApiException(message=res.content,
                                      service_status_code=6001,
@@ -58,9 +69,10 @@ class GooglePlaceHandler(object):
         response = res.json()
         return response
 
-    def get_nearby_places(self, latitude, longitude, radius=100, keyword=None):
+    def get_nearby_places(self, latitude, longitude, radius=100, keyword=None, place_query=None):
         """
 
+        :param place_query:
         :param latitude:
         :param longitude:
         :param radius: distance (in meters)
@@ -73,7 +85,7 @@ class GooglePlaceHandler(object):
         }
         if keyword:
             params["keyword"] = keyword
-        print (self.GET_NEARBY_PLACES, params)
+
         res = requests.get(self.GET_NEARBY_PLACES, params=params)
         if res.status_code != 200:
             raise GoogleApiException(message=res.content,
