@@ -1,4 +1,4 @@
-from users.models.user_saved_locations import UsersSavedPlaces
+from places.models.user_saved_locations import UsersSavedPlaces
 from users.handlers.user import UserHandler
 from places.handlers.place_handler import PlaceHandler
 

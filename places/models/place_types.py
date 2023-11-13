@@ -2,9 +2,9 @@ from django.db import models
 
 
 class GeoTagTypes(models.Model):
-    place_type_id = models.CharField(primary_key=True)
-    place_type_label = models.CharField()
-    tags = models.TextField(default="")
+    place_type_id = models.CharField(primary_key=True,max_length=100)
+    place_type_label = models.CharField(max_length=100)
+    tags = models.TextField(default="", max_length=100)
     hide = models.BooleanField(default=False)
 
     class Meta:

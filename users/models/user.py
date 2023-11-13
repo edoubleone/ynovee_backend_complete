@@ -2,16 +2,16 @@ from django.db import models
 
 
 class User(models.Model):
-    user_id = models.CharField(primary_key=True)
-    first_name = models.CharField()
-    last_name = models.CharField()
-    email = models.CharField()
-    mobile = models.CharField()
-    image_path = models.CharField()
-    password = models.CharField()
-    sso_sign_in = models.CharField()
-    address = models.TextField()
-    work_location = models.TextField()
+    user_id = models.CharField(primary_key=True, max_length=100)
+    first_name = models.CharField( max_length=100)
+    last_name = models.CharField( max_length=100)
+    email = models.CharField( max_length=100)
+    mobile = models.CharField( max_length=100)
+    image_path = models.CharField( max_length=100)
+    password = models.CharField( max_length=100)
+    sso_sign_in = models.CharField( max_length=100)
+    address = models.TextField(max_length=1000)
+    work_location = models.TextField(max_length=100)
     email_verified = models.BooleanField(default=False)
 
     class Meta:

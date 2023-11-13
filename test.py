@@ -2,12 +2,12 @@ data = {'html_attributions': [], 'result': {'address_components': [{'long_name':
 # import pdb;pdb.set_trace()
 
 # data.keys() = dict_keys(['html_attributions', 'result', 'status'])
-dict_keys(['address_components',
-           'adr_address', 'business_status',
-           'current_opening_hours', 'dine_in',
-           'formatted_address', 'formatted_phone_number',
-           'geometry', 'icon', 'icon_background_color',
-           'icon_mask_base_uri', 'international_phone_number',
-           'name', 'opening_hours', 'photos', 'place_id', 'rating',
-           'reference', 'reviews', 'serves_breakfast', 'serves_lunch',
-           'takeout', 'types', 'url', 'user_ratings_total', 'utc_offset', 'vicinity'])
+# dict_keys(['address_components',
+#            'adr_address', 'business_status',
+#            'current_opening_hours', 'dine_in',
+#            'formatted_address', 'formatted_phone_number',
+#            'geometry', 'icon', 'icon_background_color',
+#            'icon_mask_base_uri', 'international_phone_number',
+#            'name', 'opening_hours', 'photos', 'place_id', 'rating',
+#            'reference', 'reviews', 'serves_breakfast', 'serves_lunch',
+#            'takeout', 'types', 'url', 'user_ratings_total', 'utc_offset', 'vicinity'])

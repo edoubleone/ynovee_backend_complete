@@ -80,13 +80,22 @@ WSGI_APPLICATION = 'roadersmap.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ["DB_NAME"],
-        'USER': os.environ["POSTGRES_USER"],
-        'PASSWORD': os.environ["POSTGRES_PASSWORD"],
-        'HOST':os.environ["POSTGRES_HOST"],
-        'PORT': os.environ.get("POSTGRES_PORT", 5432),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
+        # 'USER': os.environ["POSTGRES_USER"],
+        # 'PASSWORD': os.environ["POSTGRES_PASSWORD"],
+        # 'HOST':os.environ["POSTGRES_HOST"],
+        # 'PORT': os.environ.get("POSTGRES_PORT", 5432),
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.environ["DB_NAME"],
+    #     'USER': os.environ["POSTGRES_USER"],
+    #     'PASSWORD': os.environ["POSTGRES_PASSWORD"],
+    #     'HOST':os.environ["POSTGRES_HOST"],
+    #     'PORT': os.environ.get("POSTGRES_PORT", 5432),
+    # }
     # 'default': {
     #     'ENGINE': 'mysql.connector.django',
     #     'NAME': os.environ["DB_NAME"],

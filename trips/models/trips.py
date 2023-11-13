@@ -3,13 +3,13 @@ from users.models.user import User
 
 
 class Trips(models.Model):
-    trip_id = models.CharField(primary_key=True)
+    trip_id = models.CharField(primary_key=True, max_length=100)
     trip_date = models.DateField()
-    source = models.CharField()
-    destination = models.CharField()
+    source = models.CharField(max_length=100)
+    destination = models.CharField(max_length=100)
     trip_start_time = models.DateTimeField(null=True)
     trip_end_time = models.DateTimeField(null=True)
-    status = models.CharField()
+    status = models.CharField(max_length=100)
     user_id = models.ForeignKey(User,
                                 on_delete=models.CASCADE)
 

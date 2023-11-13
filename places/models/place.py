@@ -2,18 +2,18 @@ from django.db import models
 
 
 class Place(models.Model):
-    place_id = models.CharField(primary_key=True)
-    name = models.CharField()
-    description = models.TextField()
-    image = models.CharField()
-    contact = models.CharField(null=True)
-    address = models.TextField()
-    country = models.CharField()
-    state = models.CharField()
-    city = models.CharField()
-    zip = models.CharField()
-    rating = models.CharField()
-    type = models.TextField()
+    place_id = models.CharField(primary_key=True, max_length=100)
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=100)
+    image = models.CharField(max_length=100)
+    contact = models.CharField(null=True, max_length=100)
+    address = models.TextField(max_length=100)
+    country = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    zip = models.CharField(max_length=100)
+    rating = models.CharField(max_length=100)
+    type = models.TextField(max_length=100)
 
     class Meta:
         db_table = "places"
