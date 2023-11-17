@@ -32,3 +32,13 @@ class UserView(BaseAPIView):
         except Exception as exc:
             print (traceback.format_exc())
             raise ApiException(str(exc), 6001, "Not able to Save User")
+
+    def put(self, request, user_id):
+        try:
+            data = request.data
+            data["user_id"] = user_id
+            self.user_handler.update_user(data)
+            return Response({"data": f"User Updated with User ID {user_id}"}, status=status.HTTP_200_OK)
+        except Exception as exc:
+            print (traceback.format_exc())
+            raise ApiException(str(exc), 6001, "Not able to Save User")
