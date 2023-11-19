@@ -4,8 +4,9 @@ from django.urls import path
 from users.views.user_view import UserView
 from places.views.user_places import UserPlacesView
 from users.views.auth_view import AuthView
-from users.views.forget_password_view import ForgetPasswordSubmitCodeView
+from users.views.forget_password_view import ForgetPasswordSubmitCodeView, ForgetPasswordCodeView
 from places.views.places_view import PlaceView, NearbyPlacesView, PlacesView
+from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
 from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, UsersNearbyPlacesView
 from trips.views.trips_view import TripsView, TripView, UserTripView
 
@@ -14,11 +15,11 @@ from events.views import EventsView
 app_name = "apis"
 
 urlpatterns = [
+
     path("auth", AuthView.as_view(), name="auth"),
-    path("validate_forget_password_code", ForgetPasswordSubmitCodeView.as_view(), name="forget_password"),
     path("user/<slug:user_id>", UserView.as_view(), name="users"),
-
-
+    path("user/<slug:user_id>/send_validation_code", ForgetPasswordCodeView.as_view(), name="send_validation_code"),
+    path("validate_forget_password_code", ForgetPasswordSubmitCodeView.as_view(), name="forget_password"),
 
     path("place_types", GeoTagsView.as_view(), name="place_types"),
     path("place_types/users/<slug:user_id>", UserPreferredGeoTagView.as_view(), name="user_place_types"),
@@ -27,6 +28,8 @@ urlpatterns = [
     path("nearby_places/users/<slug:user_id>", UsersNearbyPlacesView.as_view(), name="users_nearby_places"),
 
     path("places", PlacesView.as_view(), name="places"),
+    path("places_lat_lang", PlaceLatitudeLongitudeView.as_view(), name="places_lat_lang"),
+
     path("places/user/<slug:user_id>", UserPlacesView.as_view(), name="user_places"),
     path("place/<slug:place_id>", PlaceView.as_view(), name="place"),
 

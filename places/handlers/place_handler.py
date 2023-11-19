@@ -22,10 +22,10 @@ class PlaceHandler(object):
         place = Place.objects.filter(place_id=place_id).get()
         return place
 
-    def get_places(self, places_id):
+    def get_places(self, places_id, is_place_private=False):
         self._logger.info(f"Fetching Place Meta for multiple places {places_id} from DB")
         places = Place.objects.filter(place_id__in=places_id).all()
-        return [place.__dict__ for place in places]
+        return [place.__dict__ for place in places if place.private == is_place_private]
 
     def get_places_from_text(self, nearby_area):
         places_obj = self.gpa_handler.get_places_from_text(nearby_area)
@@ -39,7 +39,7 @@ class PlaceHandler(object):
         self._logger.info(f"Fetching Nearby Places for Latitude {latitude}, Longitude {longitude} and Radius {radius}")
         matching_places = self.gpa_handler.get_nearby_places(latitude, longitude, radius, keyword)
         places_obj = []
-        keys = ["place_id", "name", "vicinity", "rating", "types", "business_status"]
+        keys = ["place_id", "name", "vicinity", "rating", "types", "business_status", "geometry"]
         fpkeys = {
             "vicinity": "address", "types": "type"
         }
@@ -60,3 +60,24 @@ class PlaceHandler(object):
     @staticmethod
     def get_all_places():
         return Place.objects.all().values()
+
+    def get_place_details_from_geocode_api(self, data):
+        params = {}
+        latitude = data.get("latitude")
+        longitude = data.get("longitude")
+        address = data.get("address")
+
+        if latitude and longitude:
+            params["latlng"] = f"{latitude},{longitude}"
+
+        if address:
+            params["address"] = address
+
+        keys = ["formatted_address", "geometry", "place_id", "types"]
+
+        records = self.gpa_handler.get_lat_lang(params)
+        # for data in records:
+        # TODO Best Fit
+        data = records[0]
+        place_meta = {key: data.get(key) for key in keys}
+        return place_meta

@@ -17,11 +17,17 @@ class UserPlacesView(BaseAPIView):
 
     def get(self, request, user_id):
         try:
-            user = self.user_place_handler.get_user_fav_places(user_id)
+            params = request.query_params
+            is_place_private = params.get("is_place_private", "false").lower()
+            mapper = {"true": True, "false": False}
+            if is_place_private not in mapper:
+                raise ApiException("Invalid value of is_place_private", 6001, "Not able to get User Places")
+            is_place_private = mapper[is_place_private.lower()]
+            user = self.user_place_handler.get_user_fav_places(user_id, is_place_private)
             return Response({"data": user}, status=status.HTTP_200_OK)
         except Exception as exc:
             print (traceback.format_exc())
-            raise ApiException(str(exc), 6001, "Not able to get User")
+            raise ApiException(str(exc), 6001, "Not able to get User Places")
 
     def post(self, request, user_id):
         try:

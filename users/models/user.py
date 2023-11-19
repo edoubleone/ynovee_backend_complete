@@ -13,6 +13,7 @@ class User(models.Model):
     address = models.TextField(max_length=1000)
     work_location = models.TextField(max_length=100)
     email_verified = models.BooleanField(default=False)
+    language = models.CharField(max_length=200, default="english")
 
     class Meta:
         db_table = "users"
@@ -32,5 +33,9 @@ class User(models.Model):
             "user_id": self.user_id,
             "name": self.full_name,
             "email": self.email,
-            "contact": self.mobile
+            "contact": self.mobile,
+            "image_path": self.image_path,
+            "address": self.address,
+            "language": self.language,
+            "email_verified": self.email_verified
         }

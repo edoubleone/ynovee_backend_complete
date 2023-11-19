@@ -13,12 +13,14 @@ API_KEY = os.environ["GOOGLE_API_KEY"]
 
 
 class GooglePlaceHandler(object):
+    GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
 
     def __init__(self):
         self._logger = Logger.get_instance(__name__)
         self.GET_PLACES_FROM_TEXT = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
         self.PLACE_URL = "https://maps.googleapis.com/maps/api/place/details/json"
         self.GET_NEARBY_PLACES = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+
 
     def get_places_from_text(self, text_search):
         self._logger.info(f"Fetching places based on text {text_search}")
@@ -104,3 +106,33 @@ class GooglePlaceHandler(object):
         }
         params = "&".join(f'{k}={v}' for k, v in params.items())
         return f"{base_end_point}?{params}"
+
+    def get_lat_lang(self, params):
+        params["key"] = API_KEY
+        res = requests.get(self.GEOCODE_URL, params=params)
+        self._logger.info(f"Fetched place detail from API {self.GEOCODE_URL} for {params},"
+                          f" Response {res.status_code}, {res.content}")
+        if res.status_code != 200:
+            raise GoogleApiException(message=res.content,
+                                     service_status_code=6001,
+                                     internal_message=f"Failed to get details from {self.GEOCODE_URL}, "
+                                                      f"Request failed with {res}")
+        response = res.json()
+        return response["results"]
+
+    # def get_place_from_lat_lang(self, latitude, longitude):
+    #     latlng = f"{latitude},{longitude}"
+    #     params = {
+    #         "latlng": latlng,
+    #         "key": API_KEY
+    #     }
+    #     res = requests.get(self.GEOCODE_URL, params=params)
+    #     self._logger.info(f"Fetched place detail from API {self.GEOCODE_URL} for Latitude {latitude}, Longitude {longitude}"
+    #                       f" Response {res.status_code}, {res.content}")
+    #     if res.status_code != 200:
+    #         raise GoogleApiException(message=res.content,
+    #                                  service_status_code=6001,
+    #                                  internal_message=f"Failed to get details from {self.GEOCODE_URL}, "
+    #                                                   f"Request failed with {res}")
+    #     response = res.json()
+    #     return response["results"]
