@@ -15,9 +15,10 @@ class ForgetPasswordCodeView(BaseAPIView):
     def __init__(self):
         self.user_handler = UserHandler()
 
-    def get(self, request, user_id):
+    def post(self, request):
         try:
-            response = self.user_handler.send_forget_password_code(user_id)
+            data = request.data
+            response = self.user_handler.send_forget_password_code(data["email"])
             return Response({"data": response}, status=status.HTTP_200_OK)
         except Exception as exc:
             print (traceback.format_exc())
