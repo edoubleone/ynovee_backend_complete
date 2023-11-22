@@ -5,8 +5,11 @@ class UserHandler(object):
     def __init__(self):
         pass
 
-    @staticmethod
-    def add_user(data):
+    def add_user(self, data):
+        email = data["email"]
+        users = self.get_users({"email": email})
+        if users:
+            raise Exception(f"User with Email {email} already exist in system..!!")
         user = User(**data)
         # import pdb;pdb.set_trace()
         user.save()
@@ -35,22 +38,33 @@ class UserHandler(object):
 
     def send_forget_password_code(self, email):
         # user = self.get_user(user_id)
+        users = self.get_users({"email": email})
+        if not users:
+            raise Exception(f"No User Found for Email {email}")
+        user = users[0]
         # TODO Write Code to Send Code in Email. This code later used to validate the Password.
         return {
-            "message": f"Code Send to {email}, Please check your email"
+            "message": f"Code Send to {email}, User ID {user.email}, Please check your email"
         }
 
-    @staticmethod
-    def submit_forget_password_code(data):
-        user_id = data["user_id"]
+    def submit_forget_password_code(self, data):
+        # user_id = data["user_id"]
         code = int(data["code"])
         # TODO - Write Code and Discuss Logic for the same.
+        email = data["email_id"]
+        users = self.get_users({"email": email})
+        if not users:
+            raise Exception(f"No User Found for Email {email}")
+
+        user = users[0]
         if code > 5000:
             return {
+                "user": user.__dict__,
                 "status": "success",
                 "message": "Code Matched Successfully"
             }
-        return {
-            "status": "error",
-            "message": "Invalid Code"
-        }
+        raise Exception("Invalid Code")
+        # return {
+        #     "status": "error",
+        #     "message": "Invalid Code"
+        # }
