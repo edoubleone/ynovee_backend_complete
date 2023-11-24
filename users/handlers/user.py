@@ -52,7 +52,6 @@ class UserHandler(object):
         message = f"OTP : {code}"
         self.smtp.send_email(user.email, message)
         self.cache.set_key_value(email, code)
-
         return {
             "message": f"Code Send to {email}, User ID {user.email}, Please check your email"
         }

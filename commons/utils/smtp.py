@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import smtplib
+import traceback
 
 from commons.utils.logger import Logger
 
@@ -10,20 +11,29 @@ class Smtp:
     def __init__(self):
         self.sender_mail = 'parkashsharm01@gmail.com'
         password = ""
-        self.smtp_obj = smtplib.SMTP("localhost", 1025)
-        if password:
-            self.smtp_obj.login(self.sender_mail, password)
+        try:
+            self.smtp_obj = smtplib.SMTP("localhost", 1025)
+            if password:
+                self.smtp_obj.login(self.sender_mail, password)
+        except Exception as e:
+            traceback.format_exc()
+            # TODO SOLVE THIS BETTER
         self._logger = Logger.get_instance(__name__)
         Smtp.instance = self
 
     @staticmethod
     def get_instance():
+
         if Smtp.instance is None:
             Smtp()
         return Smtp.instance
 
     def send_email(self, receivers_mail, message):
-        self.smtp_obj.sendmail(self.sender_mail,
-                               receivers_mail,
-                               message)
-        self._logger.info(f"Successfully sent email to {receivers_mail}")
+        try:
+            self.smtp_obj.sendmail(self.sender_mail,
+                                   receivers_mail,
+                                   message)
+            self._logger.info(f"Successfully sent email to {receivers_mail}")
+        except Exception as e:
+            print(traceback.format_exc())
+            raise Exception("Smtp Server is Down, Not able to send Messages")
