@@ -37,3 +37,4 @@ googlemaps.egg-info
 .idea/
 index.py
 */migrations/*
+images/
