@@ -1,9 +1,14 @@
+import random
+
 from users.models.user import User
+from commons.utils.smtp import Smtp
+from commons.utils.cache import Cache
 
 
 class UserHandler(object):
     def __init__(self):
-        pass
+        self.cache = Cache.get_instance()
+        self.smtp = Smtp.get_instance()
 
     def add_user(self, data):
         email = data["email"]
@@ -42,29 +47,37 @@ class UserHandler(object):
         if not users:
             raise Exception(f"No User Found for Email {email}")
         user = users[0]
-        # TODO Write Code to Send Code in Email. This code later used to validate the Password.
+
+        code = self.generate_code()
+        message = f"OTP : {code}"
+        self.smtp.send_email(user.email, message)
+        self.cache.set_key_value(email, code)
+
         return {
             "message": f"Code Send to {email}, User ID {user.email}, Please check your email"
         }
 
+    @staticmethod
+    def generate_code():
+        number = random.randint(1000, 9999)
+        return number
+
     def submit_forget_password_code(self, data):
         # user_id = data["user_id"]
         code = int(data["code"])
-        # TODO - Write Code and Discuss Logic for the same.
         email = data["email_id"]
+
         users = self.get_users({"email": email})
         if not users:
             raise Exception(f"No User Found for Email {email}")
 
         user = users[0]
-        if code > 5000:
+
+        expected_code = self.cache.get_key_value(email)
+        if code == expected_code:
             return {
                 "user": user.__dict__,
                 "status": "success",
                 "message": "Code Matched Successfully"
             }
         raise Exception("Invalid Code")
-        # return {
-        #     "status": "error",
-        #     "message": "Invalid Code"
-        # }

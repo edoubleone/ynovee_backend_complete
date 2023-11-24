@@ -19,7 +19,7 @@ urlpatterns = [
     path("auth", AuthView.as_view(), name="auth"),
     path("user/<slug:user_id>", UserView.as_view(), name="users"),
     path("user/<slug:user_id>/upload_pic", UserUploadPicView.as_view(), name="users_upload_pic"),
-    path("user/send_validation_code", ForgetPasswordCodeView.as_view(), name="send_validation_code"),
+    path("send_validation_code", ForgetPasswordCodeView.as_view(), name="send_validation_code"),
     path("validate_forget_password_code", ForgetPasswordSubmitCodeView.as_view(), name="forget_password"),
 
     path("place_types", GeoTagsView.as_view(), name="place_types"),
