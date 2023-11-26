@@ -28,7 +28,6 @@ class SerpApiEventsHandler(object):
         results = search.get_dict()
         if results.get("error"):
             raise Exception(results["error"])
-        import pdb;pdb.set_trace()
         events_results = results["events_results"]
         self._logger.info(f"Get Events Successfully for {keyword} from serpapi")
         return events_results

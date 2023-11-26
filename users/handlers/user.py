@@ -5,10 +5,20 @@ from commons.utils.smtp import Smtp
 from commons.utils.cache import Cache
 
 
+FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
+FORGET_PASSWORD_CODE_TPL = """
+    <b>Dear {USER_NAME}</b>,<br>
+    Greetings from Roaders Map. <br>
+
+    You can use the below One Time Password (OTP) to rest password on Roadersmap.com<br>
+    <p style="border:1px solid powderblue,padding:10px">{OTP_CODE}</p>
+    """
+
 class UserHandler(object):
+
     def __init__(self):
         self.cache = Cache.get_instance()
-        self.smtp = Smtp.get_instance()
+        # self.smtp = Smtp.get_instance()
 
     def add_user(self, data):
         email = data["email"]
@@ -37,20 +47,25 @@ class UserHandler(object):
         return user
 
     @staticmethod
-    def get_users(filters):
+    def get_users(filters={}):
         users = User.objects.filter(**filters)
         return [user for user in users]
 
     def send_forget_password_code(self, email):
         # user = self.get_user(user_id)
+        smtp = Smtp.get_instance()
+
         users = self.get_users({"email": email})
         if not users:
             raise Exception(f"No User Found for Email {email}")
         user = users[0]
 
         code = self.generate_code()
-        message = f"OTP : {code}"
-        self.smtp.send_email(user.email, message)
+        html_message = FORGET_PASSWORD_CODE_TPL.format(USER_NAME=user.full_name, OTP_CODE=code)
+        message = Smtp.generate_email_message(recipients=user.email,
+                                              subject=FORGET_PASSWORD_CODE_SUBJECT,
+                                              html_message=html_message)
+        smtp.send_email(user.email, message)
         self.cache.set_key_value(email, code)
         return {
             "message": f"Code Send to {email}, User ID {user.email}, Please check your email"
@@ -80,3 +95,4 @@ class UserHandler(object):
                 "message": "Code Matched Successfully"
             }
         raise Exception("Invalid Code")
+
