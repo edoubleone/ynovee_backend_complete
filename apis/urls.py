@@ -9,6 +9,7 @@ from places.views.places_view import PlaceView, NearbyPlacesView, PlacesView
 from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
 from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, UsersNearbyPlacesView
 from trips.views.trips_view import TripsView, TripView, UserTripView
+from places.views.distance_places_view import DistanceApiView
 
 from events.views import EventsView
 
@@ -40,5 +41,8 @@ urlpatterns = [
     path("trip/<slug:trip_id>", TripView.as_view(), name="trip"),
 
     path("events", EventsView.as_view(), name="events"),
+
+
+    path("distance_matrix", DistanceApiView.as_view(), name="distance_matrix"),
 
 ]

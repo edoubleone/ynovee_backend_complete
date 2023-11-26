@@ -14,6 +14,7 @@ API_KEY = os.environ["GOOGLE_API_KEY"]
 
 class GooglePlaceHandler(object):
     GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
+    DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json"
 
     def __init__(self):
         self._logger = Logger.get_instance(__name__)
@@ -120,19 +121,30 @@ class GooglePlaceHandler(object):
         response = res.json()
         return response["results"]
 
-    # def get_place_from_lat_lang(self, latitude, longitude):
-    #     latlng = f"{latitude},{longitude}"
-    #     params = {
-    #         "latlng": latlng,
-    #         "key": API_KEY
-    #     }
-    #     res = requests.get(self.GEOCODE_URL, params=params)
-    #     self._logger.info(f"Fetched place detail from API {self.GEOCODE_URL} for Latitude {latitude}, Longitude {longitude}"
-    #                       f" Response {res.status_code}, {res.content}")
-    #     if res.status_code != 200:
-    #         raise GoogleApiException(message=res.content,
-    #                                  service_status_code=6001,
-    #                                  internal_message=f"Failed to get details from {self.GEOCODE_URL}, "
-    #                                                   f"Request failed with {res}")
-    #     response = res.json()
-    #     return response["results"]
+    def get_distance_matrix_for_source_dest(self, destination_place, origin_place,
+                                            mode="driving",
+                                            transit_mode=None):
+        params = {
+            "destinations": destination_place,
+            "origins": origin_place,
+            "units": "imperial",
+            "mode": mode.lower(),
+            "key": API_KEY
+        }
+
+        if mode.lower() == "transit_mode":
+            if transit_mode is None:
+                transit_mode = "bus"
+            params["transit_mode"] = transit_mode.lower()
+
+        res = requests.get(self.DISTANCE_MATRIX_URL, params=params)
+        self._logger.info(f"Fetched Distance Matrix detail from API {self.DISTANCE_MATRIX_URL} "
+                          f"for Destination {destination_place}, Origin {origin_place}"
+                          f" Response {res.status_code}, {res.content}")
+        if res.status_code != 200:
+            raise GoogleApiException(message=res.content,
+                                     service_status_code=6001,
+                                     internal_message=f"Failed to get details from {self.DISTANCE_MATRIX_URL}, "
+                                                      f"Request failed with {res}")
+        response = res.json()
+        return response["rows"]
