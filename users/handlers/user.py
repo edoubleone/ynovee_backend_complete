@@ -1,8 +1,11 @@
+import datetime
+import os
 import random
 
-from users.models.user import User
+from users.models.user import User, UserVerification
 from commons.utils.smtp import Smtp
 from commons.utils.cache import Cache
+from roadersmap.utils import get_jwt_token
 
 
 FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
@@ -13,6 +16,18 @@ FORGET_PASSWORD_CODE_TPL = """
     You can use the below One Time Password (OTP) to rest password on Roadersmap.com<br>
     <p style="border:1px solid powderblue,padding:10px">{OTP_CODE}</p>
     """
+
+VERIFY_ACCOUNT_SUBJECT = "Confirm Your Email Address"
+NEW_ACCOUNT_EMAIL_TPL = """
+<b>Dear {USER_NAME}</b>,<br>
+Greetings from Roaders Map. <br>
+
+Tap the button below to confirm your email address. <br>
+<button><a style="border:1px solid powderblue,padding:10px", href="{VALIDATION_LINK}">Verify Account</a></button>
+"""
+
+SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")
+
 
 class UserHandler(object):
 
@@ -25,14 +40,42 @@ class UserHandler(object):
         users = self.get_users({"email": email})
         if users:
             raise Exception(f"User with Email {email} already exist in system..!!")
+
+        data["created_time"] = datetime.datetime.now()
         user = User(**data)
-        # import pdb;pdb.set_trace()
         user.save()
+
+        data["created_time"] = data["created_time"].strftime("%Y-%m-%d %H:%M:%S")
+
+        email_verification_data = {
+            "user_id": user.user_id,
+            "validation_code": get_jwt_token(data)
+        }
+
+        user_verification_obj = UserVerification(**email_verification_data)
+        user_verification_obj.save()
+
+        end_point = "api/verify_account"
+        link = f"{SERVICE_HOST}{end_point}/{user.user_id}?code={email_verification_data['validation_code']}"
+        html_message = NEW_ACCOUNT_EMAIL_TPL.format(USER_NAME=user.full_name, VALIDATION_LINK=link)
+        message = Smtp.generate_email_message(recipients=user.email,
+                                              subject=VERIFY_ACCOUNT_SUBJECT,
+                                              html_message=html_message)
+        smtp = Smtp.get_instance()
+        smtp.send_email(user.email, message)
+
+    @staticmethod
+    def delete_user(user_id):
+        User.objects.filter(user_id=user_id).delete()
 
     @staticmethod
     def update_user(data):
         User.objects.filter(user_id=data["user_id"])\
             .update(password=data["password"])
+
+    @staticmethod
+    def update_user_data(user_id, data):
+        User.objects.filter(user_id=user_id).update(**data)
 
     @staticmethod
     def update_user_pic(user_id, image_path):
@@ -96,3 +139,5 @@ class UserHandler(object):
             }
         raise Exception("Invalid Code")
 
+    def get_user_verification_code(self, user_id):
+        return UserVerification.objects.filter(user_id=user_id).get()

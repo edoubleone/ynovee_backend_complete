@@ -3,7 +3,7 @@ from django.urls import path
 # from views.auth_view import
 from users.views.user_view import UserView, UserUploadPicView, UsersView
 from places.views.user_places import UserPlacesView
-from users.views.auth_view import AuthView
+from users.views.auth_view import AuthView, ValidateAccountView
 from users.views.forget_password_view import ForgetPasswordSubmitCodeView, ForgetPasswordCodeView
 from places.views.places_view import PlaceView, NearbyPlacesView, PlacesView
 from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
@@ -23,6 +23,8 @@ urlpatterns = [
     path("user/<slug:user_id>/upload_pic", UserUploadPicView.as_view(), name="users_upload_pic"),
     path("send_validation_code", ForgetPasswordCodeView.as_view(), name="send_validation_code"),
     path("validate_forget_password_code", ForgetPasswordSubmitCodeView.as_view(), name="forget_password"),
+
+    path("verify_account/<slug:user_id>", ValidateAccountView.as_view(), name="verify-account"),
 
     path("place_types", GeoTagsView.as_view(), name="place_types"),
     path("place_types/users/<slug:user_id>", UserPreferredGeoTagView.as_view(), name="user_place_types"),

@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 
@@ -14,6 +15,7 @@ class User(models.Model):
     work_location = models.TextField(max_length=100)
     email_verified = models.BooleanField(default=False)
     language = models.CharField(max_length=200, default="english")
+    created_time = models.DateTimeField(default=datetime.now, blank=True)
 
     class Meta:
         db_table = "users"
@@ -39,3 +41,11 @@ class User(models.Model):
             "language": self.language,
             "email_verified": self.email_verified
         }
+
+
+class UserVerification(models.Model):
+    user_id = models.CharField(primary_key=True, max_length=100)
+    validation_code = models.TextField(default="")
+
+    class Meta:
+        db_table = "users_validation_codes"

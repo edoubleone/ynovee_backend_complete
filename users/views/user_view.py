@@ -55,6 +55,14 @@ class UserView(BaseAPIView):
             print (traceback.format_exc())
             raise ApiException(str(exc), 6001, "Not able to Save User")
 
+    def delete(self, request, user_id):
+        try:
+            self.user_handler.delete_user(user_id)
+            return Response({"data": f"User deleted with User ID {user_id}"}, status=status.HTTP_200_OK)
+        except Exception as exc:
+            print (traceback.format_exc())
+            raise ApiException(str(exc), 6001, "Not able to Delete User")
+
 
 class UsersView(BaseAPIView):
 
