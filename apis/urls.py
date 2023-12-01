@@ -11,6 +11,8 @@ from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, U
 from trips.views.trips_view import TripsView, TripView, UserTripView
 from places.views.distance_places_view import DistanceApiView
 
+from weather.views import WeatherView
+
 from events.views import EventsView
 
 app_name = "apis"
@@ -46,5 +48,7 @@ urlpatterns = [
 
 
     path("distance_matrix", DistanceApiView.as_view(), name="distance_matrix"),
+
+    path("weather", WeatherView.as_view(), name="weather"),
 
 ]
