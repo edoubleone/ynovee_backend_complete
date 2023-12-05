@@ -10,6 +10,7 @@ from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
 from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, UsersNearbyPlacesView
 from trips.views.trips_view import TripsView, TripView, UserTripView
 from places.views.distance_places_view import DistanceApiView
+from places.views.directions import DirectionsApiView
 
 from weather.views import WeatherView
 
@@ -46,8 +47,9 @@ urlpatterns = [
 
     path("events", EventsView.as_view(), name="events"),
 
-
     path("distance_matrix", DistanceApiView.as_view(), name="distance_matrix"),
+
+    path("directions", DirectionsApiView.as_view(), name="directions"),
 
     path("weather", WeatherView.as_view(), name="weather"),
 

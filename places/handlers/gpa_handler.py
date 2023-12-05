@@ -2,12 +2,13 @@
 Google Place API Handler
 """
 import os
+import traceback
+
 import requests
 
 from commons.utils.logger import Logger
 
 from places.exceptions import GoogleApiException
-
 
 API_KEY = os.environ["GOOGLE_API_KEY"]
 
@@ -15,13 +16,13 @@ API_KEY = os.environ["GOOGLE_API_KEY"]
 class GooglePlaceHandler(object):
     GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
     DISTANCE_MATRIX_URL = "https://maps.googleapis.com/maps/api/distancematrix/json"
+    DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json"
 
     def __init__(self):
         self._logger = Logger.get_instance(__name__)
         self.GET_PLACES_FROM_TEXT = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
         self.PLACE_URL = "https://maps.googleapis.com/maps/api/place/details/json"
         self.GET_NEARBY_PLACES = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-
 
     def get_places_from_text(self, text_search):
         self._logger.info(f"Fetching places based on text {text_search}")
@@ -138,9 +139,9 @@ class GooglePlaceHandler(object):
             params["transit_mode"] = transit_mode.lower()
 
         res = requests.get(self.DISTANCE_MATRIX_URL, params=params)
-        self._logger.info(f"Fetched Distance Matrix detail from API {self.DISTANCE_MATRIX_URL} "
-                          f"for Destination {destination_place}, Origin {origin_place}"
-                          f" Response {res.status_code}, {res.content}")
+        # self._logger.info(f"Fetched Distance Matrix detail from API {self.DISTANCE_MATRIX_URL} "
+        #                   f"for Destination {destination_place}, Origin {origin_place}"
+        #                   f" Response {res.status_code}, {res.content}")
         if res.status_code != 200:
             raise GoogleApiException(message=res.content,
                                      service_status_code=6001,
@@ -148,3 +149,30 @@ class GooglePlaceHandler(object):
                                                       f"Request failed with {res}")
         response = res.json()
         return response["rows"]
+
+    def get_directions(self, destination, source, mode, transit_mode=None, traffic_model=None, **kwargs):
+        params = {
+            "origin": source,
+            "destination": destination,
+            "key": API_KEY,
+            "mode": mode.lower()
+        }
+        if mode.lower() == "transit_mode":
+            if transit_mode is None:
+                transit_mode = "bus"
+            params["transit_mode"] = transit_mode.lower()
+
+        if traffic_model:
+            params["traffic_model"] = traffic_model
+
+        if kwargs:
+            params.update(kwargs)
+        res = requests.get(self.DIRECTIONS_URL, params=params)
+        if res.status_code != 200:
+            traceback.format_exc()
+            raise GoogleApiException(message=res.content,
+                                     service_status_code=6001,
+                                     internal_message=f"Failed to get details from {self.DIRECTIONS_URL}, "
+                                                      f"Request failed with {res}")
+        response = res.json()
+        return response
