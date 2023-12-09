@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "places",
     "trips",
     "events",
-    "weather"
+    "weather",
+    "transcriber"
 ]
 
 MIDDLEWARE = [
