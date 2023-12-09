@@ -22,9 +22,10 @@ class DirectionsApiView(BaseAPIView):
         destination = params.pop("destination")
         origin = params.pop("origin")
         mode = params.pop("mode", "driving")
-
+        language = params.pop("language", "en")
         try:
-            matrix = self.direction_handler.get_directions(destination, origin, mode, **params)
+            matrix = self.direction_handler.get_directions(destination, origin, mode, language, **params)
             return Response({"data": matrix}, status=status.HTTP_200_OK)
         except Exception as exc:
+            traceback.format_exc(exc)
             raise ApiException(str(exc), 6001, f"Not able to Fetch Directions for {destination}, {origin} in {mode} Mode")
