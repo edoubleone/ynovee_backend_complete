@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_u1(rozc0a+)(e@r#x!7^zqxu0-u4o2*p&-fesw8oabd&88&xw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["staging.roadersmap.com", "localhost", "127.0.0.1", "0.0.0.0"]
 
 
 # Application definition
