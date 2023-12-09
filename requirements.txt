@@ -11,3 +11,4 @@ gTTS~=2.4.0
 googletrans~=4.0.0rc1
 googlemaps~=4.10.0
 gunicorn
+google-search-results
