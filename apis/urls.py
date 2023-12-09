@@ -13,8 +13,8 @@ from places.views.distance_places_view import DistanceApiView
 from places.views.directions import DirectionsApiView
 
 from weather.views import WeatherView
-
 from events.views import EventsView
+from transcriber.views import TranscriberView
 
 app_name = "apis"
 
@@ -52,5 +52,7 @@ urlpatterns = [
     path("directions", DirectionsApiView.as_view(), name="directions"),
 
     path("weather", WeatherView.as_view(), name="weather"),
+
+    path("convert_text_to_speech", TranscriberView.as_view(), name="transcriber"),
 
 ]

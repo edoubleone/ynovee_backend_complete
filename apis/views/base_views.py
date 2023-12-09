@@ -1,3 +1,5 @@
+import traceback
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,6 +12,7 @@ class BaseAPIView(APIView):
         try:
             response = super(BaseAPIView, self).handle_exception(exc)
         except ApiException as exc:
+            print (traceback.format_exc())
             message = exc.args[0]
             internal_message = exc.args[2]
             service_status_code = exc.args[1]
