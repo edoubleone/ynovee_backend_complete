@@ -70,8 +70,10 @@ class UserHandler(object):
 
     @staticmethod
     def update_user(data):
-        User.objects.filter(user_id=data["user_id"])\
+        User.objects.filter(user_id=data["user_id"]) \
             .update(password=data["password"])
+        # User.objects.filter(user_id=data["user_id"])\
+        #     .update(password=data["password"])
 
     @staticmethod
     def update_user_data(user_id, data):

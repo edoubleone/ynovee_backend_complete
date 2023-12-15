@@ -16,11 +16,23 @@ class UserPlaceHandler(object):
         user = UsersSavedPlaces(**data)
         user.save()
 
-    def get_user_fav_places(self, user_id, is_place_private):
-        user_places = UsersSavedPlaces.objects.filter(user_id=user_id).all()
+    def delete_user_fav_places(self, data):
+        user = data["user_id"]
+        place = data["place_id"]
+        data["user_id"] = user
+        data["place_id"] = place
+        UsersSavedPlaces.objects.filter(user_id=user,
+                                        place_id=place).delete()
+
+    def get_user_fav_places(self, user_id, is_place_private=None):
+        user_places = UsersSavedPlaces.objects.filter(user_id=user_id)
+        if is_place_private is not None:
+            user_places = user_places.filter(is_private=is_place_private)
+
+        user_places = user_places.all()
         places_id = [user_place.place_id.place_id for user_place in user_places]
         user = self.user_handler.get_user(user_id)
         user = user.__dict__
-        places = self.place_handler.get_places(places_id, is_place_private)
+        places = self.place_handler.get_places(places_id)
         user["places"] = places
         return user

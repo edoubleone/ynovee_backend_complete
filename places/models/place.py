@@ -14,7 +14,6 @@ class Place(models.Model):
     zip = models.CharField(max_length=100)
     rating = models.CharField(max_length=100)
     type = models.TextField(max_length=100)
-    private = models.BooleanField(default=False)
 
     class Meta:
         db_table = "places"
@@ -29,5 +28,5 @@ class Place(models.Model):
             "contact": self.contact,
             "type": self.type,
             "rating": self.rating,
-            "private": self.private
+            "image": self.image
         }

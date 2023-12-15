@@ -22,10 +22,10 @@ class PlaceHandler(object):
         place = Place.objects.filter(place_id=place_id).get()
         return place
 
-    def get_places(self, places_id, is_place_private=False):
+    def get_places(self, places_id):
         self._logger.info(f"Fetching Place Meta for multiple places {places_id} from DB")
         places = Place.objects.filter(place_id__in=places_id).all()
-        return [place.__dict__ for place in places if place.private == is_place_private]
+        return [place.__dict__ for place in places]
 
     def get_places_from_text(self, nearby_area):
         places_obj = self.gpa_handler.get_places_from_text(nearby_area)
