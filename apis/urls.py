@@ -11,6 +11,7 @@ from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, U
 from trips.views.trips_view import TripsView, TripView, UserTripView
 from places.views.distance_places_view import DistanceApiView
 from places.views.directions import DirectionsApiView
+from places.views.place_reviews import PlacesReviewsView
 
 from weather.views import WeatherView
 from events.views import EventsView
@@ -40,6 +41,7 @@ urlpatterns = [
 
     path("places/user/<slug:user_id>", UserPlacesView.as_view(), name="user_places"),
     path("place/<slug:place_id>", PlaceView.as_view(), name="place"),
+    path("place_reviews/<slug:place_id>", PlacesReviewsView.as_view(), name="reviews"),
 
     path("trips", TripsView.as_view(), name="trips"),
     path("trips/user/<slug:user_id>", UserTripView.as_view(), name="user_trips"),
