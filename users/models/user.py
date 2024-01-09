@@ -35,11 +35,15 @@ class User(models.Model):
             "user_id": self.user_id,
             "name": self.full_name,
             "email": self.email,
-            "contact": self.mobile,
+            "mobile": self.mobile,
             "image_path": self.image_path,
             "address": self.address,
             "language": self.language,
-            "email_verified": self.email_verified
+            "email_verified": self.email_verified,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "work_location": self.work_location,
+            "created_time": self.created_time
         }
 
 

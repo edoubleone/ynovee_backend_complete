@@ -86,8 +86,9 @@ class UserUploadPicView(BaseAPIView):
 
     def post(self, request, user_id):
         try:
-            request_data = request.data
-            image_obj = request_data["image"]
+            request_data = dict(request.data)
+            # import pdb;pdb.set_trace()
+            image_obj = request_data["image"][0]
             file_name = image_obj.name
             file_format = file_name.split(".")[-1]
             output_file = f"{user_id}.{file_format}"

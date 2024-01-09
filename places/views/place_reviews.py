@@ -17,9 +17,10 @@ class PlacesReviewsView(BaseAPIView):
 
     def get(self, request, place_id):
         try:
-            params = request.query_params
-            user_id = params.get("user_id")
-            reviews = self.place_review_handler.get_reviews(place_id, user_id=user_id)
+            params = dict(request.query_params)
+            params["place_id"] = place_id
+
+            reviews = self.place_review_handler.get_reviews(**params)
             return Response({"data": reviews}, status=status.HTTP_200_OK)
         except Exception as exc:
             print (traceback.format_exc())

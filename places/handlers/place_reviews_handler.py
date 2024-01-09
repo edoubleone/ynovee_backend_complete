@@ -20,9 +20,10 @@ class PlaceReviewsHandler(object):
         place_review.save()
         self._logger.info(f"Saved Review for Place for {place_review.place_id} in DB")
 
-    def get_reviews(self, place_id, **kwargs):
-        self._logger.info(f"Fetching Place for {place_id} from DB")
-        reviews = PlaceReview.objects.filter(place_id=place_id, **kwargs).all()
+    def get_reviews(self, **kwargs):
+        self._logger.info(f"Fetching Place for {kwargs['place_id']} from DB")
+        # import pdb;pdb.set_trace()
+        reviews = PlaceReview.objects.filter(**kwargs).all()
         return [review.to_dict() for review in reviews]
 
     def delete_place_review(self, data):
