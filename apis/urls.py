@@ -1,0 +1,72 @@
+from django.urls import path
+
+from events.views import EventsView
+from places.views.directions import DirectionsApiView
+from places.views.distance_places_view import DistanceApiView
+from places.views.place_reviews import PlacesReviewsView
+from places.views.place_type_view import (
+    GeoTagsView,
+    UserPreferredGeoTagView,
+    UsersNearbyPlacesView,
+)
+from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
+from places.views.places_view import NearbyPlacesView, PlacesView, PlaceView
+from places.views.user_places import UserPlacesView
+from transcriber.views import TranscriberView
+from trips.views.trips_view import TripsView, TripView, UserTripView
+from users.views.auth_view import (
+    LoginRefreshView,
+    LoginView,
+    LogoutView,
+    RegisterView,
+    ResendEmailVerificationView,
+    ValidateAccountView,
+)
+from users.views.forget_password_view import (
+    ForgetPasswordCodeView,
+    ForgetPasswordSubmitCodeView,
+)
+
+# from views.auth_view import
+from users.views.user_view import UsersView, UserUploadPicView, UserView
+from weather.views import WeatherView
+
+app_name = "apis"
+
+urlpatterns = [
+    path("register", RegisterView.as_view(), name="sign_up"),
+    path("login", LoginView.as_view(), name="login"),
+    path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),
+    path("logout", LogoutView.as_view(), name="logout"),
+    path(
+        "resend_email_verification/<uuid:user_id>",
+        ResendEmailVerificationView.as_view(),
+        name="resend_email_verification",
+    ),
+    path("verify_account/<slug:user_id>", ValidateAccountView.as_view(), name="verify-account"),
+    path("user", UserView.as_view(), name="user"),
+    # path("login", AuthView.as_view(), name="auth"),
+    # path("refresh_login", TokenRefreshView.as_view(), name="token_refresh"),
+    path("users", UsersView.as_view(), name="users"),
+    path("user/<slug:user_id>", UserView.as_view(), name="user"),
+    path("user/<slug:user_id>/upload_pic", UserUploadPicView.as_view(), name="users_upload_pic"),
+    path("send_validation_code", ForgetPasswordCodeView.as_view(), name="send_validation_code"),
+    path("validate_forget_password_code", ForgetPasswordSubmitCodeView.as_view(), name="forget_password"),
+    path("place_types", GeoTagsView.as_view(), name="place_types"),
+    path("place_types/users/<slug:user_id>", UserPreferredGeoTagView.as_view(), name="user_place_types"),
+    path("nearby_places", NearbyPlacesView.as_view(), name="nearby_places"),
+    path("nearby_places/users/<slug:user_id>", UsersNearbyPlacesView.as_view(), name="users_nearby_places"),
+    path("places", PlacesView.as_view(), name="places"),
+    path("places_lat_lang", PlaceLatitudeLongitudeView.as_view(), name="places_lat_lang"),
+    path("places/user/<slug:user_id>", UserPlacesView.as_view(), name="user_places"),
+    path("place/<slug:place_id>", PlaceView.as_view(), name="place"),
+    path("place_reviews/<slug:place_id>", PlacesReviewsView.as_view(), name="reviews"),
+    path("trips", TripsView.as_view(), name="trips"),
+    path("trips/user/<slug:user_id>", UserTripView.as_view(), name="user_trips"),
+    path("trip/<slug:trip_id>", TripView.as_view(), name="trip"),
+    path("events", EventsView.as_view(), name="events"),
+    path("distance_matrix", DistanceApiView.as_view(), name="distance_matrix"),
+    path("directions", DirectionsApiView.as_view(), name="directions"),
+    path("weather", WeatherView.as_view(), name="weather"),
+    path("convert_text_to_speech", TranscriberView.as_view(), name="transcriber"),
+]

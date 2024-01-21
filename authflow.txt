@@ -1,0 +1,9 @@
+To recap, proper front end API calls are (simplified):
+
+call protected endpoints using the access token obtained at login time.
+if HTTP 401 call the refresh endpoint to obtain a new access and refresh token.
+if also this has HTTP 401 then redirect to log in (and cleanup the stored tokens etc). The 401 on refresh endpoints means you cannot refresh your token (refresh expired, blacklisted, or whatever)
+else, now you have a new access and refresh token: retry the call (1) with the new access token.
+So, the logout button in the front end must call the aforementioned endpoint and redirect the user to the log in page. Also, in case of logout the front end must destroy all stored access and refresh tokens.
+
+Anyway, when the refresh token has been blacklisted, implies an HTTP 401 on the next attempt to refresh the token from the front end. As usual, if your refresh call has a HTTP 401 you must redirect the user to the log in page.

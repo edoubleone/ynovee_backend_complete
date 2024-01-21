@@ -1,0 +1,827 @@
+{
+	"info": {
+		"_postman_id": "fa1c7bdc-5e1e-44e5-9929-c6b339629e93",
+		"name": "RoadersMap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4180532"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Parkash\",\n    \"last_name\": \"Sharma\",\n    \"email\": \"parkashsharm03@gmail.com\",\n    \"user_id\": \"parkash-sharma-03\",\n    \"password\": \"par123\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-03",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Api",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"parkashsharm01@gmail.com\",\n    \"password\": \"par123\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invalid User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/user_does_not_exist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"user_does_not_exist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Get Nearby Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/nearby_places?latitude=30.7290092&longitude=76.6837217&radius=100&keyword=restaurant",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"nearby_places"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "30.7290092"
+								},
+								{
+									"key": "longitude",
+									"value": "76.6837217"
+								},
+								{
+									"key": "radius",
+									"value": "100"
+								},
+								{
+									"key": "keyword",
+									"value": "restaurant"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby Places for User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/nearby_places/users/parkash-sharma-01?latitude=30.7290092&longitude=76.6837217&radius=10000&keyword=restaurant",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"nearby_places",
+								"users",
+								"parkash-sharma-01"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "30.7290092"
+								},
+								{
+									"key": "longitude",
+									"value": "76.6837217"
+								},
+								{
+									"key": "radius",
+									"value": "10000"
+								},
+								{
+									"key": "keyword",
+									"value": "restaurant"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"place_id\": \"ChIJ\",\n    \"name\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"address\": \"Madhya Marg, Sector 12, Chandigarh, 160012, India\",\n    \"contact\": \"0172 274 7585\",\n    \"rating\": 4.2\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place/ChIJ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place",
+								"ChIJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place Types",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"place_type_id\": \"gym\",\n        \"place_type_label\": \"Gym\",\n        \"tags\": \"gym\"\n    },\n    {\n        \"place_type_id\": \"pets\",\n        \"place_type_label\": \"Pets\",\n        \"tags\": \"pet_store,zoo\"\n    },\n    {\n        \"place_type_id\": \"travel\",\n        \"place_type_label\": \"Travel\",\n        \"tags\": \"tourist_attraction,bus_station,light_rail_station,subway_station,taxi_stand,train_station,transit_station\"\n    },\n    {\n        \"place_type_id\": \"sport\",\n        \"place_type_label\": \"Sport\",\n        \"tags\": \"bowling_alley,stadium\"\n    },\n    {\n        \"place_type_id\": \"restaurant\",\n        \"place_type_label\": \"Restaurant\",\n        \"tags\": \"cafe,restaurant\"\n    },\n    {\n        \"place_type_id\": \"movies\",\n        \"place_type_label\": \"Movies\",\n        \"tags\": \"movie_rental,movie_theater\"\n    },\n    {\n        \"place_type_id\": \"entertainment\",\n        \"place_type_label\": \"Entertainment\",\n        \"tags\": \"casino,bar,night_club\"\n    },\n    {\n        \"place_type_id\": \"relaxation\",\n        \"place_type_label\": \"Relaxation\",\n        \"tags\": \"park,rv_park,spa\"\n    }\n]"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place_types",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place_types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place Types for User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-01\",\n    \"place_type_ids\": [\n        \"pets\"\n    ] \n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place_types/users/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place_types",
+								"users",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place/ChIJ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place",
+								"ChIJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place_types",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place_types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Place Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place_types/users/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place_types",
+								"users",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Fav Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-01\",\n    \"place_id\": \"ChIJlYIkPZHtDzkRLgm4BYM96jE\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding Invalid User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-02\",\n    \"place_id\": \"INVALID_PLACE_ID\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places/user/parkash-sharma-02",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places",
+								"user",
+								"parkash-sharma-02"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Add Trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trip_id\": \"trip-01\",\n    \"trip_date\": \"2023-10-27\",\n    \"source\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"destination\": \"Civil Dispensary, Sector 19 Chandigarh\",\n    \"trip_start_time\": \"2023-10-27 10:00:00\",\n    \"trip_end_time\": \"2023-10-27 12:00:00\",\n    \"status\": \"Completed\",\n    \"user_id\": \"parkash-sharma-01\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trip/trip-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"trip-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Trip with User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trip_id\": \"trip-id-03\",\n    \"trip_date\": \"2023-10-20\",\n    \"source\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"destination\": \"Civil Dispensary, Sector 19 Chandigarh\",\n    \"trip_start_time\": \"2023-10-20 10:00:00\",\n    \"trip_end_time\": \"2023-10-20 12:00:00\",\n    \"status\": \"Started\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trip/trip-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"trip-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip for User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips/user/parkash-sharma-01?last_x_days=10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips",
+								"user",
+								"parkash-sharma-01"
+							],
+							"query": [
+								{
+									"key": "last_x_days",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Google API's",
+			"item": [
+				{
+					"name": "Get Places from Text",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&input=gym,restraunt,food&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"findplacefromtext",
+								"json"
+							],
+							"query": [
+								{
+									"key": "inputtype",
+									"value": "textquery"
+								},
+								{
+									"key": "input",
+									"value": "gym,restraunt,food"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&place_id=ChIJg2FYDieSOxARW1Y-IFyAYoo",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"details",
+								"json"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "place_id",
+									"value": "ChIJg2FYDieSOxARW1Y-IFyAYoo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NearbyPlaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=30.7290092%2C76.6837217&radius=100&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"nearbysearch",
+								"json"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "30.7290092%2C76.6837217"
+								},
+								{
+									"key": "radius",
+									"value": "100"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Photos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/photo?photo_reference=AcJnMuGR0UFrDB2ckrGmkMcAPbxaidhUR_pt716szWhq7UVCFfRfD8lcCzahUUY-Xht0l4UBjNWX4Do6uINkbGC_F5xrxV_XDDEymWXX56KAMgILRnuMKgszoEtHd9X33-H2a10d7MuRiLEnDZYWs-PHR14JtKpJl0uVPUXXKc1Td8wrZj6n&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&maxwidth=400",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"photo"
+							],
+							"query": [
+								{
+									"key": "photo_reference",
+									"value": "AcJnMuGR0UFrDB2ckrGmkMcAPbxaidhUR_pt716szWhq7UVCFfRfD8lcCzahUUY-Xht0l4UBjNWX4Do6uINkbGC_F5xrxV_XDDEymWXX56KAMgILRnuMKgszoEtHd9X33-H2a10d7MuRiLEnDZYWs-PHR14JtKpJl0uVPUXXKc1Td8wrZj6n"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "maxwidth",
+									"value": "400"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
