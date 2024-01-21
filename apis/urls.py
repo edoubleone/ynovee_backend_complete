@@ -26,9 +26,7 @@ from users.views.forget_password_view import (
     ForgetPasswordCodeView,
     ForgetPasswordSubmitCodeView,
 )
-
-# from views.auth_view import
-from users.views.user_view import UsersView, UserUploadPicView, UserView
+from users.views.user_view import UsersView, UserUploadPicView, UserView, UserProfileViewSet
 from weather.views import WeatherView
 
 app_name = "apis"
@@ -38,6 +36,7 @@ urlpatterns = [
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),
     path("logout", LogoutView.as_view(), name="logout"),
+    path("profile", UserProfileViewSet.as_view(), name="my_profile"),
     path(
         "resend_email_verification/<uuid:user_id>",
         ResendEmailVerificationView.as_view(),

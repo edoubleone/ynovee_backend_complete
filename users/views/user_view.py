@@ -1,3 +1,4 @@
+import re
 import traceback
 
 from django.core.files.storage import FileSystemStorage
@@ -8,7 +9,19 @@ from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
 from users.models import User
 from users.serializers import UserSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
+
+
+class UserProfileViewSet(BaseAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        instance =  request.user
+        serialized = UserSerializer(instance).data
+        return Response({"data": serialized}, status=status.HTTP_200_OK)
 
 class UserView(BaseAPIView):
     def __init__(self):
@@ -37,7 +50,8 @@ class UserView(BaseAPIView):
             #     data["image_path"] = f"images/{output_file}"
             #     # del data["image"]
             res = self.user_handler.create_user(**data)
-            return Response({"data": f"User Created with User ID {str(res['user'].user_id)}"}, status=status.HTTP_201_CREATED)
+            return Response({"data": res['user'],
+                             "message": res['response'] }, status=status.HTTP_201_CREATED)
         except Exception as exc:
             print(traceback.format_exc())
             raise ApiException(str(exc), 6001, "Not able to Save User")

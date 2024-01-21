@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
@@ -69,8 +70,8 @@ class LogoutView(BaseAPIView):
                 {"message": "successfully logged out", "refresh": "invalidated"},
                 status=status.HTTP_205_RESET_CONTENT,
             )
-        except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        except TokenError:
+            raise exceptions.AuthenticationFailed("Invalid Token")
 
 
 

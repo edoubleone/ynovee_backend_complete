@@ -41,7 +41,7 @@ class UserManager(BaseUserManager):
 
     def on_registration(self, user_id):
         res = self.send_verification_mail(user_id)
-        return {"message": f"Verification Code Send to {res['email']}, Please check your email"}
+        return {"message": f"Verification code sent to {res['email']}, Please check your email"}
     
     def on_verification(self, user_id):
         pass
@@ -74,8 +74,8 @@ class UserManager(BaseUserManager):
         userindb = self.get(email=email)
         res = self.on_registration(userindb.user_id)
         return {
-            "user": userindb,
-            "response": res
+            "user": userindb, **res
+            
         }
     
     def email_exists(self, email: str) -> bool:
