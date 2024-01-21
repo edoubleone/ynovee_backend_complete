@@ -1,11 +1,11 @@
 from places.models.user_saved_locations import UsersSavedPlaces
-from users.handlers.user import UserManager as UserHandler
 from places.handlers.place_handler import PlaceHandler
+from users.models import User
 
 
 class UserPlaceHandler(object):
     def __init__(self):
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
         self.place_handler = PlaceHandler()
 
     def add_user_fav_places(self, data):

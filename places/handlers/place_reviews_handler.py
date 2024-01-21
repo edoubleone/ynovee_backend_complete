@@ -1,7 +1,7 @@
 from places.models.place_reviews import PlaceReview
 
 from places.handlers.place_handler import PlaceHandler
-from users.handlers.user import UserManager as UserHandler
+from users.models import User
 
 from commons.utils.logger import Logger
 
@@ -9,7 +9,7 @@ from commons.utils.logger import Logger
 class PlaceReviewsHandler(object):
     def __init__(self):
         self.place_handler = PlaceHandler()
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
         self._logger = Logger.get_instance(__name__)
 
     def add_place_review(self, data):

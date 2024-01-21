@@ -6,9 +6,7 @@ from rest_framework.response import Response
 from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
 
-
-from users.handlers.user import UserManager as UserHandler
-from users.models import UserVerification,User
+from users.models import User
 
 
 class ForgetPasswordCodeView(BaseAPIView):
