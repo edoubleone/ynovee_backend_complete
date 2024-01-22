@@ -1,17 +1,14 @@
-import re
 import traceback
 
 from django.core.files.storage import FileSystemStorage
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
 from users.models import User
-from users.serializers import UserSerializer
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-
+from users.serializers import RegisterSerializer, UserSerializer
 
 
 class UserProfileViewSet(BaseAPIView):
@@ -19,9 +16,10 @@ class UserProfileViewSet(BaseAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        instance =  request.user
+        instance = request.user
         serialized = UserSerializer(instance).data
         return Response({"data": serialized}, status=status.HTTP_200_OK)
+
 
 class UserView(BaseAPIView):
     def __init__(self):
@@ -36,25 +34,30 @@ class UserView(BaseAPIView):
             print(traceback.format_exc())
             raise ApiException(str(exc), 6001, "Not able to get User")
 
+    # def post(self, request):
+    #     try:
+    #         # import pdb;pdb.set_trace()
+    #         data = request.data
+    #         # data = json.loads(payload_data["payload"])
+    #         # if "image" in payload_data:
+    #         #     image_obj = payload_data["image"]
+    #         #     file_name = image_obj.name
+    #         #     file_format = file_name.split(".")[-1]
+    #         #     output_file = f"{user_id}.{file_format}"
+    #         #     output_file = FileSystemStorage(location="images").save(output_file, data["image"])
+    #         #     data["image_path"] = f"images/{output_file}"
+    #         #     # del data["image"]
+    #         res = self.user_handler.create_user(**data)
+    #         return Response({"data": res["user"], "message": res["response"]}, status=status.HTTP_201_CREATED)
+    #     except Exception as exc:
+    #         print(traceback.format_exc())
+    #         raise ApiException(str(exc), 6001, "Not able to Save User")
     def post(self, request):
-        try:
-            # import pdb;pdb.set_trace()
-            data = request.data
-            # data = json.loads(payload_data["payload"])
-            # if "image" in payload_data:
-            #     image_obj = payload_data["image"]
-            #     file_name = image_obj.name
-            #     file_format = file_name.split(".")[-1]
-            #     output_file = f"{user_id}.{file_format}"
-            #     output_file = FileSystemStorage(location="images").save(output_file, data["image"])
-            #     data["image_path"] = f"images/{output_file}"
-            #     # del data["image"]
-            res = self.user_handler.create_user(**data)
-            return Response({"data": res['user'],
-                             "message": res['response'] }, status=status.HTTP_201_CREATED)
-        except Exception as exc:
-            print(traceback.format_exc())
-            raise ApiException(str(exc), 6001, "Not able to Save User")
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
 
     def put(self, request, user_id):
         try:
