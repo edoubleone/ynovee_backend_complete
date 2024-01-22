@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'apis',
     "users",
     "places",
@@ -150,3 +153,70 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+AUTHENTICATION_BACKENDS = [
+    'roadersmap.backends.CustomBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+AUTH_USER_MODEL = 'users.User'
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'user_id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+
+
+
+
+FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
+FORGET_PASSWORD_CODE_TPL = """
+    <b>Dear {USER_NAME}</b>,<br>
+    Greetings from Roaders Map. <br>
+
+    You can use the below One Time Password (OTP) to rest password on Roadersmap.com<br>
+    <p style="border:1px solid powderblue,padding:10px">{OTP_CODE}</p>
+    """
+
+VERIFY_ACCOUNT_SUBJECT = "Confirm Your Email Address"
+NEW_ACCOUNT_EMAIL_TPL = """
+<b>Dear {USER_NAME}</b>,<br>
+Greetings from Roaders Map. <br>
+
+Tap the button below to confirm your email address. <br>
+<button><a style="border:1px solid powderblue,padding:10px", href="{VALIDATION_LINK}">Verify Account</a></button>
+"""
+
+SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")

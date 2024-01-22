@@ -6,14 +6,13 @@ from rest_framework.response import Response
 from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
 
-
-from users.handlers.user import UserHandler
+from users.models import User
 
 
 class ForgetPasswordCodeView(BaseAPIView):
 
     def __init__(self):
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
 
     def post(self, request):
         try:
@@ -28,7 +27,7 @@ class ForgetPasswordCodeView(BaseAPIView):
 class ForgetPasswordSubmitCodeView(BaseAPIView):
 
     def __init__(self):
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
 
     def post(self, request):
         try:

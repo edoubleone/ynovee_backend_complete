@@ -14,7 +14,7 @@ class Cache:
     @staticmethod
     def get_instance():
         if Cache.instance is None:
-            Cache()
+            Cache.instance = Cache()
         return Cache.instance
 
     def set_key_value(self, key, value):

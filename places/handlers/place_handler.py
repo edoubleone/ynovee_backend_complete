@@ -1,7 +1,7 @@
 from places.models.place import Place
 
 from places.handlers.gpa_handler import GooglePlaceHandler
-from users.handlers.user import UserHandler
+from users.models import User
 
 from commons.utils.logger import Logger
 
@@ -9,7 +9,7 @@ from commons.utils.logger import Logger
 class PlaceHandler(object):
     def __init__(self):
         self.gpa_handler = GooglePlaceHandler()
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
         self._logger = Logger.get_instance(__name__)
 
     def add_place(self, data):
