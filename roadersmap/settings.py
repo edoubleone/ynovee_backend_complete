@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_email', 
+    'two_factor',
+    'two_factor.plugins.phonenumber',
     'apis',
     "users",
     "places",
@@ -56,8 +62,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'two_factor.middleware.threadlocals.ThreadLocals',
 ]
 
 ROOT_URLCONF = 'roadersmap.urls'
@@ -144,6 +152,12 @@ USE_I18N = True
 USE_TZ = True
 
 
+TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
+TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
+
+DEFAULT_FROM_EMAIL = 'RoadersMap@localhost'
+OTP_EMAIL_SUBJECT = 'Login for RoadersMap'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -160,13 +174,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 AUTHENTICATION_BACKENDS = [
     'roadersmap.backends.CustomBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
-
+LOGIN_URL = 'two_factor:login'
 
 AUTH_USER_MODEL = 'users.User'
 SIMPLE_JWT = {
@@ -198,7 +213,22 @@ SIMPLE_JWT = {
 }
 
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'two_factor': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
 
 
 FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
@@ -220,3 +250,12 @@ Tap the button below to confirm your email address. <br>
 """
 
 SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")
+
+OTP_EMAIL_SUBJECT = 'Complete your Login for RoadersMap'
+OTP_EMAIL_TPL = """
+    <b>Dear {USER_NAME}</b>,<br>
+    Greetings from Roaders Map. <br>
+
+    You can use the below One Time Password (OTP) to complete your on Roadersmap.com<br>
+    <p style="border:1px solid powderblue,padding:10px">{OTP_CODE}</p>
+    """

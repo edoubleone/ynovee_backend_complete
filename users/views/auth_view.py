@@ -1,4 +1,6 @@
 import traceback
+from typing import Any
+from unittest.mock import Base
 
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -42,6 +44,19 @@ class LoginView(TokenObtainPairView):
                 'access_toke': access,
             }
         return response
+    
+class CompleteOTPLoginView(BaseAPIView):
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.auth_handler = UserAuthHandler()
+        
+    def post(self, request):
+        email = request.data.get('email', '')
+        otp = request.data.get('otp', '')
+        status = self.auth_handler.validate_otp(otp, email)
+        if status:
+            pass
+        
     
 class LoginRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):

@@ -1,6 +1,7 @@
 django~=4.2.6
 djangorestframework~=3.14.0
 djangorestframework-simplejwt==5.3.1
+drf-spectacular
 
 #mysql-connector-python
 #psycopg2-binary

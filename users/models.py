@@ -30,7 +30,7 @@ class User(AbstractUser):
     work_location = models.TextField(max_length=100, default="")
     email_verified = models.BooleanField(default=False)
     email = models.EmailField(max_length=100, unique=True)
-
+    otp_login_enabled = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

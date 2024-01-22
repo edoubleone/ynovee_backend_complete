@@ -110,7 +110,8 @@ class UserManager(BaseUserManager):
         # User.objects.filter(user_id=data["user_id"])\
         #     .update(password=data["password"])
 
-    def update_user_data(self, user_id, data):
+    def update_user_data(self, user_id,password=None, **data):
+        # TODO: refute password change properly
         self.filter(user_id=user_id).update(**data)
 
     def update_user_pic(self, user_id, image_path):

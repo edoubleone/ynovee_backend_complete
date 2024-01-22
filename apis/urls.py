@@ -1,14 +1,12 @@
-from django.urls import path
+from django.urls import include, path
+# from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
+# from two_factor.urls import urlpatterns as tf_urls
 
 from events.views import EventsView
 from places.views.directions import DirectionsApiView
 from places.views.distance_places_view import DistanceApiView
 from places.views.place_reviews import PlacesReviewsView
-from places.views.place_type_view import (
-    GeoTagsView,
-    UserPreferredGeoTagView,
-    UsersNearbyPlacesView,
-)
+from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, UsersNearbyPlacesView
 from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
 from places.views.places_view import NearbyPlacesView, PlacesView, PlaceView
 from places.views.user_places import UserPlacesView
@@ -22,16 +20,15 @@ from users.views.auth_view import (
     ResendEmailVerificationView,
     ValidateAccountView,
 )
-from users.views.forget_password_view import (
-    ForgetPasswordCodeView,
-    ForgetPasswordSubmitCodeView,
-)
-from users.views.user_view import UsersView, UserUploadPicView, UserView, UserProfileViewSet
+from users.views.forget_password_view import ForgetPasswordCodeView, ForgetPasswordSubmitCodeView
+from users.views.user_view import UserProfileViewSet, UsersView, UserUploadPicView, UserView
 from weather.views import WeatherView
 
 app_name = "apis"
 
 urlpatterns = [
+    # path("", include(tf_urls)),
+    # path("", include(tf_twilio_urls)),
     path("register", RegisterView.as_view(), name="sign_up"),
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),

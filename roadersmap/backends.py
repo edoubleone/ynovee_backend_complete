@@ -4,6 +4,7 @@ from django.contrib.auth.backends import ModelBackend
 from users.handlers.user import UserManager
 from users.models import User
 from django.contrib.auth.hashers import check_password
+from roadersmap.exceptions import OTPRequiredException
 
 
 
@@ -26,4 +27,7 @@ class CustomBackend(ModelBackend):
             # return 
             password_match = check_password(password, user.password)
             if password_match:
+                # check if user has otp enabled
+                if user.otp_login_enabled:
+                    raise OTPRequiredException
                 return user

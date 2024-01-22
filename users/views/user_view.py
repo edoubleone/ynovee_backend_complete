@@ -60,7 +60,7 @@ class UserView(BaseAPIView):
         try:
             data = request.data
             # data["user_id"] = user_id
-            self.user_handler.update_user_data(user_id, data)
+            self.user_handler.update_user_data(user_id, **data)
             return Response({"data": f"User Updated with User ID {user_id}"}, status=status.HTTP_200_OK)
         except Exception as exc:
             print(traceback.format_exc())
