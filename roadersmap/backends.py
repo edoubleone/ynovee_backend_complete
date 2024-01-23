@@ -22,7 +22,11 @@ class CustomBackend(ModelBackend):
             UserModel().set_password(password)
             return None
         else:
-            # if user.check_password(password) and self.user_can_authenticate(user):
+            if user.check_password(password) and self.user_can_authenticate(user):
+                return user
+            return None
+            # password_match = check_password(password, user.password)
+            # if password_match:
             #     return user
             # return 
             password_match = check_password(password, user.password)

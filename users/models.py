@@ -24,7 +24,7 @@ class User(AbstractUser):
     mobile = models.CharField(max_length=100, null=True)
     work_location = models.CharField(max_length=100, default="")
     image_path = models.CharField(max_length=100, default="")
-    password = models.CharField(max_length=100, default="")
+    # password = models.CharField(max_length=100, default="")
     sso_sign_in = models.CharField(max_length=100, default="")
     address = models.TextField(max_length=1000, default="")
     work_location = models.TextField(max_length=100, default="")

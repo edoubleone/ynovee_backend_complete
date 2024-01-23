@@ -1,15 +1,17 @@
 import random
-from typing import Any, Type
-from rest_framework.exceptions import APIException
+from typing import Any
+
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import make_password
+from rest_framework import status
+from rest_framework.exceptions import APIException
 
 from commons.utils.cache import Cache
 from commons.utils.smtp import Smtp
 from roadersmap import settings
 from roadersmap.local_types import UserType
-from roadersmap.utils import get_jwt_token, create_token
-from rest_framework import status
-from django.contrib.auth.hashers import make_password
+from roadersmap.utils import create_token
+
 
 class UserManager(BaseUserManager):
     use_in_migration = True
@@ -18,7 +20,7 @@ class UserManager(BaseUserManager):
         super().__init__()  #
         self.cache = Cache.get_instance()
         self.verification_model = verification_model
-        
+
     def send_verification_mail(self, user_id) -> dict:
         user = self.get_user(user_id)
         email_verification_data = {"user_id": user.user_id, "validation_code": create_token(user)}
@@ -42,7 +44,7 @@ class UserManager(BaseUserManager):
     def on_registration(self, user_id):
         res = self.send_verification_mail(user_id)
         return {"message": f"Verification code sent to {res['email']}, Please check your email"}
-    
+
     def on_verification(self, user_id):
         pass
 
@@ -53,10 +55,10 @@ class UserManager(BaseUserManager):
         res = self.send_verification_mail(user_id)
         return {"message": f"Verification Code Send to {res['email']}, Please check your email"}
 
-    def create_user(self, email, password=None, **extra_fields) -> dict[str, Any]:
+    def create_user(self, email,password, **extra_fields) -> dict[str, Any]:
         """
         Create a new user with the given email and password.
-        
+
         Returns:
             dict[str, Any]: A dict containing the created user object and a dictionary of response from sending mail.
 
@@ -64,29 +66,30 @@ class UserManager(BaseUserManager):
             ValueError: If the email is not provided.
         """
         if not email:
-            raise ValueError('Email is Required')
+            raise ValueError("Email is required")
+        if not password:
+            raise ValueError("Password is required")
         if self.email_exists(email):
-            raise APIException(f"User with Email {email} already exist in system!", code=status.HTTP_400_BAD_REQUEST)
-        hashed_password = make_password(password)
-        user = self.model(email=self.normalize_email(email),password=hashed_password, **extra_fields)
-        # user.set_password(password)
+            raise APIException(
+                f"User with Email {email} already exist in system!", code=status.HTTP_400_BAD_REQUEST
+            )
+        # hashed_password = make_password(password)
+        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user.set_password(password)
         user.save(using=self._db)
         userindb = self.get(email=email)
         res = self.on_registration(userindb.user_id)
-        return {
-            "user": userindb, **res
-            
-        }
-    
+        return {"user": userindb, **res}
+
     def email_exists(self, email: str) -> bool:
         users = self.get_users({"email": email})
         if users:
             return True
         return False
-    
+
     def _create_superuser(self, email, password, **extra_fields) -> None:
         if not email:
-            raise ValueError('Email is Required')
+            raise ValueError("Email is Required")
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -94,7 +97,9 @@ class UserManager(BaseUserManager):
     def add_user(self, data) -> UserType:
         email = data["email"]
         if self.email_exists(email):
-            raise APIException(f"User with Email {email} already exist in system!", code=status.HTTP_400_BAD_REQUEST)
+            raise APIException(
+                f"User with Email {email} already exist in system!", code=status.HTTP_400_BAD_REQUEST
+            )
         user = self.model(**data)
         user.set_password(data["password"])
         user.save()
@@ -122,7 +127,7 @@ class UserManager(BaseUserManager):
         user = self.filter(user_id=user_id).get()
         # user = User.objects.all()
         return user
-    
+
     def get_user_by_email(self, email):
         return self.filter(email=email).get()
 
