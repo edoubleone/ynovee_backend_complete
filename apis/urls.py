@@ -1,12 +1,16 @@
-from django.urls import include, path
+from django.urls import path
+
 # from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 # from two_factor.urls import urlpatterns as tf_urls
-
 from events.views import EventsView
 from places.views.directions import DirectionsApiView
 from places.views.distance_places_view import DistanceApiView
 from places.views.place_reviews import PlacesReviewsView
-from places.views.place_type_view import GeoTagsView, UserPreferredGeoTagView, UsersNearbyPlacesView
+from places.views.place_type_view import (
+    GeoTagsView,
+    UserPreferredGeoTagView,
+    UsersNearbyPlacesView,
+)
 from places.views.places_lat_lang_view import PlaceLatitudeLongitudeView
 from places.views.places_view import NearbyPlacesView, PlacesView, PlaceView
 from places.views.user_places import UserPlacesView
@@ -21,19 +25,27 @@ from users.views.auth_view import (
     ResendEmailVerificationView,
     ValidateAccountView,
 )
-from users.views.forget_password_view import ForgetPasswordCodeView, ForgetPasswordSubmitCodeView
-from users.views.user_view import UserProfileViewSet, UsersView, UserUploadPicView, UserView
+from users.views.forget_password_view import (
+    ForgetPasswordCodeView,
+    ForgetPasswordSubmitCodeView,
+)
+from users.views.user_view import (
+    UserProfileViewSet,
+    UsersView,
+    UserUploadPicView,
+    UserView,
+)
 from weather.views import WeatherView
 
 app_name = "apis"
 
 urlpatterns = [
-    # path("", include(tf_urls)),
-    # path("", include(tf_twilio_urls)),
     path("register", RegisterView.as_view(), name="sign_up"),
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),
-    path("login/complete_otp_login", CompleteOTPLoginView.as_view(), name="complete_login"), #applies only to users with otp enabled
+    path(
+        "login/complete_otp_login", CompleteOTPLoginView.as_view(), name="complete_login"
+    ),  # applies only to users with otp enabled
     path("logout", LogoutView.as_view(), name="logout"),
     path("profile", UserProfileViewSet.as_view(), name="my_profile"),
     path(
@@ -43,8 +55,6 @@ urlpatterns = [
     ),
     path("verify_account/<slug:user_id>", ValidateAccountView.as_view(), name="verify-account"),
     path("user", UserView.as_view(), name="user"),
-    # path("login", AuthView.as_view(), name="auth"),
-    # path("refresh_login", TokenRefreshView.as_view(), name="token_refresh"),
     path("users", UsersView.as_view(), name="users"),
     path("user/<slug:user_id>", UserView.as_view(), name="user"),
     path("user/<slug:user_id>/upload_pic", UserUploadPicView.as_view(), name="users_upload_pic"),

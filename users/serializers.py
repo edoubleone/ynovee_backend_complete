@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.contrib.auth.models import update_last_login
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from roadersmap import settings
@@ -73,51 +73,28 @@ class CompleteOTPSerializer(TokenObtainPairSerializer):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.fields["password"].required = False
+        self.fields.pop("password", None)
         self.fields["email"] = serializers.CharField(write_only=True)
-        self.fields["otp"] = serializers.CharField(write_only=True)
+        self.fields["OTP"] = serializers.CharField(write_only=True)
 
     def validate(self, attrs: dict[str, Any]) -> dict[str, str]:
-        # data = super().validate(attrs)
-        email = attrs["email"]
-        otp = attrs["otp"]
+        try:
+            email = attrs["email"]
+            otp = attrs["OTP"]
+            status = static_auth_handler.validate_otp(otp, email)
+            if status:
+                self.user = User.objects.get_user_by_email(email)
+            refresh = self.get_token(self.user)
+            data = {
+                "message": "login accepted, tokens generated successfully",
+                "refresh_token": str(refresh),
+                "access_token": str(refresh.access_token), # type: ignore
+            }
+            if settings.SIMPLE_JWT["UPDATE_LAST_LOGIN"]:
+                update_last_login(None, self.user) # type: ignore
+            return data
+        except AttributeError:
+            raise exceptions.AuthenticationFailed(
+                detail="invalid or expired OTP code", code=403
+            )
 
-        status = static_auth_handler.validate_otp(otp, email)
-        if status:
-            self.user = User.objects.get_user_by_email(email)
-
-        refresh = self.get_token(self.user)
-        data = {
-            "message": "login accepted, tokens generated successfully",
-            "refresh_token": str(refresh),
-            "access_token": str(refresh.access_token), # type: ignore
-        }
-
-        if settings.SIMPLE_JWT["UPDATE_LAST_LOGIN"]:
-            update_last_login(None, self.user) # type: ignore
-
-        return data
-
-    # def post(self, request: Request) -> Response:
-    #     email = request.data.get("email", "")
-    #     otp = request.data.get("otp", "")
-    #     status = self.auth_handler.validate_otp(otp, email)
-    #     if status:
-
-
-# class LogoutSerializer(TokenRefreshSerializer):
-#     def validate(self, attrs):
-#         data = super().validate(attrs)
-#         token = RefreshToken(data['refresh'])
-#         token.blacklist()
-
-#         # Decode the token to get user's id
-#         token_payload = token.payload
-#         user_id = token_payload.get('user_id')
-
-#         # Get the user and log them out
-#         User = get_user_model()
-#         user = User.objects.get(id=user_id)
-#         logout(user)
-
-#         return data

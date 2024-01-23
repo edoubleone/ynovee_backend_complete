@@ -1,12 +1,9 @@
 import traceback
-from typing import Any
 
 from rest_framework import exceptions, status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -15,7 +12,7 @@ from apis.views.base_views import BaseAPIView
 from roadersmap.exceptions import OTPRequiredException
 from users.handlers.user_auth import UserAuthHandler
 from users.models import User
-from users.serializers import RegisterSerializer, CompleteOTPSerializer
+from users.serializers import CompleteOTPSerializer, RegisterSerializer
 
 
 # view for registering users
@@ -38,8 +35,11 @@ class LoginView(TokenObtainPairView):
             response = super().post(request, *args, **kwargs)
         except OTPRequiredException:
             return Response(
-                {"message": "OTP sent to email", "otp_required": True},
-                status=status.HTTP_401_UNAUTHORIZED,
+                {
+                    "message": "2 factor authentication enabled, use OTP sent to user via email to complete login",
+                    "Location": f"{request.build_absolute_uri()}/complete_otp_login",
+                },
+                status=status.HTTP_303_SEE_OTHER,
             )
         if not response.data:
             return response
@@ -57,15 +57,6 @@ class LoginView(TokenObtainPairView):
 
 class CompleteOTPLoginView(TokenObtainPairView):
     serializer_class = CompleteOTPSerializer
-    # def post(self, request: Request, *args, **kwargs) -> Response:
-    #     serializer = self.get_serializer(data=request.data)
-
-    #     try:
-    #         serializer.is_valid(raise_exception=True)
-    #     except TokenError as e:
-    #         raise InvalidToken(e.args[0])
-
-    #     return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class LoginRefreshView(TokenRefreshView):
