@@ -1,5 +1,11 @@
-from rest_framework import serializers
+from typing import Any
 
+from django.contrib.auth.models import update_last_login
+from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from roadersmap import settings
+from users.handlers.user_auth import static_auth_handler
 from users.models import User
 
 
@@ -30,7 +36,9 @@ class UserSerializer(serializers.ModelSerializer):
             "image_path",
             "email_verified",
             "is_active",
+            "otp_login_enabled",
             "date_joined",
+            "date_updated",
         ]
 
 
@@ -59,6 +67,42 @@ class RegisterSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password", None)
         userres = User.objects.create_user(email, password, **validated_data)
         return userres["user"]
+
+
+class CompleteOTPSerializer(TokenObtainPairSerializer):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        self.fields["password"].required = False
+        self.fields["email"] = serializers.CharField(write_only=True)
+        self.fields["otp"] = serializers.CharField(write_only=True)
+
+    def validate(self, attrs: dict[str, Any]) -> dict[str, str]:
+        # data = super().validate(attrs)
+        email = attrs["email"]
+        otp = attrs["otp"]
+
+        status = static_auth_handler.validate_otp(otp, email)
+        if status:
+            self.user = User.objects.get_user_by_email(email)
+
+        refresh = self.get_token(self.user)
+        data = {
+            "message": "login accepted, tokens generated successfully",
+            "refresh_token": str(refresh),
+            "access_token": str(refresh.access_token), # type: ignore
+        }
+
+        if settings.SIMPLE_JWT["UPDATE_LAST_LOGIN"]:
+            update_last_login(None, self.user) # type: ignore
+
+        return data
+
+    # def post(self, request: Request) -> Response:
+    #     email = request.data.get("email", "")
+    #     otp = request.data.get("otp", "")
+    #     status = self.auth_handler.validate_otp(otp, email)
+    #     if status:
 
 
 # class LogoutSerializer(TokenRefreshSerializer):

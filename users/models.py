@@ -32,6 +32,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=100, unique=True)
     otp_login_enabled = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -52,11 +53,6 @@ class User(AbstractUser):
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
     
-
-    def save(self, *args, **kwargs):
-        if not self.user_id:
-            self.user_id = self.email
-        super().save(*args, **kwargs)
 
     @property
     def __dict__(self):

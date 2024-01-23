@@ -2,7 +2,6 @@ import random
 from typing import Any
 
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.exceptions import APIException
 
@@ -55,7 +54,7 @@ class UserManager(BaseUserManager):
         res = self.send_verification_mail(user_id)
         return {"message": f"Verification Code Send to {res['email']}, Please check your email"}
 
-    def create_user(self, email,password, **extra_fields) -> dict[str, Any]:
+    def create_user(self, email, password, **extra_fields) -> dict[str, Any]:
         """
         Create a new user with the given email and password.
 
@@ -104,7 +103,7 @@ class UserManager(BaseUserManager):
         user.set_password(data["password"])
         user.save()
         userindb = self.get(email=email)
-        res = self.on_registration(userindb.user_id)
+        self.on_registration(userindb.user_id)
         return userindb
 
     def delete_user(self, user_id):
@@ -115,7 +114,7 @@ class UserManager(BaseUserManager):
         # User.objects.filter(user_id=data["user_id"])\
         #     .update(password=data["password"])
 
-    def update_user_data(self, user_id,password=None, **data):
+    def update_user_data(self, user_id, password=None, **data):
         # TODO: refute password change properly
         self.filter(user_id=user_id).update(**data)
 

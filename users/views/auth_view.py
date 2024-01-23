@@ -1,19 +1,21 @@
 import traceback
 from typing import Any
-from unittest.mock import Base
 
 from rest_framework import exceptions, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
+from roadersmap.exceptions import OTPRequiredException
 from users.handlers.user_auth import UserAuthHandler
 from users.models import User
-from users.serializers import RegisterSerializer
+from users.serializers import RegisterSerializer, CompleteOTPSerializer
 
 
 # view for registering users
@@ -32,7 +34,13 @@ class RegisterView(BaseAPIView):
 
 class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
+        try:
+            response = super().post(request, *args, **kwargs)
+        except OTPRequiredException:
+            return Response(
+                {"message": "OTP sent to email", "otp_required": True},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
         if not response.data:
             return response
         if response.status_code == status.HTTP_200_OK:
@@ -45,20 +53,21 @@ class LoginView(TokenObtainPairView):
                 "access_token": access,
             }
         return response
-    
-class CompleteOTPLoginView(BaseAPIView):
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
-        self.auth_handler = UserAuthHandler()
-        
-    def post(self, request):
-        email = request.data.get('email', '')
-        otp = request.data.get('otp', '')
-        status = self.auth_handler.validate_otp(otp, email)
-        if status:
-            pass
-        
-    
+
+
+class CompleteOTPLoginView(TokenObtainPairView):
+    serializer_class = CompleteOTPSerializer
+    # def post(self, request: Request, *args, **kwargs) -> Response:
+    #     serializer = self.get_serializer(data=request.data)
+
+    #     try:
+    #         serializer.is_valid(raise_exception=True)
+    #     except TokenError as e:
+    #         raise InvalidToken(e.args[0])
+
+    #     return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
 class LoginRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)

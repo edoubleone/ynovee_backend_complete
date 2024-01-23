@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'django_otp',
-    'django_otp.plugins.otp_static',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_email', 
-    'two_factor',
-    'two_factor.plugins.phonenumber',
+    # 'django_otp',
+    # 'django_otp.plugins.otp_static',
+    # 'django_otp.plugins.otp_totp',
+    # 'django_otp.plugins.otp_email', 
+    # 'two_factor',
+    # 'two_factor.plugins.phonenumber',
     'apis',
     "users",
     "places",
@@ -62,10 +62,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'two_factor.middleware.threadlocals.ThreadLocals',
+    # 'django_otp.middleware.OTPMiddleware',
+    # 'two_factor.middleware.threadlocals.ThreadLocals',
 ]
 
 ROOT_URLCONF = 'roadersmap.urls'
@@ -230,7 +230,10 @@ LOGGING = {
     }
 }
 
+SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")
 
+
+# TODO : Move to Templates
 FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
 FORGET_PASSWORD_CODE_TPL = """
     <b>Dear {USER_NAME}</b>,<br>
@@ -249,7 +252,6 @@ Tap the button below to confirm your email address. <br>
 <button><a style="border:1px solid powderblue,padding:10px", href="{VALIDATION_LINK}">Verify Account</a></button>
 """
 
-SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")
 
 OTP_EMAIL_SUBJECT = 'Complete your Login for RoadersMap'
 OTP_EMAIL_TPL = """

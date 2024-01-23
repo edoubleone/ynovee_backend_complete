@@ -13,6 +13,7 @@ from places.views.user_places import UserPlacesView
 from transcriber.views import TranscriberView
 from trips.views.trips_view import TripsView, TripView, UserTripView
 from users.views.auth_view import (
+    CompleteOTPLoginView,
     LoginRefreshView,
     LoginView,
     LogoutView,
@@ -32,6 +33,7 @@ urlpatterns = [
     path("register", RegisterView.as_view(), name="sign_up"),
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),
+    path("login/complete_otp_login", CompleteOTPLoginView.as_view(), name="complete_login"), #applies only to users with otp enabled
     path("logout", LogoutView.as_view(), name="logout"),
     path("profile", UserProfileViewSet.as_view(), name="my_profile"),
     path(

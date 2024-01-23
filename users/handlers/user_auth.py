@@ -68,10 +68,9 @@ class UserAuthHandler(object):
     #     recipient_list = [email]
     #     send_mail(subject, message, from_email, recipient_list)
     
-    def send_otp_email(self, user_id) -> dict:
-        user = self.user_handler.get_user(user_id)
+    def send_otp_email(self, user) -> dict:
         code = self.generate_otp()
-        html_message = settings.OTP_EMAIL_SUBJECT.format(USER_NAME=user.full_name, OTP_CODE=code)
+        html_message = settings.OTP_EMAIL_TPL.format(USER_NAME=user.full_name, OTP_CODE=code)
         message = Smtp.generate_email_message(
             recipients=user.email, subject=settings.OTP_EMAIL_SUBJECT, html_message=html_message
         )
@@ -93,13 +92,14 @@ class UserAuthHandler(object):
         # user = self.user_handler.get_user_by_email(email)
         # if not user:
         #     raise Exception(f"No User Found for Email {email}")
-
+        return True
+        # TODO: Remove this return True, and implement cache
         expected_otp = self.cache.get_key_value(email)
         if otp == expected_otp:
             return True
         return False
         
 
-
+static_auth_handler = UserAuthHandler()
 
 
