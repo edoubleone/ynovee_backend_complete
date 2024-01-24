@@ -2,8 +2,8 @@ from django.http import StreamingHttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
 
-from notification.redis import listen_to_channel
-from notification.sse import ServerSentEventRenderer
+from messaging.redis import listen_to_channel
+from messaging.sse import ServerSentEventRenderer
 
 # class NotificationViewSet(viewsets.ModelViewSet):
 #     queryset = Notification.objects.all()
@@ -20,3 +20,4 @@ class Notify(APIView):
         response["X-Accel-Buffering"] = "no"  # Disable buffering in nginx
         response["Cache-Control"] = "no-cache"  # Ensure clients don't cache the data
         return response
+

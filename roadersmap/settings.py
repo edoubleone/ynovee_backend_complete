@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "events",
     "weather",
     "transcriber",
-    "notification",
+    "messaging",
 ]
 
 MIDDLEWARE = [

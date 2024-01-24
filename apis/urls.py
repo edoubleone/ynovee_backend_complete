@@ -29,7 +29,7 @@ from users.views.forget_password_view import (
     ForgetPasswordCodeView,
     ForgetPasswordSubmitCodeView,
 )
-from notification.views import Notify
+from messaging.views import Notify
 from users.views.user_view import (
     UserProfileViewSet,
     UsersView,
