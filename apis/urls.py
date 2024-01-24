@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 # from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 # from two_factor.urls import urlpatterns as tf_urls
@@ -29,6 +29,7 @@ from users.views.forget_password_view import (
     ForgetPasswordCodeView,
     ForgetPasswordSubmitCodeView,
 )
+from notification.views import Notify
 from users.views.user_view import (
     UserProfileViewSet,
     UsersView,
@@ -39,7 +40,9 @@ from weather.views import WeatherView
 
 app_name = "apis"
 
-urlpatterns = [
+urlpatterns =[
+    path("notify", Notify.as_view(), name="notify"),
+    
     path("register", RegisterView.as_view(), name="sign_up"),
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),
