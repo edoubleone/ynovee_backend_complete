@@ -1,13 +1,13 @@
 from places.models.place_types import GeoTagTypes
 from places.models.user_place_types import UserPlaceTypes
 
-from users.handlers.user import UserHandler
+from users.models import User
 from places.handlers.place_handler import PlaceHandler
 
 
 class GeoTagHandler(object):
     def __init__(self):
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
         self.place_handler = PlaceHandler()
 
     @staticmethod

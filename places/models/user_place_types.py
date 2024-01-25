@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models.user import User
+from users.models import User
 from places.models.place_types import GeoTagTypes
 
 

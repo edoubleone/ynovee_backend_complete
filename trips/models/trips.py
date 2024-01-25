@@ -1,5 +1,5 @@
 from django.db import models
-from users.models.user import User
+from users.models import User
 
 
 class Trips(models.Model):

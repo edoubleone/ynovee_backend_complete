@@ -41,9 +41,8 @@ class Smtp:
 
     @staticmethod
     def get_instance():
-
         if Smtp.instance is None:
-            Smtp()
+            Smtp.instance = Smtp()
         return Smtp.instance
 
     def send_email(self, receivers_mail, message: MIMEMultipart):

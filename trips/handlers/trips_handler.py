@@ -1,11 +1,11 @@
 from trips.models.trips import Trips
-from users.handlers.user import UserHandler
+from users.models import User
 from commons.utils.logger import Logger
 
 
 class TripsHandler(object):
     def __init__(self):
-        self.user_handler = UserHandler()
+        self.user_handler = User.objects
         self._logger = Logger.get_instance(__name__)
 
     def add_trip(self, data):
