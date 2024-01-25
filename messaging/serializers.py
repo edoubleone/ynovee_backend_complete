@@ -5,4 +5,5 @@ from .models import Notification
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
-        fields = '__all__'
+        fields = ['id','message','read_status',  'timestamp']
+        read_only_fields = ['timestamp', 'message']
