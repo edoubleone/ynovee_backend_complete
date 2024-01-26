@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-from datetime import timedelta
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_u1(rozc0a+)(e@r#x!7^zqxu0-u4o2*p&-fesw8oabd&88&xw'
+SECRET_KEY = "django-insecure-_u1(rozc0a+)(e@r#x!7^zqxu0-u4o2*p&-fesw8oabd&88&xw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,17 +32,17 @@ ALLOWED_HOSTS = ["staging.roadersmap.com", "localhost", "127.0.0.1", "0.0.0.0"]
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
-    'apis',
+    "daphne",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    "apis",
     "users",
     "places",
     "trips",
@@ -53,51 +53,50 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # 'django_otp.middleware.OTPMiddleware',
     # 'two_factor.middleware.threadlocals.ThreadLocals',
 ]
 
-ROOT_URLCONF = 'roadersmap.urls'
+ROOT_URLCONF = "roadersmap.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
 # WSGI_APPLICATION = 'roadersmap.wsgi.application'
-ASGI_APPLICATION = 'roadersmap.asgi.application'
+ASGI_APPLICATION = "roadersmap.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
         # 'USER': os.environ["POSTGRES_USER"],
         # 'PASSWORD': os.environ["POSTGRES_PASSWORD"],
         # 'HOST':os.environ["POSTGRES_HOST"],
         # 'PORT': os.environ.get("POSTGRES_PORT", 5432),
     }
-
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': os.environ["DB_NAME"],
@@ -122,16 +121,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -139,38 +138,36 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-TWO_FACTOR_CALL_GATEWAY = 'two_factor.gateways.fake.Fake'
-TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
+TWO_FACTOR_CALL_GATEWAY = "two_factor.gateways.fake.Fake"
+TWO_FACTOR_SMS_GATEWAY = "two_factor.gateways.fake.Fake"
 
-DEFAULT_FROM_EMAIL = 'RoadersMap@localhost'
-OTP_EMAIL_SUBJECT = 'Login for RoadersMap'
+DEFAULT_FROM_EMAIL = "RoadersMap@localhost"
+OTP_EMAIL_SUBJECT = "Login for RoadersMap"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer"
-    },
-    'redis': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
+    "redis": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
@@ -182,73 +179,83 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 CACHES = {
     "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    },
+    "db" : {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
         "LOCATION": "cache",
-    }
+    },
 }
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 AUTHENTICATION_BACKENDS = [
-    'roadersmap.backends.CustomBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "roadersmap.backends.CustomBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
-LOGIN_URL = 'two_factor:login'
+LOGIN_URL = "two_factor:login"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'UPDATE_LAST_LOGIN': True,
-
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
-    'AUDIENCE': None,
-    'ISSUER': None,
-
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'USER_ID_FIELD': 'user_id',
-    'USER_ID_CLAIM': 'user_id',
-
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type',
-
-    'JTI_CLAIM': 'jti',
-
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "VERIFYING_KEY": None,
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "USER_ID_FIELD": "user_id",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+    "JTI_CLAIM": "jti",
+    "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 }
 
+TICKET_EXPIRE_TIME = 600
+OTP_TIMEOUT = 300
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
         },
     },
-    'loggers': {
-        'two_factor': {
-            'handlers': ['console'],
-            'level': 'INFO',
+    "loggers": {
+        "two_factor": {
+            "handlers": ["console"],
+            "level": "INFO",
         }
-    }
+    },
 }
 
-SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000/")
+SERVICE_HOST = os.environ.get("SERVICE_HOST", "http://127.0.0.1:8000")
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "edoubleone.com"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = "benjamin.onogwu@edoubleone.com"
+EMAIL_HOST_PASSWORD = os.environ.get("STMP_PASSWORD", "password")
+DEFAULT_FROM_EMAIL = "benjamin.onogwu@edoubleone.com"
 
+SMTP_HOST = "edoubleone.com"  # localhost
+SMTP_PORT = "465"
+SMTP_SENDER_EMAIL = "benjamin.onogwu@edoubleone.com"
+SSL_ENABLED = "True"
 # TODO : Move to Templates
 FORGET_PASSWORD_CODE_SUBJECT = "Reset Password with OTP"
 FORGET_PASSWORD_CODE_TPL = """
@@ -269,7 +276,7 @@ Tap the button below to confirm your email address. <br>
 """
 
 
-OTP_EMAIL_SUBJECT = 'Complete your Login for RoadersMap'
+OTP_EMAIL_SUBJECT = "Complete your Login for RoadersMap"
 OTP_EMAIL_TPL = """
     <b>Dear {USER_NAME}</b>,<br>
     Greetings from Roaders Map. <br>

@@ -1,8 +1,10 @@
-from email.policy import default
 from django.db import models
+
 from users.models import User
 
+
 class Notification(models.Model):
+    ref_id = models.CharField(max_length=50, blank=True, null=True)
     recipient = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField(default="")
     timestamp = models.DateTimeField(auto_now_add=True)

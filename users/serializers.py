@@ -46,7 +46,18 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     user_id = serializers.CharField(read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
-
+    
+    # host_url = serializers.SerializerMethodField(read_only=True)
+    
+    # def get_host_url(self, obj):
+    #     request = self.context.get("request")
+    #     if request is None:
+    #         return None
+    #     full_uri = request.build_absolute_uri()
+    #     host = full_uri.replace(request.get_full_path(), "")
+    #     print(host)
+    #     return host
+    
     class Meta:
         model = User
         fields = [

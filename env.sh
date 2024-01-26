@@ -25,6 +25,6 @@ export SMTP_HOST="edoubleone.com"
 export SMTP_PORT="465"
 export SSL_ENABLED="True"
 
-export SERVICE_HOST="http://127.0.0.1:8000/"
+export SERVICE_HOST="http://127.0.0.1:8000"
 
 export WEATHER_API_KEY="95b0c9cd5639424fb9f115157232611"

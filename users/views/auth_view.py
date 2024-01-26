@@ -83,7 +83,7 @@ class LogoutView(BaseAPIView):
             token.blacklist()
 
             return Response(
-                {"message": "successfully logged out", "refresh": "invalidated"},
+                {"message": "successfully logged out", "refresh": "Invalidated"},
                 status=status.HTTP_205_RESET_CONTENT,
             )
         except TokenError:
@@ -99,7 +99,7 @@ class ValidateAccountView(BaseAPIView):
         code = params.get("code")
         feedback = self.user_auth_handler.verify_account(user_id, code)
         if feedback:
-            return Response({"message": "Email Verified Successfully"}, status=status.HTTP_200_OK)
+            return Response({"message": "Email verified Successfully"}, status=status.HTTP_200_OK)
 
 
 class ResendEmailVerificationView(BaseAPIView):

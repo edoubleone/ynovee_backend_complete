@@ -1,32 +1,32 @@
+
+
+from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from messaging.consumers import send_realtime_notification
 
+from messaging.tasks import send_verification_mail
 from users.models import User
 
 from .models import Notification
+from messaging.serializers import NotificationSerializer
 
 
 @receiver(post_save, sender=Notification)
-async def notification_created(sender, instance: Notification, created, **kwargs):
-    print("notification was created")
-    if created:
-        channel_layer = get_channel_layer()
-        print("sent to channel ", instance.message)
-        await channel_layer.group_send(
-            
-            {"type": "notification_message", "notification": instance.message})
+def notification_created(sender, instance: Notification, created, **kwargs):
+    user_id = instance.recipient.user_id
+    send_realtime_notification(user_id, instance.message, instance.timestamp)
 
 
 @receiver(post_save, sender=User)
 def user_created(sender, instance: User, created, **kwargs):
-    # send_verification_mail.delay(instance.user_id)
-    print("user was created")
-    noti = Notification.objects.create(recipient=instance, message="Welcome to roadersmap!")
-    noti.save()
+    if created:
+        send_verification_mail.delay(instance.pk)
+        noti = Notification.objects.create(recipient=instance, message="Welcome to roadersmap!")
+        noti.save()
 
 
-# when user is verified, send notification to user
 @receiver(post_save, sender=User)
 def user_verified(sender, instance: User, created, **kwargs):
     # send_verification_mail.delay(instance.user_id)

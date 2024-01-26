@@ -4,6 +4,7 @@ from typing import Any
 from django.contrib.auth.base_user import BaseUserManager
 from rest_framework import status
 from rest_framework.exceptions import APIException
+from django.core.cache import cache
 
 from commons.utils.cache import Cache
 from commons.utils.smtp import Smtp
@@ -16,8 +17,7 @@ class UserManager(BaseUserManager):
     use_in_migration = True
 
     def __init__(self, verification_model):
-        super().__init__()  #
-        self.cache = Cache.get_instance()
+        super().__init__()  
         self.verification_model = verification_model
 
     def send_verification_mail(self, user_id) -> dict:
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         user_verification_obj.save()
 
         end_point = "api/verify_account"
-        link = f"{settings.SERVICE_HOST}{end_point}/{user.user_id}?code={email_verification_data['validation_code']}"
+        link = f"{settings.SERVICE_HOST}/{end_point}/{user.user_id}?code={email_verification_data['validation_code']}"
         html_message = settings.NEW_ACCOUNT_EMAIL_TPL.format(USER_NAME=user.full_name, VALIDATION_LINK=link)
         message = Smtp.generate_email_message(
             recipients=user.email, subject=settings.VERIFY_ACCOUNT_SUBJECT, html_message=html_message
@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
 
     def on_registration(self, user_id):
         # res = self.send_verification_mail(user_id)
-        return {"message": f"Verification code sent to your email, Please check your email"}
+        return {"message": "Verification code sent to your email, Please check your email"}
 
     def on_verification(self, user_id):
         pass
@@ -123,7 +123,7 @@ class UserManager(BaseUserManager):
 
     def get_user(self, user_id):
         # import pdb;pdb.set_trace()
-        user = self.filter(user_id=user_id).get()
+        user = self.get(pk=user_id)
         # user = User.objects.all()
         return user
 
@@ -149,8 +149,8 @@ class UserManager(BaseUserManager):
             recipients=user.email, subject=settings.FORGET_PASSWORD_CODE_SUBJECT, html_message=html_message
         )
         smtp.send_email(user.email, message)
-        self.cache.set_key_value(email, code)
-        return {"message": f"Code Send to {email}, User ID {user.email}, Please check your email"}
+        cache.set(email, code, settings.OTP_TIMEOUT)
+        return {"message": f"Code Send to {email}, User ID {user.user_id}, Please check your email"}
 
     @staticmethod
     def generate_code():
@@ -168,9 +168,9 @@ class UserManager(BaseUserManager):
 
         user = users[0]
 
-        expected_code = self.cache.get_key_value(email)
+        expected_code = cache.get(email)
         if code == expected_code:
-            return {"user": user.__dict__, "status": "success", "message": "Code Matched Successfully"}
+            return {"status": "success", "message": "Code Matched Successfully"}
         raise Exception("Invalid Code")
 
     def get_user_verification_code(self, user_id) -> str:

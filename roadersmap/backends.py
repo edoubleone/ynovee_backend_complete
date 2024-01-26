@@ -1,6 +1,4 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.hashers import check_password
 
 from roadersmap.exceptions import OTPRequiredException
 from users.handlers.user_auth import static_auth_handler
@@ -16,7 +14,7 @@ class CustomBackend(ModelBackend):
         password = kwargs["password"]
         UserModel = User
         try:
-            user =  UserModel.objects.get(email=email)
+            user = UserModel.objects.get(email=email)
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
             return None
