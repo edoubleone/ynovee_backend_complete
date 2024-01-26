@@ -21,9 +21,7 @@ def send_verification_mail(user_id, handler=User.objects) -> dict:
     user_verification_obj.save()
 
     end_point = "api/verify_account"
-    link = (
-        f"{settings.SERVICE_HOST}/{end_point}/{user.user_id}?code={email_verification_data['validation_code']}"
-    )
+    link = f"{settings.SERVICE_HOST}/{end_point}/{user.user_id}?code={email_verification_data['validation_code']}"
     html_message = settings.NEW_ACCOUNT_EMAIL_TPL.format(USER_NAME=user.full_name, VALIDATION_LINK=link)
     message = Smtp.generate_email_message(
         recipients=user.email, subject=settings.VERIFY_ACCOUNT_SUBJECT, html_message=html_message
@@ -39,7 +37,13 @@ def send_verification_mail(user_id, handler=User.objects) -> dict:
 
 @shared_task
 def celery_send_realtime_notification(
-    user_id, message: str, timestamp: str | datetime, sender: str = "user_action", ref_id: Any = ""
+    user_id,
+    id: Any,
+    message: str,
+    timestamp: str | datetime,
+    sender: str = "user_action",
+    ref_id: Any = "",
+    ref_model: Any = "",
 ) -> None:
     """
     Sends a realtime notification to a specific user via a celery worker.
@@ -61,11 +65,13 @@ def celery_send_realtime_notification(
     if isinstance(timestamp, datetime):
         timestamp = timestamp.isoformat()
     channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
+    async_to_sync(channel_layer.group_send)(  # type: ignore
         f"notification_{user_id}",
         {
             "type": "notification_message",
-            "id": ref_id,
+            "id": id,
+            "ref_id": ref_id,
+            "ref_model":ref_model,
             "message": message,
             "sender": sender,
             "timestamp": timestamp,

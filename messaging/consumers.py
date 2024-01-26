@@ -91,7 +91,7 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
 def send_realtime_notification(
     user_id,
     message: str,
-    id: str,
+    id: int,
     timestamp: str | datetime,
     sender: str = "user_action",
     ref_id: Any = "",

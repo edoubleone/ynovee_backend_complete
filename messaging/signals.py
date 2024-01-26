@@ -1,22 +1,17 @@
-
-
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from messaging.consumers import send_realtime_notification
 
+from messaging.consumers import send_realtime_notification
 from messaging.tasks import send_verification_mail
 from users.models import User
 
 from .models import Notification
-from messaging.serializers import NotificationSerializer
 
 
 @receiver(post_save, sender=Notification)
 def notification_created(sender, instance: Notification, created, **kwargs):
     user_id = instance.recipient.user_id
-    send_realtime_notification(user_id, instance.message, instance.timestamp)
+    send_realtime_notification(user_id, instance.message, id=instance.id, timestamp=instance.timestamp)
 
 
 @receiver(post_save, sender=User)
