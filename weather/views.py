@@ -99,6 +99,24 @@ class CRUDWeatherSaveView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class SavedWeatherDetail(generics.ListAPIView):
+    handler = WeatherHandler()
     queryset = SavedWeather.objects.all()
     serializer_class = SavedWeatherSerializer
     permission_classes = [permissions.IsAuthenticated]
+    params = {
+        "q": "London",
+        "days": 10,
+        "mode":"forecast",
+        "forecastday":"astro",
+        "hour":12
+    }
+    
+    def get(self, request):
+        saved_weather = SavedWeather.objects.filter(users=request.user)
+        weather_data = []
+        for weather in saved_weather:
+            self.params['q'] = weather.name
+            weather_detail = self.handler.get_weather_details(self.params)
+            weather_data.append(weather_detail)
+        
+        return Response(weather_data)

@@ -37,7 +37,7 @@ from users.views.user_view import (
     UserUploadPicView,
     UserView,
 )
-from weather.views import WeatherView, SavedWeatherDetail, CRUDWeatherSaveView
+from weather.views import CRUDWeatherSaveView, SavedWeatherDetail, WeatherView
 
 app_name = "apis"
 
@@ -81,7 +81,7 @@ urlpatterns = [
     path("distance_matrix", DistanceApiView.as_view(), name="distance_matrix"),
     path("directions", DirectionsApiView.as_view(), name="directions"),
     path("weather", WeatherView.as_view(), name="weather"),
-    path('weather/saved/', CRUDWeatherSaveView.as_view(), name='weather-crud'),
-    path('weather/<str:location>/', SavedWeatherDetail.as_view(), name='weather-retrieve'),
+    path("weather/saved_details", SavedWeatherDetail.as_view(), name="weather-retrieve"),
+    path("weather/saved", CRUDWeatherSaveView.as_view(), name="weather-crud"),
     path("convert_text_to_speech", TranscriberView.as_view(), name="transcriber"),
 ]

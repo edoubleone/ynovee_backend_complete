@@ -9,10 +9,10 @@ class WeatherData(models.Model):
     current = models.JSONField()
     forecast = models.JSONField()
 
+
 class SavedWeather(models.Model):
     location_as_id = models.CharField(primary_key=True, max_length=255)
+    name = models.CharField(max_length=255)
     users = models.ManyToManyField(User)
-    weather_data = models.ForeignKey(WeatherData, on_delete=models.CASCADE,  null=True, blank=True)
+    weather_data = models.ForeignKey(WeatherData, on_delete=models.CASCADE, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-
-
