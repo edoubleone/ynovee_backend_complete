@@ -2,10 +2,10 @@
 
 # Activate the virtual environment
 source venv/bin/activate
+pip install -r requirements.txt
 
 # Install the requirements
 source ./env.sh
-pip install -r requirements.txt
 
 # Run the Django migrations
 python manage.py makemigrations

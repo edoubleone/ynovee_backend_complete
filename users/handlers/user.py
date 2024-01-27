@@ -2,11 +2,10 @@ import random
 from typing import Any
 
 from django.contrib.auth.base_user import BaseUserManager
+from django.core.cache import cache
 from rest_framework import status
 from rest_framework.exceptions import APIException
-from django.core.cache import cache
 
-from commons.utils.cache import Cache
 from commons.utils.smtp import Smtp
 from roadersmap import settings
 from roadersmap.local_types import UserType
@@ -16,7 +15,7 @@ from roadersmap.utils import create_token
 class UserManager(BaseUserManager):
     use_in_migration = True
 
-    def __init__(self, verification_model):
+    def __init__(self, verification_model = None):
         super().__init__()  
         self.verification_model = verification_model
 

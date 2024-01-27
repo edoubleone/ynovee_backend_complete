@@ -1,8 +1,5 @@
 from rest_framework import serializers
 
-from users.handlers import user
-from weather.handlers import create_weather_id
-
 from .models import SavedWeather, WeatherData
 
 
@@ -17,7 +14,7 @@ class SavedWeatherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SavedWeather
-        fields = ["location_as_id", "users", "weather_data", "timestamp"]
+        fields = ["location_as_id", "name", "weather_data", "last_revalidated"]
 
 
 class AddWeatherSerializer(serializers.ModelSerializer):
