@@ -40,7 +40,7 @@ def celery_send_realtime_notification(
     user_id,
     id: Any,
     message: str,
-    timestamp: str | datetime,
+    timestamp,
     sender: str = "user_action",
     ref_id: Any = "",
     ref_model: Any = "",

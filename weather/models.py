@@ -23,7 +23,7 @@ class SavedWeatherManager(models.Manager):
     def weather_exists(self, location_as_id: str) -> bool:
         return self.filter(location_as_id=location_as_id).exists()
     
-    def weather_data_exists_and_isvalid(self, location_as_id: str) -> WeatherData |bool:
+    def weather_data_exists_and_isvalid(self, location_as_id: str) -> Any:
         existing = self.get(location_as_id=location_as_id)
         if existing.weather_data is not None and existing.weather_data.last_revalidated is not None:
             last_revalidated = existing.weather_data.last_revalidated
@@ -35,7 +35,7 @@ class SavedWeatherManager(models.Manager):
                 return existing.weather_data
         return False
     
-    def has_valid_weather_data(self, saved_weather: Any) -> bool | WeatherData:
+    def has_valid_weather_data(self, saved_weather: Any) -> Any:
         print(saved_weather)
         if saved_weather.weather_data is not None and saved_weather.weather_data.last_revalidated is not None:
             last_revalidated = saved_weather.weather_data.last_revalidated

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Union
 from urllib.parse import parse_qsl
 
 from asgiref.sync import async_to_sync
@@ -92,7 +92,7 @@ def send_realtime_notification(
     user_id,
     message: str,
     id: int,
-    timestamp: str | datetime,
+    timestamp: Union[str,datetime],
     sender: str = "user_action",
     ref_id: Any = "",
     ref_model: str = "",

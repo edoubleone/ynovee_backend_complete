@@ -48,7 +48,7 @@ class CRUDWeatherSaveView(generics.RetrieveUpdateDestroyAPIView):
         saved_weather.save()
         return Response({"message": "success", "data": SavedWeatherSerializer(saved_weather).data})
 
-    def delete(self, request, location_as_id: str | None = None):
+    def delete(self, request, location_as_id = None):
         if not location_as_id:
             validated_data = self.serializer_class(data=request.data).validate(request.data)
             location_as_id = create_weather_id(validated_data)
@@ -64,7 +64,7 @@ class CRUDWeatherSaveView(generics.RetrieveUpdateDestroyAPIView):
             status=status.HTTP_404_NOT_FOUND,
         )
 
-    def get(self, request, location_as_id: str | None = None):
+    def get(self, request, location_as_id = None):
         if location_as_id is None:
             saved_weather = SavedWeather.objects.filter(users=request.user)
             return Response(

@@ -20,7 +20,7 @@ def is_user_recipient(user_id: int, message: dict[str, Any]) -> bool:
     return str(user_id) == message.get("recipient_id")
 
 
-async def listen_to_channel(user_id: int| None = None, filter_func: Callable = is_user_recipient) -> AsyncGenerator:
+async def listen_to_channel(user_id = None, filter_func: Callable = is_user_recipient) -> AsyncGenerator:
     # Create message listener and subscribe on the event source channel
     async with get_async_redis_client().pubsub() as listener:  # Remove unnecessary await
         await listener.subscribe("test")
