@@ -10,29 +10,261 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "(WS) Listen for Real time notification",
+							"request": {
+								"method": "OPTIONS",
+								"header": [],
+								"url": {
+									"raw": "ws://{{HOST}}/ws/notifications/?ticket=065f084f-e39d-4101-b2d6-4fc4b7ddeb21",
+									"protocol": "ws",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"ws",
+										"notifications",
+										""
+									],
+									"query": [
+										{
+											"key": "ticket",
+											"value": "065f084f-e39d-4101-b2d6-4fc4b7ddeb21"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark all Notifications as read",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjkwMDk4LCJpYXQiOjE3MDYyODkxOTgsImp0aSI6IjIxNzM4NmI0NTMxNzRmYjhiNDFlNGUxNDhjYjM2NjYwIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.dJRpliVtUC2vO-YwOGpL479FSIiIrhdwHVSd3ETXaX0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all User notifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg5NzQyLCJpYXQiOjE3MDYyODg4NDIsImp0aSI6ImVkOGQ2NzM5MTExMDQyNmNiMjZjMmFhZjg1YzViOTkzIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.nNGVz-3cG_6vGH3xKXXIjG1J_XB4V89pKz5KcICTJDE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete all User notifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg5NzQyLCJpYXQiOjE3MDYyODg4NDIsImp0aSI6ImVkOGQ2NzM5MTExMDQyNmNiMjZjMmFhZjg1YzViOTkzIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.nNGVz-3cG_6vGH3xKXXIjG1J_XB4V89pKz5KcICTJDE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg3ODQ4LCJpYXQiOjE3MDYyODY5NDgsImp0aSI6ImQzNWFhNGJjNWQ3ZDRmODdiNmRjNWE3NDhhYWNlNDdlIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.jGzWXlXam_w3DGHiHTUVxoMVzjHXlRq43JeWi1O9y_Y",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications/38",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications",
+										"38"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark as read",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg3ODQ4LCJpYXQiOjE3MDYyODY5NDgsImp0aSI6ImQzNWFhNGJjNWQ3ZDRmODdiNmRjNWE3NDhhYWNlNDdlIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.jGzWXlXam_w3DGHiHTUVxoMVzjHXlRq43JeWi1O9y_Y",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications/38",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications",
+										"38"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Realtime notification ticket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjI1NjA4LCJpYXQiOjE3MDYyMjQ3MDgsImp0aSI6ImFkZTVjY2I0OWZhNzQ2ZDVhMDk3NzVmY2Q4YzdjY2IyIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.CCLqxN-tKVEo7PS_rHc9mtz1yMu49axlmO3vz4nndOM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/realtime_notification_ticket",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"realtime_notification_ticket"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Verify User",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/verify_account/parkashsharma01?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiUGFya2FzaCIsImxhc3RfbmFtZSI6IlNoYXJtYSIsImVtYWlsIjoicGFya2FzaHNoYXJtYTAxQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoicGFya2FzaCIsImxhbmd1YWdlIjoiaGluZGkiLCJ1c2VyX2lkIjoicGFya2FzaHNoYXJtYTAxIiwiY3JlYXRlZF90aW1lIjoiMjAyMy0xMS0yOCAwOTo0OToxNSIsImV4cCI6MTcwMTE2Njc1N30.xAk7Hq2muIvSB34_E3TxuJkHaaagGQaa7zKtqYfX7Mw",
-							"protocol": "http",
+							"raw": "{{HOST}}/api/verify_account/c17d9ba8-bed7-4f34-9b3f-28a83a77f668?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzE3ZDliYTgtYmVkNy00ZjM0LTliM2YtMjhhODNhNzdmNjY4IiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImVtYWlsIjoiZnJlZGVyaWNrZWlzZW5ob3dlckBnbWFpbC5jb20iLCJleHAiOiIyMDI0LTAxLTIwVDE4OjIwOjUwLjE1NjUyOCswMDowMCJ9._ljlVarOtg5VlfyapfJ7ghhdnLZFlBSS39ebe4SBTPA",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{HOST}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"verify_account",
-								"parkashsharma01"
+								"c17d9ba8-bed7-4f34-9b3f-28a83a77f668"
 							],
 							"query": [
 								{
 									"key": "code",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiUGFya2FzaCIsImxhc3RfbmFtZSI6IlNoYXJtYSIsImVtYWlsIjoicGFya2FzaHNoYXJtYTAxQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoicGFya2FzaCIsImxhbmd1YWdlIjoiaGluZGkiLCJ1c2VyX2lkIjoicGFya2FzaHNoYXJtYTAxIiwiY3JlYXRlZF90aW1lIjoiMjAyMy0xMS0yOCAwOTo0OToxNSIsImV4cCI6MTcwMTE2Njc1N30.xAk7Hq2muIvSB34_E3TxuJkHaaagGQaa7zKtqYfX7Mw"
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzE3ZDliYTgtYmVkNy00ZjM0LTliM2YtMjhhODNhNzdmNjY4IiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImVtYWlsIjoiZnJlZGVyaWNrZWlzZW5ob3dlckBnbWFpbC5jb20iLCJleHAiOiIyMDI0LTAxLTIwVDE4OjIwOjUwLjE1NjUyOCswMDowMCJ9._ljlVarOtg5VlfyapfJ7ghhdnLZFlBSS39ebe4SBTPA"
 								}
 							]
 						}
@@ -52,7 +284,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"frederickeisenhower@gmail.com\",\n        \"password\": \"test\",\n        \"language\": \"eng\",\n        \"mobile\": 9080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
+							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"test\",\n        \"language\": \"eng\",\n        \"mobile\": 9080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
 						},
 						"url": {
 							"raw": "{{HOST}}api/user",
@@ -82,13 +314,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{HOST}}api/user/parkashsharma02",
+							"raw": "{{HOST}}api/user/7d231a4a-d7b5-4b36-be33-be74a2dc2e96",
 							"host": [
 								"{{HOST}}api"
 							],
 							"path": [
 								"user",
-								"parkashsharma02"
+								"7d231a4a-d7b5-4b36-be33-be74a2dc2e96"
 							]
 						}
 					},
@@ -107,7 +339,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"nice@nice.com\",\n    \"password\": \"test\"\n}"
+							"raw": "{\n    \"email\": \"williamseisenherz@gmail.com\",\n    \"password\": \"test\"\n}"
 						},
 						"url": {
 							"raw": "{{HOST}}api/login",
@@ -140,13 +372,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{HOST}}api/resend_email_verification/c17d9ba8-bed7-4f34-9b3f-28a83a77f668",
+							"raw": "{{HOST}}api/resend_email_verification/138f2fd7-157a-44a2-a84b-df8e2d7b6b32",
 							"host": [
 								"{{HOST}}api"
 							],
 							"path": [
 								"resend_email_verification",
-								"c17d9ba8-bed7-4f34-9b3f-28a83a77f668"
+								"138f2fd7-157a-44a2-a84b-df8e2d7b6b32"
 							]
 						}
 					},
@@ -246,13 +478,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{HOST}}api/user/parkashsharma01",
+							"raw": "{{HOST}}api/user/7178e636-fb47-46e2-8fe2-0a8c9a921bab",
 							"host": [
 								"{{HOST}}api"
 							],
 							"path": [
 								"user",
-								"parkashsharma01"
+								"7178e636-fb47-46e2-8fe2-0a8c9a921bab"
 							]
 						}
 					},
@@ -355,13 +587,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{HOST}}api/user/7178e636-fb47-46e2-8fe2-0a8c9a921bab",
+							"raw": "{{HOST}}api/user/4aff7cc6-79b1-4e8c-9749-95e10d18637b",
 							"host": [
 								"{{HOST}}api"
 							],
 							"path": [
 								"user",
-								"7178e636-fb47-46e2-8fe2-0a8c9a921bab"
+								"4aff7cc6-79b1-4e8c-9749-95e10d18637b"
 							]
 						}
 					},
@@ -1445,6 +1677,546 @@
 			"name": "Weather",
 			"item": [
 				{
+					"name": "User Saved weathers detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg0MDkyLCJpYXQiOjE3MDYyODMxOTIsImp0aSI6ImRmYzBjNjc5NzM4NTQxNzJhNzdjYmM3ODc5ZmJlZjZkIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.YH6SFwBcZLoPwNJclVMLLq3-zI-clgCnEgvq6SS_Nj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved_details",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved_details"
+							],
+							"query": [
+								{
+									"key": "hour",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "tp",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "day",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User saved weathers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgyMDA2LCJpYXQiOjE3MDYyODExMDYsImp0aSI6ImNhYWEwMDk1ZmRjNjQ5ODA5ZGU4OWZhNWU3YzA2YTE3IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.1bxR0lrOJ8k1AFiOjGs8e5DZsoxssyUYLQdOwckRSSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"London\",\n\"lat\": 51.52,\n\"lon\": -0.11}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgyMDA2LCJpYXQiOjE3MDYyODExMDYsImp0aSI6ImNhYWEwMDk1ZmRjNjQ5ODA5ZGU4OWZhNWU3YzA2YTE3IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.1bxR0lrOJ8k1AFiOjGs8e5DZsoxssyUYLQdOwckRSSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"name\": \"Lagos\",\n\n            \"lat\": 6.45,\n            \"lon\": 3.4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgwNDE0LCJpYXQiOjE3MDYyNzk1MTQsImp0aSI6IjJmYzgxOTI4N2U3MDRiZDM5NzdjZTVmZTQyNDNjNzk1IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.icIxhJ5g9Zv6YCTcitDBwfyPF-ns9P_bE1ZIBs_exCY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved/London-la51.52-lo-0.11",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved",
+								"London-la51.52-lo-0.11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Weather Current - Forecast",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -1589,7 +2361,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTg0NTIwNSwiaWF0IjoxNzA1NzU4ODA1LCJqdGkiOiIzODI5ZGIyMjE5ZjY0ODZkYThjMTY4YmI0MGNjNTM1YSIsInVzZXJfaWQiOiI2MjQzYWI4MC05ODc4LTRhMjAtYjVhMy1lMTY5MTIzODRhNWYifQ.1ZOj3Kh2gk5rOgMZfBt4pkeI241K6aV9x7gccrtcsGw\"\n}"
+							"raw": "{\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTk0MjEyNywiaWF0IjoxNzA1ODU1NzI3LCJqdGkiOiI0MWFlNzUwZDQzYzE0YWEyOGMwZTk1MjBlMGZjOTQwYSIsInVzZXJfaWQiOiI2YjNhODEyZC1mNjI1LTQyYTYtOWVmOS01MDlhMmU2ODNkMzcifQ.Fda4ITaf5NCk2oJwx4h1KSQyDY0CIcs55wwR9BVs6Ug\"\n}"
 						},
 						"url": {
 							"raw": "{{HOST}}api/refresh_login",
@@ -1610,7 +2382,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "        {\"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"test\"}",
+							"raw": "        {\"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"nice\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1630,6 +2402,33 @@
 					"response": []
 				},
 				{
+					"name": "Complete OTP login (OTP enabled only)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\"email\": \"williamseisenherz@gmail.com\",\n        \"otp\":\"657890\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/login/complete_otp_login",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"login",
+								"complete_otp_login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Register",
 					"request": {
 						"method": "POST",
@@ -1642,7 +2441,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenhher7z449195708@gmail.com\",\n        \"password\": \"test\",\n        \"language\": \"eng\",\n        \"mobile\": 9080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
+							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"nice\",\n        \"language\": \"eng\",\n        \"mobile\": 2349080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
 						},
 						"url": {
 							"raw": "{{HOST}}api/register",
@@ -1658,9 +2457,31 @@
 				},
 				{
 					"name": "My profile(Auth Test route)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1ODU5ODkxLCJpYXQiOjE3MDU4NTk1OTEsImp0aSI6ImNlN2M3Y2VjNmU3YzRlMDc5ZjlmMTFhZGEzMWM2ZDQxIiwidXNlcl9pZCI6IjZiM2E4MTJkLWY2MjUtNDJhNi05ZWY5LTUwOWEyZTY4M2QzNyJ9.qxNvd9GdBGv2_fbfzti_JyKaKKnUj4fJ90c0K_T_Bus",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{HOST}}api/profile",
 							"host": [

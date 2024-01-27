@@ -1,5 +1,11 @@
-from rest_framework import serializers
+from typing import Any
 
+from django.contrib.auth.models import update_last_login
+from rest_framework import serializers, exceptions
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from roadersmap import settings
+from users.handlers.user_auth import static_auth_handler
 from users.models import User
 
 
@@ -30,7 +36,9 @@ class UserSerializer(serializers.ModelSerializer):
             "image_path",
             "email_verified",
             "is_active",
+            "otp_login_enabled",
             "date_joined",
+            "date_updated",
         ]
 
 
@@ -38,7 +46,18 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     user_id = serializers.CharField(read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
-
+    
+    # host_url = serializers.SerializerMethodField(read_only=True)
+    
+    # def get_host_url(self, obj):
+    #     request = self.context.get("request")
+    #     if request is None:
+    #         return None
+    #     full_uri = request.build_absolute_uri()
+    #     host = full_uri.replace(request.get_full_path(), "")
+    #     print(host)
+    #     return host
+    
     class Meta:
         model = User
         fields = [
@@ -61,19 +80,32 @@ class RegisterSerializer(serializers.ModelSerializer):
         return userres["user"]
 
 
-# class LogoutSerializer(TokenRefreshSerializer):
-#     def validate(self, attrs):
-#         data = super().validate(attrs)
-#         token = RefreshToken(data['refresh'])
-#         token.blacklist()
+class CompleteOTPSerializer(TokenObtainPairSerializer):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
 
-#         # Decode the token to get user's id
-#         token_payload = token.payload
-#         user_id = token_payload.get('user_id')
+        self.fields.pop("password", None)
+        self.fields["email"] = serializers.CharField(write_only=True)
+        self.fields["OTP"] = serializers.CharField(write_only=True)
 
-#         # Get the user and log them out
-#         User = get_user_model()
-#         user = User.objects.get(id=user_id)
-#         logout(user)
+    def validate(self, attrs: dict[str, Any]) -> dict[str, str]:
+        try:
+            email = attrs["email"]
+            otp = attrs["OTP"]
+            status = static_auth_handler.validate_otp(otp, email)
+            if status:
+                self.user = User.objects.get_user_by_email(email)
+            refresh = self.get_token(self.user)
+            data = {
+                "message": "login accepted, tokens generated successfully",
+                "refresh_token": str(refresh),
+                "access_token": str(refresh.access_token), # type: ignore
+            }
+            if settings.SIMPLE_JWT["UPDATE_LAST_LOGIN"]:
+                update_last_login(None, self.user) # type: ignore
+            return data
+        except AttributeError:
+            raise exceptions.AuthenticationFailed(
+                detail="invalid or expired OTP code", code=403
+            )
 
-#         return data

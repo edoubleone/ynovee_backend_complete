@@ -9,9 +9,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apis.exceptions import ApiException
 from apis.views.base_views import BaseAPIView
+from roadersmap.exceptions import OTPRequiredException
 from users.handlers.user_auth import UserAuthHandler
 from users.models import User
-from users.serializers import RegisterSerializer
+from users.serializers import CompleteOTPSerializer, RegisterSerializer
 
 
 # view for registering users
@@ -30,7 +31,16 @@ class RegisterView(BaseAPIView):
 
 class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
+        try:
+            response = super().post(request, *args, **kwargs)
+        except OTPRequiredException:
+            return Response(
+                {
+                    "message": "2 factor authentication enabled, use OTP sent to user via email to complete login",
+                    "Location": f"{request.build_absolute_uri()}/complete_otp_login",
+                },
+                status=status.HTTP_303_SEE_OTHER,
+            )
         if not response.data:
             return response
         if response.status_code == status.HTTP_200_OK:
@@ -43,6 +53,10 @@ class LoginView(TokenObtainPairView):
                 "access_token": access,
             }
         return response
+
+
+class CompleteOTPLoginView(TokenObtainPairView):
+    serializer_class = CompleteOTPSerializer
 
 
 class LoginRefreshView(TokenRefreshView):
@@ -69,7 +83,7 @@ class LogoutView(BaseAPIView):
             token.blacklist()
 
             return Response(
-                {"message": "successfully logged out", "refresh": "invalidated"},
+                {"message": "successfully logged out", "refresh": "Invalidated"},
                 status=status.HTTP_205_RESET_CONTENT,
             )
         except TokenError:
@@ -85,7 +99,7 @@ class ValidateAccountView(BaseAPIView):
         code = params.get("code")
         feedback = self.user_auth_handler.verify_account(user_id, code)
         if feedback:
-            return Response({"message": "Email Verified Successfully"}, status=status.HTTP_200_OK)
+            return Response({"message": "Email verified Successfully"}, status=status.HTTP_200_OK)
 
 
 class ResendEmailVerificationView(BaseAPIView):

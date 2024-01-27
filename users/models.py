@@ -24,14 +24,14 @@ class User(AbstractUser):
     mobile = models.CharField(max_length=100, null=True)
     work_location = models.CharField(max_length=100, default="")
     image_path = models.CharField(max_length=100, default="")
-    # password = models.CharField(max_length=100, default="")
     sso_sign_in = models.CharField(max_length=100, default="")
     address = models.TextField(max_length=1000, default="")
     work_location = models.TextField(max_length=100, default="")
     email_verified = models.BooleanField(default=False)
     email = models.EmailField(max_length=100, unique=True)
-
+    otp_login_enabled = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -52,11 +52,6 @@ class User(AbstractUser):
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
     
-
-    def save(self, *args, **kwargs):
-        if not self.user_id:
-            self.user_id = self.email
-        super().save(*args, **kwargs)
 
     @property
     def __dict__(self):
