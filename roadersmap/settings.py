@@ -177,11 +177,11 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 # REDIS_HOST = os.environ.get("REDIS
 
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
-    },
-    "db" : {
+    # "default": {
+    #     "BACKEND": "django.core.cache.backends.redis.RedisCache",
+    #     "LOCATION": "redis://127.0.0.1:6379",
+    # },
+    "default" : {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
         "LOCATION": "cache",
     },
