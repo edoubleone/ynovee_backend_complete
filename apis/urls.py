@@ -3,8 +3,6 @@ from django.urls import path
 # from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 # from two_factor.urls import urlpatterns as tf_urls
 from events.views import EventsView
-from messaging import views
-from messaging.views import NotificationDetail, NotificationList
 from places.views.directions import DirectionsApiView
 from places.views.distance_places_view import DistanceApiView
 from places.views.place_reviews import PlacesReviewsView
@@ -42,9 +40,6 @@ from weather.views import CRUDWeatherSaveView, SavedWeatherDetail, WeatherView
 app_name = "apis"
 
 urlpatterns = [
-    path("user/realtime_notification_ticket", views.TicketRegister.as_view(), name="notification_ticket"),
-    path("user/notifications", NotificationList.as_view(), name="notification-list"),
-    path("user/notifications/<int:pk>", NotificationDetail.as_view(), name="notification-detail"),
     path("register", RegisterView.as_view(), name="sign_up"),
     path("login", LoginView.as_view(), name="login"),
     path("refresh_login", LoginRefreshView.as_view(), name="refresh_login"),

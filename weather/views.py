@@ -138,7 +138,7 @@ class SavedWeatherDetail(generics.ListAPIView):
             self.params["q"] = weather.name
             weather_detail = self.handler.get_weather_details(self.params)
             weather_data.append(weather_detail)
-        save_weather_data_to_db.delay(
+        save_weather_data_to_db(
             list(SavedWeatherSerializer(saved_weather, many=True).data), weather_data
         )
         return Response(weather_data)

@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ["staging.roadersmap.com", "localhost", "127.0.0.1", "0.0.0.0"]
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -49,7 +48,7 @@ INSTALLED_APPS = [
     "events",
     "weather",
     "transcriber",
-    "messaging",
+    # "messaging",
 ]
 
 MIDDLEWARE = [
@@ -82,8 +81,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'roadersmap.wsgi.application'
-ASGI_APPLICATION = "roadersmap.asgi.application"
+WSGI_APPLICATION = 'roadersmap.wsgi.application'
+# ASGI_APPLICATION = "roadersmap.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

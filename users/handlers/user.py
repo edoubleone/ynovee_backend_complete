@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         }
 
     def on_registration(self, user_id):
-        # res = self.send_verification_mail(user_id)
+        res = self.send_verification_mail(user_id)
         return {"message": "Verification code sent to your email, Please check your email"}
 
     def on_verification(self, user_id):

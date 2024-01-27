@@ -1,11 +1,10 @@
 from datetime import datetime, timezone
 
-from celery import shared_task
 
 from weather.models import SavedWeather, WeatherData
 
 
-@shared_task
+
 def save_weather_data_to_db(saved_weathers: list[SavedWeather], weather_data: list[dict]) -> str:
     # TODO: Add a check to see if the weather data is already present in the DB
     if len(saved_weathers) != len(weather_data):
@@ -17,6 +16,5 @@ def save_weather_data_to_db(saved_weathers: list[SavedWeather], weather_data: li
     return "success"
 
 
-@shared_task
 def update_all_weather_data():
     pass
