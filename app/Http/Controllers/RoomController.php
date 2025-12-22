@@ -1,0 +1,188 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\RoomType;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use App\Traits\UploadsFiles;
+
+class RoomController extends Controller
+{
+    use UploadsFiles;
+
+    public function index(Request $request)
+    {
+        $query = RoomType::query();
+
+        // Filter by capacity
+        if ($request->has('guests')) {
+            $query->where('capacity', '>=', $request->query('guests'));
+        }
+
+        // Filter by availability
+        if ($request->has(['start_date', 'end_date'])) {
+            $startDate = $request->query('start_date');
+            $endDate = $request->query('end_date');
+
+            // We need to find RoomTypes where (bookings overlapping < total_rooms)
+            // It's easier to fetch all (or capacity filtered) and then filter by availability in PHP
+            // to avoid complex SQL group by having logic, unless dataset is huge.
+            // For a hotel with < 50 room types, PHP filtering is fine.
+            
+            $roomTypes = $query->withCount(['bookings' => function (Builder $query) use ($startDate, $endDate) {
+                $query->where('status', '!=', 'cancelled')
+                      ->where('check_in', '<', $endDate)
+                      ->where('check_out', '>', $startDate);
+            }])->get();
+
+            $availableRooms = $roomTypes->filter(function ($room) {
+                return $room->bookings_count < $room->total_rooms;
+            })->values();
+
+            return response()->json($availableRooms);
+        }
+
+        return response()->json($query->get(), 200, [], JSON_UNESCAPED_SLASHES);
+    }
+
+    public function show($id)
+    {
+        return response()->json(RoomType::findOrFail($id), 200, [], JSON_UNESCAPED_SLASHES);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'capacity' => 'required|integer',
+            'price_usd' => 'required|numeric',
+            'price_eur' => 'required|numeric',
+            'price_ghs' => 'required|numeric',
+            'total_rooms' => 'required|integer',
+            'images' => 'nullable', // Flexible input
+            'image_url' => 'nullable', // Legacy fallback
+            'amenities' => 'nullable|array', // List of Amenity IDs
+        ]);
+
+        $imageLinks = [];
+
+        // 1. Handle File Uploads (Multiple)
+        if ($request->hasFile('images')) {
+            $files = $request->file('images');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+            foreach($files as $file) {
+                 // Manual upload logic to avoid changing trait for now, or use trait loop
+                 $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                 $path = $file->storeAs('rooms', $filename, 'public');
+                 $imageLinks[] = \Illuminate\Support\Facades\Storage::disk('public')->url($path);
+            }
+        }
+
+        // 2. Handle Text Input (Comma Separated) or Array of URLs
+        if ($request->has('images') && ! $request->hasFile('images')) {
+             $input = $request->input('images');
+             if (is_string($input)) {
+                 // Split by comma, trim whitespace, filter empty
+                 $links = array_filter(array_map('trim', explode(',', $input)));
+                 $imageLinks = array_merge($imageLinks, $links);
+             } elseif (is_array($input)) {
+                 $imageLinks = array_merge($imageLinks, $input);
+             }
+        }
+        
+        // 3. Legacy single image_url fallback
+        if ($request->hasFile('image_url')) {
+             $imageLinks[] = $this->uploadFile($request, 'image_url', 'rooms');
+        } elseif ($request->input('image_url')) {
+             $imageLinks[] = $request->input('image_url');
+        }
+
+        // Ensure unique and values
+        $validated['images'] = array_values(array_unique($imageLinks));
+        unset($validated['image_url']);
+
+        $room = RoomType::create($validated);
+        return response()->json($room, 201, [], JSON_UNESCAPED_SLASHES);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $room = RoomType::findOrFail($id);
+        
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'capacity' => 'required|integer',
+            'price_usd' => 'required|numeric',
+            'price_eur' => 'required|numeric',
+            'price_ghs' => 'required|numeric',
+            'total_rooms' => 'required|integer',
+            'images' => 'nullable',
+            'image_url' => 'nullable',
+            'amenities' => 'nullable|array',
+        ]);
+
+        // Logic to Append or Replace? 
+        // usually 'images' in update REPLACES the array.
+        // But if we want to support appending, we'd need a specific flag or endpoint.
+        // For now, standard REST: PUT replaces content.
+        
+        $imageLinks = [];
+
+        // 1. Handle File Uploads (Multiple)
+        if ($request->hasFile('images')) {
+            $files = $request->file('images');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+            foreach($files as $file) {
+                 $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                 $path = $file->storeAs('rooms', $filename, 'public');
+                 $imageLinks[] = \Illuminate\Support\Facades\Storage::disk('public')->url($path);
+            }
+        }
+
+        // 2. Handle Text Input or Array
+        if ($request->has('images') && ! $request->hasFile('images')) {
+             $input = $request->input('images');
+             if (is_string($input)) {
+                 $links = array_filter(array_map('trim', explode(',', $input)));
+                 $imageLinks = array_merge($imageLinks, $links);
+             } elseif (is_array($input)) {
+                 $imageLinks = array_merge($imageLinks, $input);
+             }
+        }
+        
+         // 3. Legacy single image_url fallback
+        if ($request->hasFile('image_url')) {
+             $imageLinks[] = $this->uploadFile($request, 'image_url', 'rooms');
+        } elseif ($request->input('image_url')) {
+             $imageLinks[] = $request->input('image_url');
+        }
+
+        // If no images provided at all, maybe keep existing? 
+        // PUT usually implies full update. 
+        // If $imageLinks is result of input processing and input was provided, use it.
+        // If 'images' key was NOT present, we usually don't touch it (skip).
+        // But here we checked $request->has...
+        
+        if ($request->has('images') || $request->has('image_url') || $request->hasFile('images')) {
+            $validated['images'] = array_values(array_unique($imageLinks));
+        }
+
+        unset($validated['image_url']);
+
+        $room->update($validated);
+        return response()->json($room, 200, [], JSON_UNESCAPED_SLASHES);
+    }
+
+    public function destroy($id)
+    {
+        RoomType::findOrFail($id)->delete();
+        return response()->json(null, 204);
+    }
+}
