@@ -1,0 +1,17 @@
+        <script src="{{ asset('assets/js/vendor/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+        <script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
+        <script src="{{ asset('assets/js/circle-progress.js') }}"></script>
+        <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+        <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
+        <script src="{{ asset('assets/js/nice-select.min.js') }}"></script>
+        <script src="{{ asset('assets/js/wow.min.js') }}"></script>
+        <script src="{{ asset('assets/js/threesixty.min.js') }}"></script>
+        <script src="{{ asset('assets/js/panolens.min.js') }}"></script>
+        <script src="{{ asset('assets/js/gsap.min.js') }}"></script>
+        <script src="{{ asset('assets/js/ScrollTrigger.min.js') }}"></script>
+        <script src="{{ asset('assets/js/SplitText.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
