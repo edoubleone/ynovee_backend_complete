@@ -24,7 +24,7 @@ use App\Http\Controllers\SettingController;
 */
 
 // Public Routes
-Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/profile', [\App\Http\Controllers\ProfileController::class, 'update']);
