@@ -14,11 +14,11 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['username' => 'ynovee'], // Identifier to check existence
+            ['username' => 'ynovee'],
             [
                 'name' => 'Admin',
                 'email' => 'ynovee@gmail.com',
-                'password' => 'password123',
+                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
             ]
         );
     }
