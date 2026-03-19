@@ -33,7 +33,6 @@ trait UploadsFiles
         if (is_string($input)) {
             return preg_replace('/([^:])\/\/*/', '$1/', str_replace('\\/', '/', $input));
         }
-
         return $input;
     }
 }
