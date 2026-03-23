@@ -144,5 +144,5 @@ namespace App\Http\Controllers;
  */
 abstract class Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    //
 }

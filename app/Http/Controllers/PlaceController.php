@@ -15,11 +15,17 @@ class PlaceController extends Controller
      *     @OA\Response(response=200, description="List of places", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Place")))
      * )
      */
+    /**
+     * @OA\Get(path="/api/places", tags={"Places"}, summary="List all places",
+     *     @OA\Response(response=200, description="List of places", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Place")))
+     * )
+     */
     public function index()
     {
         return response()->json(Place::all(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
+    
     /**
      * @OA\Post(path="/api/places", tags={"Places"}, summary="Create a place (Admin)", security={{"sanctum":{}}},
      *     @OA\RequestBody(required=true, @OA\MediaType(mediaType="multipart/form-data",

@@ -15,12 +15,17 @@ class SlideController extends Controller
      *     @OA\Response(response=200, description="List of slides", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Slide")))
      * )
      */
+    /**
+     * @OA\Get(path="/api/slides", tags={"Slides"}, summary="List all slides",
+     *     @OA\Response(response=200, description="List of slides", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Slide")))
+     * )
+     */
     public function index()
     {
         return response()->json(Slide::orderBy('order')->get(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
-    /**
+     /**
      * @OA\Post(path="/api/slides", tags={"Slides"}, summary="Create a slide (Admin)", security={{"sanctum":{}}},
      *     @OA\RequestBody(required=true, @OA\MediaType(mediaType="multipart/form-data",
      *         @OA\Schema(required={"image","title"},
