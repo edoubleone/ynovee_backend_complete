@@ -19,6 +19,7 @@ class ArticleController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string',
+            'excerpt' => 'nullable|string',
             'author' => 'required|string',
             'category' => 'required|string',
             'content' => 'required|string',
@@ -39,6 +40,7 @@ class ArticleController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string',
+            'excerpt' => 'nullable|string',
             'author' => 'required|string',
             'category' => 'required|string',
             'content' => 'required|string',

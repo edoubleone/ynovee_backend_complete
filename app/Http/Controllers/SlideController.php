@@ -12,7 +12,7 @@ class SlideController extends Controller
 
     public function index()
     {
-        return response()->json(Slide::all(), 200, [], JSON_UNESCAPED_SLASHES);
+        return response()->json(Slide::orderBy('order')->get(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     public function store(Request $request)
@@ -22,6 +22,7 @@ class SlideController extends Controller
             'title' => 'required|string',
             'subtitle' => 'nullable|string',
             'cta_link' => 'nullable|string',
+            'order' => 'nullable|integer',
         ]);
 
         $validated['image_url'] = $this->uploadFile($request, 'image', 'slides');
@@ -40,6 +41,7 @@ class SlideController extends Controller
             'title' => 'required|string',
             'subtitle' => 'nullable|string',
             'cta_link' => 'nullable|string',
+            'order' => 'nullable|integer',
         ]);
 
         if ($request->has('image') || $request->hasFile('image')) {

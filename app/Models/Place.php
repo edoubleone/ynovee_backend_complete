@@ -15,6 +15,7 @@ class Place extends Model
         'description',
         'content',
         'rating',
+        'size',
         'image_url',
     ];
 

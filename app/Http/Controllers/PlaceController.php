@@ -23,6 +23,7 @@ class PlaceController extends Controller
             'description' => 'required|string',
             'content' => 'nullable|string',
             'rating' => 'nullable|numeric',
+            'size' => 'nullable|string',
             'image' => 'required', // File or String
         ]);
 
@@ -43,6 +44,7 @@ class PlaceController extends Controller
             'description' => 'required|string',
             'content' => 'nullable|string',
             'rating' => 'nullable|numeric',
+            'size' => 'nullable|string',
             'image' => 'nullable',
         ]);
 

@@ -13,5 +13,12 @@ class Activity extends Model
         'title',
         'description',
         'image_url',
+        'width',
+        'height',
+    ];
+
+    protected $casts = [
+        'width' => 'integer',
+        'height' => 'integer',
     ];
 }
