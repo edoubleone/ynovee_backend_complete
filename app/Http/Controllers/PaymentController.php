@@ -9,6 +9,35 @@ use App\Models\RoomType;
 
 class PaymentController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/create-payment-intent",
+     *     tags={"Payments"},
+     *     summary="Create Stripe payment intent",
+     *     description="Calculates total price and creates a Stripe PaymentIntent. Returns the client secret for frontend confirmation.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"room_type_id","check_in","check_out","guests","currency"},
+     *             @OA\Property(property="room_type_id", type="integer", example=1),
+     *             @OA\Property(property="check_in", type="string", format="date", example="2025-01-01"),
+     *             @OA\Property(property="check_out", type="string", format="date", example="2025-01-05"),
+     *             @OA\Property(property="guests", type="integer", example=2),
+     *             @OA\Property(property="currency", type="string", enum={"USD","EUR","GHS"}, example="USD")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Payment intent created",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="clientSecret", type="string", example="pi_12345_secret_abcde"),
+     *             @OA\Property(property="amount", type="number", example=750.00)
+     *         )
+     *     ),
+     *     @OA\Response(response=422, description="Validation error"),
+     *     @OA\Response(response=500, description="Stripe error")
+     * )
+     */
     public function createPaymentIntent(Request $request)
     {
         $validated = $request->validate([

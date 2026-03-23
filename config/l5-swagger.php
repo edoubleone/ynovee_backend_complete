@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'L5 Swagger UI',
+                'title' => 'Ynovee Hotel Booking API',
             ],
 
             'routes' => [
@@ -93,10 +93,6 @@ return [
              */
             'base' => env('L5_SWAGGER_BASE_PATH', null),
 
-            'annotations' => [
-                    base_path('app'),
-                ],
-
             /*
              * Absolute path to directories that should be excluded from scanning
              * @deprecated Please use `scanOptions.exclude`
@@ -129,7 +125,10 @@ return [
              *
              * @see \OpenApi\scan
              */
-            'analyser' => null,
+            'analyser' => new \OpenApi\Analysers\ReflectionAnalyser([
+                new \OpenApi\Analysers\AttributeAnnotationFactory(),
+                new \OpenApi\Analysers\DocBlockAnnotationFactory(),
+            ]),
 
             /**
              * analysis: defaults to a new \OpenApi\Analysis .

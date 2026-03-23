@@ -1,0 +1,2601 @@
+{
+	"info": {
+		"_postman_id": "ef505346-dcf2-4826-b3f8-cad56c118d96",
+		"name": "RoadersMap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29714375"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "(WS) Listen for Real time notification",
+							"request": {
+								"method": "OPTIONS",
+								"header": [],
+								"url": {
+									"raw": "ws://{{HOST}}/ws/notifications/?ticket=065f084f-e39d-4101-b2d6-4fc4b7ddeb21",
+									"protocol": "ws",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"ws",
+										"notifications",
+										""
+									],
+									"query": [
+										{
+											"key": "ticket",
+											"value": "065f084f-e39d-4101-b2d6-4fc4b7ddeb21"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark all Notifications as read",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjkwMDk4LCJpYXQiOjE3MDYyODkxOTgsImp0aSI6IjIxNzM4NmI0NTMxNzRmYjhiNDFlNGUxNDhjYjM2NjYwIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.dJRpliVtUC2vO-YwOGpL479FSIiIrhdwHVSd3ETXaX0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all User notifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg5NzQyLCJpYXQiOjE3MDYyODg4NDIsImp0aSI6ImVkOGQ2NzM5MTExMDQyNmNiMjZjMmFhZjg1YzViOTkzIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.nNGVz-3cG_6vGH3xKXXIjG1J_XB4V89pKz5KcICTJDE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete all User notifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg5NzQyLCJpYXQiOjE3MDYyODg4NDIsImp0aSI6ImVkOGQ2NzM5MTExMDQyNmNiMjZjMmFhZjg1YzViOTkzIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.nNGVz-3cG_6vGH3xKXXIjG1J_XB4V89pKz5KcICTJDE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg3ODQ4LCJpYXQiOjE3MDYyODY5NDgsImp0aSI6ImQzNWFhNGJjNWQ3ZDRmODdiNmRjNWE3NDhhYWNlNDdlIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.jGzWXlXam_w3DGHiHTUVxoMVzjHXlRq43JeWi1O9y_Y",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications/38",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications",
+										"38"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark as read",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg3ODQ4LCJpYXQiOjE3MDYyODY5NDgsImp0aSI6ImQzNWFhNGJjNWQ3ZDRmODdiNmRjNWE3NDhhYWNlNDdlIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.jGzWXlXam_w3DGHiHTUVxoMVzjHXlRq43JeWi1O9y_Y",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/notifications/38",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"notifications",
+										"38"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Realtime notification ticket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjI1NjA4LCJpYXQiOjE3MDYyMjQ3MDgsImp0aSI6ImFkZTVjY2I0OWZhNzQ2ZDVhMDk3NzVmY2Q4YzdjY2IyIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.CCLqxN-tKVEo7PS_rHc9mtz1yMu49axlmO3vz4nndOM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}api/user/realtime_notification_ticket",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"user",
+										"realtime_notification_ticket"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Verify User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/verify_account/c17d9ba8-bed7-4f34-9b3f-28a83a77f668?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzE3ZDliYTgtYmVkNy00ZjM0LTliM2YtMjhhODNhNzdmNjY4IiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImVtYWlsIjoiZnJlZGVyaWNrZWlzZW5ob3dlckBnbWFpbC5jb20iLCJleHAiOiIyMDI0LTAxLTIwVDE4OjIwOjUwLjE1NjUyOCswMDowMCJ9._ljlVarOtg5VlfyapfJ7ghhdnLZFlBSS39ebe4SBTPA",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"verify_account",
+								"c17d9ba8-bed7-4f34-9b3f-28a83a77f668"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzE3ZDliYTgtYmVkNy00ZjM0LTliM2YtMjhhODNhNzdmNjY4IiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImVtYWlsIjoiZnJlZGVyaWNrZWlzZW5ob3dlckBnbWFpbC5jb20iLCJleHAiOiIyMDI0LTAxLTIwVDE4OjIwOjUwLjE1NjUyOCswMDowMCJ9._ljlVarOtg5VlfyapfJ7ghhdnLZFlBSS39ebe4SBTPA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"test\",\n        \"language\": \"eng\",\n        \"mobile\": 9080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
+						},
+						"url": {
+							"raw": "{{HOST}}api/user",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}api/user/7d231a4a-d7b5-4b36-be33-be74a2dc2e96",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user",
+								"7d231a4a-d7b5-4b36-be33-be74a2dc2e96"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Api",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"williamseisenherz@gmail.com\",\n    \"password\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/login",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend email verification",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}api/resend_email_verification/138f2fd7-157a-44a2-a84b-df8e2d7b6b32",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"resend_email_verification",
+								"138f2fd7-157a-44a2-a84b-df8e2d7b6b32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Validation Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"parkashsharma01@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/send_validation_code",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"send_validation_code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password Validation Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email_id\": \"parkashsharma01@gmail.com\",\n    \"code\": 1512\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/validate_forget_password_code",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"validate_forget_password_code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"tomi-ben-new\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/user/tomi",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user",
+								"tomi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}api/user/7178e636-fb47-46e2-8fe2-0a8c9a921bab",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user",
+								"7178e636-fb47-46e2-8fe2-0a8c9a921bab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}api/users",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Invalid User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user/user_does_not_exist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"user_does_not_exist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/pasharma/Downloads/IMG_20190615_165310.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}api/user/parkashsharma01/upload_pic",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user",
+								"parkashsharma01",
+								"upload_pic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenherz@gmail.com\",\n        \"language\": \"English\",\n        \"mobile\": \"+2349080993119\",\n        \"address\": \"Lagos Nigeria\", \n        \"work_location\": \"Ikeja Lagos\",\n        \"otp_login_enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/user/4aff7cc6-79b1-4e8c-9749-95e10d18637b",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"user",
+								"4aff7cc6-79b1-4e8c-9749-95e10d18637b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Distance Matrix",
+					"item": [
+						{
+							"name": "Distance Matrix API",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/distance_matrix?destination=Chandigarh, India&origin=Mohali, SAS Nagar&mode=transit",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"distance_matrix"
+									],
+									"query": [
+										{
+											"key": "destination",
+											"value": "Chandigarh, India"
+										},
+										{
+											"key": "origin",
+											"value": "Mohali, SAS Nagar"
+										},
+										{
+											"key": "mode",
+											"value": "transit"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Directions",
+					"item": [
+						{
+							"name": "Get Directions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}api/directions?destination=Freedom Park Lagos, Old Prison Ground,1, Hospital Road, adjacent St' Nicholas Hospital, Lagos Island, Lagos, Nigeria&origin=Ikeja City Mall, Obafemi Awolowo Way, Alausa 101233, Ojodu, Lagos, Nigeria&language=yo",
+									"host": [
+										"{{HOST}}api"
+									],
+									"path": [
+										"directions"
+									],
+									"query": [
+										{
+											"key": "destination",
+											"value": "Freedom Park Lagos, Old Prison Ground,1, Hospital Road, adjacent St' Nicholas Hospital, Lagos Island, Lagos, Nigeria"
+										},
+										{
+											"key": "origin",
+											"value": "Ikeja City Mall, Obafemi Awolowo Way, Alausa 101233, Ojodu, Lagos, Nigeria"
+										},
+										{
+											"key": "mode",
+											"value": "walking",
+											"disabled": true
+										},
+										{
+											"key": "traffic_model",
+											"value": "pessimistic",
+											"disabled": true
+										},
+										{
+											"key": "departure_time",
+											"value": "1701779545",
+											"disabled": true
+										},
+										{
+											"key": "language",
+											"value": "yo"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "Add Place Review",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"place_id\": \"ChIJ2\",\n    \"user_id\": \"parkashsharma01\",\n    \"review\": \"Great place to hang out\",\n    \"rating\": 4.2\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/place_reviews/ChIJ2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"place_reviews",
+										"ChIJ2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Review",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/place_reviews/ChIJ2?user_id=parkashsharma02",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"place_reviews",
+										"ChIJ2"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "parkashsharma02"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Review Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"place_id\": \"ChIJ2\",\n    \"review_id\": \"parkashsharma01-ChIJ2-2023-12-17\",\n    \"user_id\": \"parkashsharma01\"\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/place_reviews/ChIJ2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"place_reviews",
+										"ChIJ2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://0.0.0.0:8001/orders/order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"user_id\": \"XX\",\n        \"product_code\": \"XX\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://0.0.0.0:8001/orders/order",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "8001",
+									"path": [
+										"orders",
+										"order"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Nearby Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/nearby_places?latitude=6.5095&longitude=3.3711&radius=10000",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"nearby_places"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "6.5095"
+								},
+								{
+									"key": "longitude",
+									"value": "3.3711"
+								},
+								{
+									"key": "keyword",
+									"value": "lake",
+									"disabled": true
+								},
+								{
+									"key": "radius",
+									"value": "10000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby Places for User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/nearby_places/users/tomi4?latitude=6.465422&longitude=3.406448&radius=10000",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"nearby_places",
+								"users",
+								"tomi4"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "6.465422"
+								},
+								{
+									"key": "longitude",
+									"value": "3.406448"
+								},
+								{
+									"key": "radius",
+									"value": "10000"
+								},
+								{
+									"key": "keyword",
+									"value": "lake",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n\n        {\n            \"place_id\": \"ChIJ06fsA1-MOxARh5RgGCwe3j8\",\n            \"name\": \"The Snug\",\n            \"address\": \"30 Commercial Avenue, Lagos\",\n            \"rating\": 3.7,\n            \"type\": \"lodging,point_of_interest,establishment\",\n            \n            \"image\": \"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=AWU5eFi9SFCEVhzRgG_vvASHF1eJhGP-kf0ANNtohw6R9712hdq7-Ua9VeaJk10g0YLOql5iqO26SQzRj-iX9R6yeJZ3y2Imile78Ro5wtar7mqx5PIr50Ps8dmQYmzzpWgzEYVban1Gk7cvwzJbwt7j2ODOsUeVxWwZX2FHp7GqiZ0DXR9q&key=AIzaSyDP1Xm3v2JqXb807PY7gOujljjwg9iJmdQ\"\n        }"
+						},
+						"url": {
+							"raw": "{{HOST}}api/place/ChIJ06fsA1-MOxARh5RgGCwe3j8",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"place",
+								"ChIJ06fsA1-MOxARh5RgGCwe3j8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place Types",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"place_type_id\": \"gym\",\n        \"place_type_label\": \"Gym\",\n        \"tags\": \"gym\"\n    },\n    {\n        \"place_type_id\": \"pets\",\n        \"place_type_label\": \"Pets\",\n        \"tags\": \"pet_store,zoo\"\n    },\n    {\n        \"place_type_id\": \"travel\",\n        \"place_type_label\": \"Travel\",\n        \"tags\": \"tourist_attraction,bus_station,light_rail_station,subway_station,taxi_stand,train_station,transit_station\"\n    },\n    {\n        \"place_type_id\": \"sport\",\n        \"place_type_label\": \"Sport\",\n        \"tags\": \"bowling_alley,stadium\"\n    },\n    {\n        \"place_type_id\": \"restaurant\",\n        \"place_type_label\": \"Restaurant\",\n        \"tags\": \"cafe,restaurant\"\n    },\n    {\n        \"place_type_id\": \"movies\",\n        \"place_type_label\": \"Movies\",\n        \"tags\": \"movie_rental,movie_theater\"\n    },\n    {\n        \"place_type_id\": \"entertainment\",\n        \"place_type_label\": \"Entertainment\",\n        \"tags\": \"casino,bar,night_club\"\n    },\n    {\n        \"place_type_id\": \"relaxation\",\n        \"place_type_label\": \"Relaxation\",\n        \"tags\": \"park,rv_park,spa\"\n    }\n]"
+						},
+						"url": {
+							"raw": "{{HOST}}api/place_types",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"place_types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Place Types for User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"tomi4\",\n    \"place_type_ids\": [\n        \"sport\"\n    ] \n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/place_types/users/tomi4",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"place_types",
+								"users",
+								"tomi4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/place/ChIJ",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"place",
+								"ChIJ"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Latitude Longitude",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/places_lat_lang?latitude=28.601084&longitude=77.3736349",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"places_lat_lang"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "TDI City, Sahibzada Ajit Singh Nagar, Punjab",
+									"disabled": true
+								},
+								{
+									"key": "latitude",
+									"value": "28.601084"
+								},
+								{
+									"key": "longitude",
+									"value": "77.3736349"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/place_types",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"place_types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Place Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/place_types/users/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"place_types",
+								"users",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Fav Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/places/user/parkashsharma01",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"places",
+								"user",
+								"parkashsharma01"
+							],
+							"query": [
+								{
+									"key": "is_place_private",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"place_id\": \"ChIJ06fsA1-MOxARh5RgGCwe3j8\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/places/user/parkashsharma01",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"places",
+								"user",
+								"parkashsharma01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Fav Places Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"place_id\": \"ChIJ22\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/places/user/parkash",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"places",
+								"user",
+								"parkash"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding Invalid User Fav Places",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"parkash-sharma-02\",\n    \"place_id\": \"INVALID_PLACE_ID\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/places/user/parkash-sharma-02",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"places",
+								"user",
+								"parkash-sharma-02"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Add Trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trip_id\": \"trip-01\",\n    \"trip_date\": \"2023-10-27\",\n    \"source\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"destination\": \"Civil Dispensary, Sector 19 Chandigarh\",\n    \"trip_start_time\": \"2023-10-27 10:00:00\",\n    \"trip_end_time\": \"2023-10-27 12:00:00\",\n    \"status\": \"Completed\",\n    \"user_id\": \"parkash-sharma-01\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trip/trip-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"trip-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Trip with User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trip_id\": \"trip-id-03\",\n    \"trip_date\": \"2023-10-20\",\n    \"source\": \"Post Graduate Institute of Medical Education & Research, Chandigarh\",\n    \"destination\": \"Civil Dispensary, Sector 19 Chandigarh\",\n    \"trip_start_time\": \"2023-10-20 10:00:00\",\n    \"trip_end_time\": \"2023-10-20 12:00:00\",\n    \"status\": \"Started\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips/user/parkash-sharma-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips",
+								"user",
+								"parkash-sharma-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trip/trip-01",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"trip-01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip for User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/trips/user/parkash-sharma-01?last_x_days=10",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trips",
+								"user",
+								"parkash-sharma-01"
+							],
+							"query": [
+								{
+									"key": "last_x_days",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Google API's",
+			"item": [
+				{
+					"name": "Get Places from Text",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&input=gym,restraunt,food&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&q=cscs",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"findplacefromtext",
+								"json"
+							],
+							"query": [
+								{
+									"key": "inputtype",
+									"value": "textquery"
+								},
+								{
+									"key": "input",
+									"value": "gym,restraunt,food"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "q",
+									"value": "cscs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&place_id=ChIJg2FYDieSOxARW1Y-IFyAYoo",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"details",
+								"json"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "place_id",
+									"value": "ChIJg2FYDieSOxARW1Y-IFyAYoo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NearbyPlaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=30.7290092%2C76.6837217&radius=100&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&keyword=",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"nearbysearch",
+								"json"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "30.7290092%2C76.6837217"
+								},
+								{
+									"key": "radius",
+									"value": "100"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "keyword",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Distance Matrix Api",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=San%20Francisco&origins=849VCWC8%2BR9&key=AIzaSyDP1Xm3v2JqXb807PY7gOujljjwg9iJmdQ",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"distancematrix",
+								"json"
+							],
+							"query": [
+								{
+									"key": "destinations",
+									"value": "San%20Francisco"
+								},
+								{
+									"key": "origins",
+									"value": "849VCWC8%2BR9"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDP1Xm3v2JqXb807PY7gOujljjwg9iJmdQ"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place Photos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/place/photo?photo_reference=AcJnMuGR0UFrDB2ckrGmkMcAPbxaidhUR_pt716szWhq7UVCFfRfD8lcCzahUUY-Xht0l4UBjNWX4Do6uINkbGC_F5xrxV_XDDEymWXX56KAMgILRnuMKgszoEtHd9X33-H2a10d7MuRiLEnDZYWs-PHR14JtKpJl0uVPUXXKc1Td8wrZj6n&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&maxwidth=400",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"place",
+								"photo"
+							],
+							"query": [
+								{
+									"key": "photo_reference",
+									"value": "AcJnMuGR0UFrDB2ckrGmkMcAPbxaidhUR_pt716szWhq7UVCFfRfD8lcCzahUUY-Xht0l4UBjNWX4Do6uINkbGC_F5xrxV_XDDEymWXX56KAMgILRnuMKgszoEtHd9X33-H2a10d7MuRiLEnDZYWs-PHR14JtKpJl0uVPUXXKc1Td8wrZj6n"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "maxwidth",
+									"value": "400"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GeoCode",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4&address=Kailash Hospital",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"geocode",
+								"json"
+							],
+							"query": [
+								{
+									"key": "place_id",
+									"value": "ChIJeRpOeF67j4AR9ydy_PIzPuM",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								},
+								{
+									"key": "address",
+									"value": "Kailash Hospital"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GeoCode LatLing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4",
+							"protocol": "https",
+							"host": [
+								"maps",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"maps",
+								"api",
+								"geocode",
+								"json"
+							],
+							"query": [
+								{
+									"key": "latlng",
+									"value": "40.714224,-73.961452"
+								},
+								{
+									"key": "key",
+									"value": "AIzaSyDzM3m0MOlip0uXRVyMHaVU6-SdAMBCNT4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}api/events?keyword=Events in Lagos",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Events in Lagos"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Weather",
+			"item": [
+				{
+					"name": "User Saved weathers detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2Mjg0MDkyLCJpYXQiOjE3MDYyODMxOTIsImp0aSI6ImRmYzBjNjc5NzM4NTQxNzJhNzdjYmM3ODc5ZmJlZjZkIiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.YH6SFwBcZLoPwNJclVMLLq3-zI-clgCnEgvq6SS_Nj8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved_details",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved_details"
+							],
+							"query": [
+								{
+									"key": "hour",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "tp",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "day",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User saved weathers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgyMDA2LCJpYXQiOjE3MDYyODExMDYsImp0aSI6ImNhYWEwMDk1ZmRjNjQ5ODA5ZGU4OWZhNWU3YzA2YTE3IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.1bxR0lrOJ8k1AFiOjGs8e5DZsoxssyUYLQdOwckRSSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"London\",\n\"lat\": 51.52,\n\"lon\": -0.11}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgyMDA2LCJpYXQiOjE3MDYyODExMDYsImp0aSI6ImNhYWEwMDk1ZmRjNjQ5ODA5ZGU4OWZhNWU3YzA2YTE3IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.1bxR0lrOJ8k1AFiOjGs8e5DZsoxssyUYLQdOwckRSSw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"name\": \"Lagos\",\n\n            \"lat\": 6.45,\n            \"lon\": 3.4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<canvas id=\"weatherChart\" height=\"150\"></canvas>",
+									"",
+									"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js\"></script>",
+									"",
+									"<script>",
+									"    var ctx = document.getElementById(\"weatherChart\");",
+									"",
+									"    var weatherChart = new Chart(ctx, {",
+									"        type: \"line\",",
+									"        data: {",
+									"            labels: [],",
+									"            datasets: [{",
+									"                label: 'Temperature (°C)',",
+									"                data: [],",
+									"                borderColor: 'rgba(75, 192, 192, 1)',",
+									"                backgroundColor: 'rgba(75, 192, 192, 0.2)',",
+									"                yAxisID: 'y-axis-1',",
+									"            }, {",
+									"                label: 'Precipitation (mm)',",
+									"                data: [],",
+									"                borderColor: 'rgba(255, 99, 132, 1)',",
+									"                backgroundColor: 'rgba(255, 99, 132, 0.2)',",
+									"                yAxisID: 'y-axis-2',",
+									"            }]",
+									"        },",
+									"        options: {",
+									"            scales: {",
+									"                yAxes: [{",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'left',",
+									"                    id: 'y-axis-1',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Temperature (°C)'",
+									"                    }",
+									"                }, {",
+									"                    type: 'linear',",
+									"                    display: true,",
+									"                    position: 'right',",
+									"                    id: 'y-axis-2',",
+									"                    scaleLabel: {",
+									"                        display: true,",
+									"                        labelString: 'Precipitation (mm)'",
+									"                    }",
+									"                }]",
+									"            }",
+									"        }",
+									"    });",
+									"",
+									"    // Access the data passed to pm.visualizer.set() from the JavaScript",
+									"    // code of the Visualizer template",
+									"    pm.getData(function (err, value) {",
+									"        var forecast = value.response.data.forecast.forecastday[0];",
+									"        var hours = forecast.hour;",
+									"",
+									"        var temperatureData = [];",
+									"        var precipitationData = [];",
+									"        var timeLabels = [];",
+									"",
+									"        hours.forEach(function (hour) {",
+									"            timeLabels.push(hour.time);",
+									"            temperatureData.push(hour.temp_c);",
+									"            precipitationData.push(hour.precip_mm);",
+									"        });",
+									"",
+									"        weatherChart.data.labels = timeLabels;",
+									"        weatherChart.data.datasets[0].data = temperatureData;",
+									"        weatherChart.data.datasets[1].data = precipitationData;",
+									"        weatherChart.update();",
+									"    });",
+									"",
+									"</script>`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"",
+									"    return { response: res };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA2MjgwNDE0LCJpYXQiOjE3MDYyNzk1MTQsImp0aSI6IjJmYzgxOTI4N2U3MDRiZDM5NzdjZTVmZTQyNDNjNzk1IiwidXNlcl9pZCI6IjAwY2Y3OWNiLWJlMGMtNGVmYS1iNjFmLTRkMGJhMzEyZDFjMSJ9.icIxhJ5g9Zv6YCTcitDBwfyPF-ns9P_bE1ZIBs_exCY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather/saved/London-la51.52-lo-0.11",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather",
+								"saved",
+								"London-la51.52-lo-0.11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Weather Current - Forecast",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/weather?mode=forecast&forecastday=astro&hour=12&q=London&days=10",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"weather"
+							],
+							"query": [
+								{
+									"key": "mode",
+									"value": "forecast"
+								},
+								{
+									"key": "forecastday",
+									"value": "astro"
+								},
+								{
+									"key": "hour",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "tp",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "day",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "hour",
+									"value": "12"
+								},
+								{
+									"key": "q",
+									"value": "London"
+								},
+								{
+									"key": "days",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EventsBrite",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer CRZYTZJNZE5D4HUSXBNB",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://www.eventbriteapi.com/v3/events/search/?q=Lagos Events",
+							"protocol": "https",
+							"host": [
+								"www",
+								"eventbriteapi",
+								"com"
+							],
+							"path": [
+								"v3",
+								"events",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Lagos Events"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Refresh_Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1NzU3OTIzLCJpYXQiOjE3MDU3NTc2MjMsImp0aSI6Ijc3NjBhYjM4NjEwYzQ1YjA4YzMwNGFmOTBjMWQ5MmNkIiwidXNlcl9pZCI6IjYyNDNhYjgwLTk4NzgtNGEyMC1iNWEzLWUxNjkxMjM4NGE1ZiJ9.-gfpmCyNm_M3YbltXpxdPhPpZOTR-rEQlSuIPdaemfg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNTk0MjEyNywiaWF0IjoxNzA1ODU1NzI3LCJqdGkiOiI0MWFlNzUwZDQzYzE0YWEyOGMwZTk1MjBlMGZjOTQwYSIsInVzZXJfaWQiOiI2YjNhODEyZC1mNjI1LTQyYTYtOWVmOS01MDlhMmU2ODNkMzcifQ.Fda4ITaf5NCk2oJwx4h1KSQyDY0CIcs55wwR9BVs6Ug\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}api/refresh_login",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"refresh_login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"nice\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/login",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete OTP login (OTP enabled only)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\"email\": \"williamseisenherz@gmail.com\",\n        \"otp\":\"657890\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/login/complete_otp_login",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"login",
+								"complete_otp_login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"first_name\": \"william\",\n        \"last_name\": \"eise\",\n        \"email\": \"williamseisenherz@gmail.com\",\n        \"password\": \"nice\",\n        \"language\": \"eng\",\n        \"mobile\": 2349080993119,\n        \"work_location\": \"Nigeria Lagos\"\n    }"
+						},
+						"url": {
+							"raw": "{{HOST}}api/register",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My profile(Auth Test route)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1ODU5ODkxLCJpYXQiOjE3MDU4NTk1OTEsImp0aSI6ImNlN2M3Y2VjNmU3YzRlMDc5ZjlmMTFhZGEzMWM2ZDQxIiwidXNlcl9pZCI6IjZiM2E4MTJkLWY2MjUtNDJhNi05ZWY5LTUwOWEyZTY4M2QzNyJ9.qxNvd9GdBGv2_fbfzti_JyKaKKnUj4fJ90c0K_T_Bus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/profile",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Api",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA1OTQ0NDYzLCJpYXQiOjE3MDU5NDQxNjMsImp0aSI6Ijg5YTkyZjkyNTY5MzQyMDJhOTE2YTNhN2M4NTI3NDM4IiwidXNlcl9pZCI6ImQzOTczMTUwLTEyYWItNDIxZC1iZWQ4LWRhYjRjMDJiYmM5NSJ9.5fRkhcXd5ajhLyAA1jOPgQb7jrETF7eC7eoahov5_DA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNjAzMDU2MywiaWF0IjoxNzA1OTQ0MTYzLCJqdGkiOiJlMmM5ODVlYjJmYTM0OTY5YTZjYzQ3YTc5NWI1MWUwNSIsInVzZXJfaWQiOiJkMzk3MzE1MC0xMmFiLTQyMWQtYmVkOC1kYWI0YzAyYmJjOTUifQ.e6RUXlxrdgwC4h0uIGNxlteHtVPxH9IOPkcsIgz1law\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}api/logout",
+							"host": [
+								"{{HOST}}api"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Speech from Text",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\" : \"Jeki osi lati tẹsiwaju lori Expressy1 / Oru Rd / Brand Main Trand 1 tẹsiwaju lati tẹle Exppoway 1 / ring Com / E 1 le wa ni pipade ni awọn akoko kan tabi awọn ọjọ\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/convert_text_to_speech",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"convert_text_to_speech"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:7000/"
+		}
+	]
+}

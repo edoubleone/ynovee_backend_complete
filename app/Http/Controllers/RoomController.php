@@ -11,6 +11,18 @@ class RoomController extends Controller
 {
     use UploadsFiles;
 
+    /**
+     * @OA\Get(
+     *     path="/api/rooms",
+     *     tags={"Rooms"},
+     *     summary="List all room types",
+     *     description="Returns all room types. Optionally filter by availability and guest capacity.",
+     *     @OA\Parameter(name="start_date", in="query", required=false, @OA\Schema(type="string", format="date"), description="Check-in date for availability filter"),
+     *     @OA\Parameter(name="end_date", in="query", required=false, @OA\Schema(type="string", format="date"), description="Check-out date for availability filter"),
+     *     @OA\Parameter(name="guests", in="query", required=false, @OA\Schema(type="integer"), description="Minimum guest capacity"),
+     *     @OA\Response(response=200, description="List of room types", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/RoomType")))
+     * )
+     */
     public function index(Request $request)
     {
         $query = RoomType::query();
@@ -46,11 +58,49 @@ class RoomController extends Controller
         return response()->json($query->get(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/rooms/{id}",
+     *     tags={"Rooms"},
+     *     summary="Get a room type",
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Room type details", @OA\JsonContent(ref="#/components/schemas/RoomType")),
+     *     @OA\Response(response=404, description="Not found")
+     * )
+     */
     public function show($id)
     {
         return response()->json(RoomType::findOrFail($id), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/rooms",
+     *     tags={"Rooms"},
+     *     summary="Create a room type (Admin)",
+     *     security={{"sanctum":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"name","description","capacity","price_usd","price_eur","price_ghs","total_rooms"},
+     *                 @OA\Property(property="name", type="string", example="Deluxe Suite"),
+     *                 @OA\Property(property="description", type="string"),
+     *                 @OA\Property(property="capacity", type="integer", example=2),
+     *                 @OA\Property(property="price_usd", type="number", example=150.00),
+     *                 @OA\Property(property="price_eur", type="number", example=140.00),
+     *                 @OA\Property(property="price_ghs", type="number", example=2500.00),
+     *                 @OA\Property(property="total_rooms", type="integer", example=5),
+     *                 @OA\Property(property="amenities", type="array", @OA\Items(type="integer")),
+     *                 @OA\Property(property="images", type="array", @OA\Items(type="string", format="binary"))
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Room type created", @OA\JsonContent(ref="#/components/schemas/RoomType")),
+     *     @OA\Response(response=422, description="Validation error")
+     * )
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -109,6 +159,32 @@ class RoomController extends Controller
         return response()->json($room, 201, [], JSON_UNESCAPED_SLASHES);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/rooms/{id}",
+     *     tags={"Rooms"},
+     *     summary="Update a room type (Admin)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","description","capacity","price_usd","price_eur","price_ghs","total_rooms"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="capacity", type="integer"),
+     *             @OA\Property(property="price_usd", type="number"),
+     *             @OA\Property(property="price_eur", type="number"),
+     *             @OA\Property(property="price_ghs", type="number"),
+     *             @OA\Property(property="total_rooms", type="integer"),
+     *             @OA\Property(property="amenities", type="array", @OA\Items(type="integer")),
+     *             @OA\Property(property="images", type="array", @OA\Items(type="string"))
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Room type updated", @OA\JsonContent(ref="#/components/schemas/RoomType")),
+     *     @OA\Response(response=404, description="Not found")
+     * )
+     */
     public function update(Request $request, $id)
     {
         $room = RoomType::findOrFail($id);
@@ -180,6 +256,17 @@ class RoomController extends Controller
         return response()->json($room, 200, [], JSON_UNESCAPED_SLASHES);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/rooms/{id}",
+     *     tags={"Rooms"},
+     *     summary="Delete a room type (Admin)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=204, description="Deleted"),
+     *     @OA\Response(response=404, description="Not found")
+     * )
+     */
     public function destroy($id)
     {
         RoomType::findOrFail($id)->delete();
