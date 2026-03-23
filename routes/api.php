@@ -27,6 +27,9 @@ use App\Http\Controllers\TourBookingController;
 
 // Public Routes
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
+Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/profile', [\App\Http\Controllers\ProfileController::class, 'update']);

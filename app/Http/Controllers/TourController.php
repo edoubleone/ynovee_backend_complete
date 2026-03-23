@@ -69,6 +69,13 @@ class TourController extends Controller
         ]);
 
         if ($request->hasFile('images')) {
+            // Delete old physical files first
+            if ($tour->images) {
+                foreach ($tour->images as $oldImagePath) {
+                    // Assuming you stored relative paths
+                    Storage::disk('public')->delete(str_replace(url('/storage'), '', $oldImagePath));
+                }
+            }
             $validated['images'] = $this->handleImages($request);
         }
 
