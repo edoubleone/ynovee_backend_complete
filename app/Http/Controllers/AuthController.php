@@ -11,6 +11,32 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    
+    /**
+     * @OA\Post(
+     *     path="/api/auth/login",
+     *     tags={"Authentication"},
+     *     summary="Admin login",
+     *     description="Login with email or username. Returns a Sanctum Bearer token.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="email", type="string", format="email", example="admin@ynovee.com"),
+     *             @OA\Property(property="username", type="string", example="admin"),
+     *             @OA\Property(property="password", type="string", format="password", example="secret")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="user", ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *     @OA\Response(response=401, description="Invalid credentials")
+     * )
+     */
     public function login(Request $request)
     {
         // Allow login with either username or email
@@ -52,6 +78,29 @@ class AuthController extends Controller
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/auth/me",
+     *     tags={"Authentication"},
+     *     summary="Get authenticated user",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(response=200, description="Authenticated user", @OA\JsonContent(ref="#/components/schemas/User")),
+     *     @OA\Response(response=401, description="Unauthenticated")
+     * )
+     */
+    public function me(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    
     public function forgotPassword(Request $request)
     {
         $request->validate([
@@ -90,17 +139,5 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => __($status)], 422);
-    }
-
-
-    public function me(Request $request)
-    {
-        return response()->json($request->user());
-    }
-
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged out successfully']);
     }
 }

@@ -9,6 +9,17 @@ class ProfileController extends Controller
 {
     use UploadsFiles;
 
+    /**
+     * @OA\Post(path="/api/auth/profile", tags={"Authentication"}, summary="Update own profile (Admin)", security={{"sanctum":{}}},
+     *     @OA\RequestBody(required=true, @OA\MediaType(mediaType="multipart/form-data",
+     *         @OA\Schema(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="avatar", type="string", format="binary", description="Avatar image file or URL")
+     *         )
+     *     )),
+     *     @OA\Response(response=200, description="Profile updated", @OA\JsonContent(ref="#/components/schemas/User"))
+     * )
+     */
     public function update(Request $request)
     {
         $user = $request->user();

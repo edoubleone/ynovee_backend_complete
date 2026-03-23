@@ -9,11 +9,44 @@ use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/bookings",
+     *     tags={"Bookings"},
+     *     summary="List all bookings (Admin)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(response=200, description="List of bookings with room type", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Booking")))
+     * )
+     */
     public function index()
     {
         return response()->json(Booking::with('roomType')->get());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/bookings",
+     *     tags={"Bookings"},
+     *     summary="Create a booking",
+     *     description="Creates a booking after checking room availability. Calculates total_price automatically.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"room_type_id","check_in","check_out","guests","customer_name","customer_email","customer_phone","currency"},
+     *             @OA\Property(property="room_type_id", type="integer", example=1),
+     *             @OA\Property(property="check_in", type="string", format="date", example="2025-01-01"),
+     *             @OA\Property(property="check_out", type="string", format="date", example="2025-01-05"),
+     *             @OA\Property(property="guests", type="integer", example=2),
+     *             @OA\Property(property="customer_name", type="string", example="John Doe"),
+     *             @OA\Property(property="customer_email", type="string", format="email", example="john@example.com"),
+     *             @OA\Property(property="customer_phone", type="string", example="+1234567890"),
+     *             @OA\Property(property="currency", type="string", enum={"USD","EUR","GHS"}, example="USD")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Booking created", @OA\JsonContent(ref="#/components/schemas/Booking")),
+     *     @OA\Response(response=422, description="Room not available or validation error")
+     * )
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -83,6 +116,24 @@ class BookingController extends Controller
         return response()->json($booking, 201);
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/bookings/{id}/status",
+     *     tags={"Bookings"},
+     *     summary="Update booking status (Admin)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"status"},
+     *             @OA\Property(property="status", type="string", enum={"pending","confirmed","checked_in","checked_out","cancelled"})
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Status updated", @OA\JsonContent(ref="#/components/schemas/Booking")),
+     *     @OA\Response(response=404, description="Not found")
+     * )
+     */
     public function updateStatus(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
@@ -91,6 +142,18 @@ class BookingController extends Controller
         return response()->json($booking);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/bookings/{id}",
+     *     tags={"Bookings"},
+     *     summary="Cancel a booking (Admin)",
+     *     description="Sets booking status to 'cancelled', immediately releasing room inventory.",
+     *     security={{"sanctum":{}}},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Booking cancelled", @OA\JsonContent(@OA\Property(property="message", type="string"))),
+     *     @OA\Response(response=404, description="Not found")
+     * )
+     */
     public function destroy($id)
     {
         $booking = Booking::findOrFail($id);
