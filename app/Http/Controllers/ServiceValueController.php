@@ -63,8 +63,8 @@ class ServiceValueController extends Controller
         $serviceValue = ServiceValue::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
             'icon' => 'nullable',
         ]);
 

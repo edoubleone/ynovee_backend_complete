@@ -73,7 +73,7 @@ class SlideController extends Controller
         
         $validated = $request->validate([
             'image' => 'nullable', // Can be string or file
-            'title' => 'required|string',
+            'title' => 'sometimes|required|string',
             'subtitle' => 'nullable|string',
             'cta_link' => 'nullable|string',
             'order' => 'nullable|integer',

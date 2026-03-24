@@ -190,13 +190,13 @@ class RoomController extends Controller
         $room = RoomType::findOrFail($id);
         
         $validated = $request->validate([
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'capacity' => 'required|integer',
-            'price_usd' => 'required|numeric',
-            'price_eur' => 'required|numeric',
-            'price_ghs' => 'required|numeric',
-            'total_rooms' => 'required|integer',
+            'name' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
+            'capacity' => 'sometimes|required|integer',
+            'price_usd' => 'sometimes|required|numeric',
+            'price_eur' => 'sometimes|required|numeric',
+            'price_ghs' => 'sometimes|required|numeric',
+            'total_rooms' => 'sometimes|required|integer',
             'images' => 'nullable',
             'image_url' => 'nullable',
             'amenities' => 'nullable|array',

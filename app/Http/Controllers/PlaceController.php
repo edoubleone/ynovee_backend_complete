@@ -79,9 +79,9 @@ class PlaceController extends Controller
         $place = Place::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
-            'location' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'location' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
             'content' => 'nullable|string',
             'rating' => 'nullable|numeric',
             'size' => 'nullable|string',

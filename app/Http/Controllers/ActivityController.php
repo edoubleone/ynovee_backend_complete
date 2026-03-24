@@ -65,8 +65,8 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
             'image' => 'nullable',
             'width' => 'nullable|integer',
             'height' => 'nullable|integer',

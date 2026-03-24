@@ -60,7 +60,7 @@ class AmenityController extends Controller
         $amenity = Amenity::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
+            'title' => 'sometimes|required|string',
             'icon' => 'nullable',
         ]);
 

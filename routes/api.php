@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Room Management (Admin)
     Route::post('/rooms', [RoomController::class, 'store']);
+    Route::post('/rooms/{id}', [RoomController::class, 'update']);
     Route::put('/rooms/{id}', [RoomController::class, 'update']);
     Route::delete('/rooms/{id}', [RoomController::class, 'destroy']);
 
@@ -81,18 +82,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/bookings/{id}', [BookingController::class, 'destroy']); // Cancel booking
 
     // Content Management (Admin)
+    Route::post('/slides/{id}', [SlideController::class, 'update']);
     Route::apiResource('slides', SlideController::class)->only(['store', 'update', 'destroy']);
+    Route::post('/amenities/{id}', [AmenityController::class, 'update']);
     Route::apiResource('amenities', AmenityController::class)->only(['store', 'update', 'destroy']);
+    Route::post('/places/{id}', [PlaceController::class, 'update']);
     Route::apiResource('places', PlaceController::class)->only(['store', 'update', 'destroy']);
+    Route::post('/activities/{id}', [ActivityController::class, 'update']);
     Route::apiResource('activities', ActivityController::class)->only(['store', 'update', 'destroy']);
+    Route::post('/service-values/{id}', [ServiceValueController::class, 'update']);
     Route::apiResource('service-values', ServiceValueController::class)->only(['store', 'update', 'destroy']);
     Route::post('/reviews', [ReviewController::class, 'store']);
+    Route::post('/reviews/{id}', [ReviewController::class, 'update']);
     Route::put('/reviews/{id}', [ReviewController::class, 'update']);
     Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
+    Route::post('/articles/{id}', [ArticleController::class, 'update']);
     Route::apiResource('articles', ArticleController::class)->only(['store', 'update', 'destroy']);
 
     // Tour Management (Admin)
     Route::post('/tours', [TourController::class, 'store']);
+    Route::post('/tours/{id}', [TourController::class, 'update']);
     Route::put('/tours/{id}', [TourController::class, 'update']);
     Route::delete('/tours/{id}', [TourController::class, 'destroy']);
 
