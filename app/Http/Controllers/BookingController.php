@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class BookingController extends Controller
 {
@@ -100,10 +101,9 @@ class BookingController extends Controller
             if (!is_array($files)) {
                 $files = [$files];
             }
-            foreach($files as $file) {
-                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('bookings', $filename, 'public');
-                $imageLinks[] = \Illuminate\Support\Facades\Storage::disk('public')->url($path);
+            foreach ($files as $file) {
+                $result = Cloudinary::uploadApi()->upload($file->getRealPath(), ['folder' => 'bookings']);
+                $imageLinks[] = $result['secure_url'];
             }
         }
         $validated['images'] = $imageLinks;

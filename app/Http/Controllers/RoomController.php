@@ -6,6 +6,7 @@ use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Traits\UploadsFiles;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class RoomController extends Controller
 {
@@ -124,11 +125,9 @@ class RoomController extends Controller
             if (!is_array($files)) {
                 $files = [$files];
             }
-            foreach($files as $file) {
-                 // Manual upload logic to avoid changing trait for now, or use trait loop
-                 $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-                 $path = $file->storeAs('rooms', $filename, 'public');
-                 $imageLinks[] = \Illuminate\Support\Facades\Storage::disk('public')->url($path);
+            foreach ($files as $file) {
+                $result = Cloudinary::uploadApi()->upload($file->getRealPath(), ['folder' => 'rooms']);
+                $imageLinks[] = $result['secure_url'];
             }
         }
 
@@ -136,14 +135,13 @@ class RoomController extends Controller
         if ($request->has('images') && ! $request->hasFile('images')) {
              $input = $request->input('images');
              if (is_string($input)) {
-                 // Split by comma, trim whitespace, filter empty
                  $links = array_filter(array_map('trim', explode(',', $input)));
                  $imageLinks = array_merge($imageLinks, $links);
              } elseif (is_array($input)) {
                  $imageLinks = array_merge($imageLinks, $input);
              }
         }
-        
+
         // 3. Legacy single image_url fallback
         if ($request->hasFile('image_url')) {
              $imageLinks[] = $this->uploadFile($request, 'image_url', 'rooms');
@@ -215,10 +213,9 @@ class RoomController extends Controller
             if (!is_array($files)) {
                 $files = [$files];
             }
-            foreach($files as $file) {
-                 $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
-                 $path = $file->storeAs('rooms', $filename, 'public');
-                 $imageLinks[] = \Illuminate\Support\Facades\Storage::disk('public')->url($path);
+            foreach ($files as $file) {
+                $result = Cloudinary::uploadApi()->upload($file->getRealPath(), ['folder' => 'rooms']);
+                $imageLinks[] = $result['secure_url'];
             }
         }
 
@@ -232,8 +229,8 @@ class RoomController extends Controller
                  $imageLinks = array_merge($imageLinks, $input);
              }
         }
-        
-         // 3. Legacy single image_url fallback
+
+        // 3. Legacy single image_url fallback
         if ($request->hasFile('image_url')) {
              $imageLinks[] = $this->uploadFile($request, 'image_url', 'rooms');
         } elseif ($request->input('image_url')) {

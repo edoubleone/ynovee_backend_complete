@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class TourController extends Controller
 {
@@ -69,11 +68,13 @@ class TourController extends Controller
         ]);
 
         if ($request->hasFile('images')) {
-            // Delete old physical files first
+            // Delete old Cloudinary images first
             if ($tour->images) {
-                foreach ($tour->images as $oldImagePath) {
-                    // Assuming you stored relative paths
-                    Storage::disk('public')->delete(str_replace(url('/storage'), '', $oldImagePath));
+                foreach ($tour->images as $oldImageUrl) {
+                    $publicId = $this->extractCloudinaryPublicId($oldImageUrl);
+                    if ($publicId) {
+                        Cloudinary::uploadApi()->destroy($publicId);
+                    }
                 }
             }
             $validated['images'] = $this->handleImages($request);
@@ -98,11 +99,19 @@ class TourController extends Controller
                 $files = [$files];
             }
             foreach ($files as $file) {
-                $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('tours', $filename, 'public');
-                $imageLinks[] = Storage::disk('public')->url($path);
+                $result = Cloudinary::uploadApi()->upload($file->getRealPath(), ['folder' => 'tours']);
+                $imageLinks[] = $result['secure_url'];
             }
         }
         return $imageLinks;
+    }
+
+    private function extractCloudinaryPublicId(string $url): ?string
+    {
+        // Cloudinary URL format: https://res.cloudinary.com/{cloud}/image/upload/v{ver}/{public_id}.{ext}
+        if (preg_match('/\/image\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/i', $url, $matches)) {
+            return $matches[1];
+        }
+        return null;
     }
 }
