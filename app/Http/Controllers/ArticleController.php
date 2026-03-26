@@ -39,6 +39,7 @@ class ArticleController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string',
+            'excerpt' => 'nullable|string',
             'author' => 'required|string',
             'category' => 'required|string',
             'content' => 'required|string',
@@ -72,12 +73,13 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
-            'author' => 'required|string',
-            'category' => 'required|string',
-            'content' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'excerpt' => 'nullable|string',
+            'author' => 'sometimes|required|string',
+            'category' => 'sometimes|required|string',
+            'content' => 'sometimes|required|string',
             'image' => 'nullable',
-            'published_at' => 'required|date',
+            'published_at' => 'sometimes|required|date',
         ]);
 
         if ($request->has('image') || $request->hasFile('image')) {

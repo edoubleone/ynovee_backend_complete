@@ -38,6 +38,8 @@ class ActivityController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'image' => 'required', // File or String
+            'width' => 'nullable|integer',
+            'height' => 'nullable|integer',
         ]);
 
         $validated['image_url'] = $this->uploadFile($request, 'image', 'activities');
@@ -63,9 +65,11 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
+            'title' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
             'image' => 'nullable',
+            'width' => 'nullable|integer',
+            'height' => 'nullable|integer',
         ]);
 
         if ($request->has('image') || $request->hasFile('image')) {

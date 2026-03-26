@@ -15,12 +15,17 @@ class SlideController extends Controller
      *     @OA\Response(response=200, description="List of slides", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Slide")))
      * )
      */
+    /**
+     * @OA\Get(path="/api/slides", tags={"Slides"}, summary="List all slides",
+     *     @OA\Response(response=200, description="List of slides", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Slide")))
+     * )
+     */
     public function index()
     {
-        return response()->json(Slide::all(), 200, [], JSON_UNESCAPED_SLASHES);
+        return response()->json(Slide::orderBy('order')->get(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
-    /**
+     /**
      * @OA\Post(path="/api/slides", tags={"Slides"}, summary="Create a slide (Admin)", security={{"sanctum":{}}},
      *     @OA\RequestBody(required=true, @OA\MediaType(mediaType="multipart/form-data",
      *         @OA\Schema(required={"image","title"},
@@ -40,6 +45,7 @@ class SlideController extends Controller
             'title' => 'required|string',
             'subtitle' => 'nullable|string',
             'cta_link' => 'nullable|string',
+            'order' => 'nullable|integer',
         ]);
 
         $validated['image_url'] = $this->uploadFile($request, 'image', 'slides');
@@ -67,9 +73,10 @@ class SlideController extends Controller
         
         $validated = $request->validate([
             'image' => 'nullable', // Can be string or file
-            'title' => 'required|string',
+            'title' => 'sometimes|required|string',
             'subtitle' => 'nullable|string',
             'cta_link' => 'nullable|string',
+            'order' => 'nullable|integer',
         ]);
 
         if ($request->has('image') || $request->hasFile('image')) {

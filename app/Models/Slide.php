@@ -14,5 +14,10 @@ class Slide extends Model
         'title',
         'subtitle',
         'cta_link',
+        'order',
+    ];
+
+    protected $casts = [
+        'order' => 'integer',
     ];
 }

@@ -69,10 +69,10 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
 
         $validated = $request->validate([
-            'name' => 'required|string',
+            'name' => 'sometimes|required|string',
             'role' => 'nullable|string',
-            'feedback' => 'required|string',
-            'rating' => 'required|integer|min:1|max:5',
+            'feedback' => 'sometimes|required|string',
+            'rating' => 'sometimes|required|integer|min:1|max:5',
             'image' => 'nullable',
         ]);
 
