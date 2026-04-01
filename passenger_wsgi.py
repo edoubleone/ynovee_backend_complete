@@ -1,1 +1,0 @@
-from roadersmap.wsgi import application

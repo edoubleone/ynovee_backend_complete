@@ -37,31 +37,6 @@ class AuthController extends Controller
      *     @OA\Response(response=401, description="Invalid credentials")
      * )
      */
-    /**
-     * @OA\Post(
-     *     path="/api/auth/login",
-     *     tags={"Authentication"},
-     *     summary="Admin login",
-     *     description="Login with email or username. Returns a Sanctum Bearer token.",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="email", type="string", format="email", example="admin@ynovee.com"),
-     *             @OA\Property(property="username", type="string", example="admin"),
-     *             @OA\Property(property="password", type="string", format="password", example="secret")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Login successful",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="token", type="string"),
-     *             @OA\Property(property="user", ref="#/components/schemas/User")
-     *         )
-     *     ),
-     *     @OA\Response(response=401, description="Invalid credentials")
-     * )
-     */
     public function login(Request $request)
     {
         // Allow login with either username or email
@@ -119,13 +94,38 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/auth/logout",
+     *     tags={"Authentication"},
+     *     summary="Logout (revoke token)",
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(response=200, description="Logged out", @OA\JsonContent(@OA\Property(property="message", type="string", example="Logged out successfully"))),
+     *     @OA\Response(response=401, description="Unauthenticated")
+     * )
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     }
 
-    
+    /**
+     * @OA\Post(
+     *     path="/api/auth/forgot-password",
+     *     tags={"Authentication"},
+     *     summary="Send password reset link",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email"},
+     *             @OA\Property(property="email", type="string", format="email", example="admin@ynovee.com")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Reset link sent", @OA\JsonContent(@OA\Property(property="message", type="string"))),
+     *     @OA\Response(response=422, description="Email not found or validation error")
+     * )
+     */
     public function forgotPassword(Request $request)
     {
         $request->validate([
@@ -141,6 +141,25 @@ class AuthController extends Controller
         return response()->json(['message' => __($status)], 422);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/auth/reset-password",
+     *     tags={"Authentication"},
+     *     summary="Reset password with token",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"token","email","password","password_confirmation"},
+     *             @OA\Property(property="token", type="string"),
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password", minLength=8),
+     *             @OA\Property(property="password_confirmation", type="string", format="password")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Password reset successful", @OA\JsonContent(@OA\Property(property="message", type="string"))),
+     *     @OA\Response(response=422, description="Invalid token or validation error")
+     * )
+     */
     public function resetPassword(Request $request)
     {
         $request->validate([

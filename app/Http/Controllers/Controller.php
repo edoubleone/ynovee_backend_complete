@@ -12,7 +12,12 @@ namespace App\Http\Controllers;
  *
  * @OA\Server(
  *     url=L5_SWAGGER_CONST_HOST,
- *     description="API Server"
+ *     description="Local Dev Server"
+ * )
+ *
+ * @OA\Server(
+ *     url="https://yvonneapi.edoubleone.com",
+ *     description="Production Server"
  * )
  *
  * @OA\SecurityScheme(
@@ -132,6 +137,42 @@ namespace App\Http\Controllers;
  *     schema="Subscriber",
  *     @OA\Property(property="id", type="integer"),
  *     @OA\Property(property="email", type="string", format="email")
+ * )
+ *
+ * @OA\Schema(
+ *     schema="Tour",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="title", type="string", example="Accra City Tour"),
+ *     @OA\Property(property="description", type="string"),
+ *     @OA\Property(property="location", type="string"),
+ *     @OA\Property(property="duration", type="string", example="3 hours"),
+ *     @OA\Property(property="price_usd", type="number", format="float", example=50.00),
+ *     @OA\Property(property="price_eur", type="number", format="float", example=46.00),
+ *     @OA\Property(property="price_ghs", type="number", format="float", example=700.00),
+ *     @OA\Property(property="max_guests", type="integer", example=10),
+ *     @OA\Property(property="category", type="string"),
+ *     @OA\Property(property="inclusions", type="array", @OA\Items(type="string")),
+ *     @OA\Property(property="exclusions", type="array", @OA\Items(type="string")),
+ *     @OA\Property(property="images", type="array", @OA\Items(type="string")),
+ *     @OA\Property(property="is_featured", type="boolean"),
+ *     @OA\Property(property="status", type="string", example="active"),
+ *     @OA\Property(property="created_at", type="string", format="date-time"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time")
+ * )
+ *
+ * @OA\Schema(
+ *     schema="TourBooking",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="tour_id", type="integer"),
+ *     @OA\Property(property="customer_name", type="string"),
+ *     @OA\Property(property="customer_email", type="string", format="email"),
+ *     @OA\Property(property="customer_phone", type="string"),
+ *     @OA\Property(property="booking_date", type="string", format="date", example="2025-06-15"),
+ *     @OA\Property(property="guests_count", type="integer"),
+ *     @OA\Property(property="total_price", type="number", format="float"),
+ *     @OA\Property(property="currency", type="string", enum={"USD","EUR","GHS"}),
+ *     @OA\Property(property="status", type="string", enum={"pending","confirmed","cancelled"}),
+ *     @OA\Property(property="created_at", type="string", format="date-time")
  * )
  *
  * @OA\Schema(

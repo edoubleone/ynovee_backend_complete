@@ -1,1 +1,0 @@
-from roadersmap.asgi import application
