@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Models\RoomType;
+use App\Models\Tour;
 
 class PaymentController extends Controller
 {
@@ -87,6 +88,71 @@ class PaymentController extends Controller
             return response()->json([
                 'clientSecret' => $paymentIntent->client_secret,
                 'amount' => $amount
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/create-tour-payment-intent",
+     *     tags={"Payments"},
+     *     summary="Create Stripe payment intent for a tour",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"tour_id","guests","currency"},
+     *             @OA\Property(property="tour_id", type="integer", example=1),
+     *             @OA\Property(property="guests", type="integer", example=2),
+     *             @OA\Property(property="currency", type="string", enum={"USD","EUR","GHS"}, example="USD")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Payment intent created",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="clientSecret", type="string"),
+     *             @OA\Property(property="amount", type="number")
+     *         )
+     *     ),
+     *     @OA\Response(response=422, description="Validation error"),
+     *     @OA\Response(response=500, description="Stripe error")
+     * )
+     */
+    public function createTourPaymentIntent(Request $request)
+    {
+        $validated = $request->validate([
+            'tour_id' => 'required|exists:tours,id',
+            'guests'  => 'required|integer|min:1',
+            'currency' => 'required|string|in:USD,EUR,GHS',
+        ]);
+
+        $tour = Tour::findOrFail($validated['tour_id']);
+
+        $pricePerGuest = match ($validated['currency']) {
+            'EUR'   => $tour->price_eur,
+            'GHS'   => $tour->price_ghs,
+            default => $tour->price_usd,
+        };
+
+        $amount = $pricePerGuest * $validated['guests'];
+        $amountInCents = round($amount * 100);
+
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY', 'sk_test_mock'));
+
+        try {
+            $paymentIntent = PaymentIntent::create([
+                'amount'   => $amountInCents,
+                'currency' => strtolower($validated['currency']),
+                'automatic_payment_methods' => ['enabled' => true],
+                'metadata' => [
+                    'tour_id' => $tour->id,
+                    'guests'  => $validated['guests'],
+                ],
+            ]);
+
+            return response()->json([
+                'clientSecret' => $paymentIntent->client_secret,
+                'amount'       => $amount,
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

@@ -42,6 +42,7 @@ Route::get('/rooms/{id}', [RoomController::class, 'show']);
 // Booking & Availability (Public)
 Route::post('/bookings', [BookingController::class, 'store']); // Create booking
 Route::post('/create-payment-intent', [PaymentController::class, 'createPaymentIntent']);
+Route::post('/create-tour-payment-intent', [PaymentController::class, 'createTourPaymentIntent']);
 
 // Content (Public Lists)
 Route::get('/slides', [SlideController::class, 'index']);

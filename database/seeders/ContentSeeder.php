@@ -15,6 +15,8 @@ use App\Models\Article;
 use App\Models\Booking;
 use App\Models\Inquiry;
 use App\Models\Subscriber;
+use App\Models\Tour;
+use App\Models\TourBooking;
 
 class ContentSeeder extends Seeder
 {
@@ -32,6 +34,8 @@ class ContentSeeder extends Seeder
         $this->seedArticles();
         $this->seedInquiries();
         $this->seedSubscribers();
+        $tours = $this->seedTours();
+        $this->seedTourBookings($tours);
     }
 
     private function seedSettings(): void
@@ -56,16 +60,16 @@ class ContentSeeder extends Seeder
     private function seedAmenities(): array
     {
         $amenities = [
-            ['title' => 'Free Wi-Fi',      'icon_url' => 'https://placehold.co/100x100?text=Wifi'],
-            ['title' => 'Swimming Pool',   'icon_url' => 'https://placehold.co/100x100?text=Pool'],
-            ['title' => 'Gym',             'icon_url' => 'https://placehold.co/100x100?text=Gym'],
-            ['title' => 'Spa & Wellness',  'icon_url' => 'https://placehold.co/100x100?text=Spa'],
-            ['title' => 'Restaurant',      'icon_url' => 'https://placehold.co/100x100?text=Food'],
-            ['title' => 'Free Parking',    'icon_url' => 'https://placehold.co/100x100?text=Car'],
-            ['title' => 'Air Conditioning','icon_url' => 'https://placehold.co/100x100?text=AC'],
-            ['title' => 'Room Service',    'icon_url' => 'https://placehold.co/100x100?text=Bell'],
-            ['title' => 'Private Beach',   'icon_url' => 'https://placehold.co/100x100?text=Beach'],
-            ['title' => 'Bar & Lounge',    'icon_url' => 'https://placehold.co/100x100?text=Bar'],
+            ['title' => 'Free Wi-Fi',      'icon_url' => '/images/page_1_img_4.jpeg'],
+            ['title' => 'Swimming Pool',   'icon_url' => '/images/page_1_img_5.jpeg'],
+            ['title' => 'Gym',             'icon_url' => '/images/page_1_img_6.jpeg'],
+            ['title' => 'Spa & Wellness',  'icon_url' => '/images/page_1_img_7.jpeg'],
+            ['title' => 'Restaurant',      'icon_url' => '/images/page_1_img_2.jpeg'],
+            ['title' => 'Free Parking',    'icon_url' => '/images/page_1_img_4.jpeg'],
+            ['title' => 'Air Conditioning','icon_url' => '/images/page_1_img_2.jpeg'],
+            ['title' => 'Room Service',    'icon_url' => '/images/page_1_img_7.jpeg'],
+            ['title' => 'Private Beach',   'icon_url' => '/images/page_1_img_5.jpeg'],
+            ['title' => 'Bar & Lounge',    'icon_url' => '/images/page_1_img_8.jpeg'],
         ];
 
         $ids = [];
@@ -79,21 +83,21 @@ class ContentSeeder extends Seeder
     {
         $slides = [
             [
-                'image_url' => 'https://placehold.co/1920x1080?text=Welcome+to+Ynovee',
+                'image_url' => '/images/page_6_img_6.jpeg',
                 'title'     => 'Experience True Luxury',
                 'subtitle'  => 'Where the ocean meets elegance — your dream stay awaits',
                 'cta_link'  => '/rooms',
             ],
             [
-                'image_url' => 'https://placehold.co/1920x1080?text=Ocean+Views',
+                'image_url' => '/images/page_6_img_17.jpeg',
                 'title'     => 'Wake Up to the Ocean',
                 'subtitle'  => 'Breathtaking views from every room on the Ada Estuary',
                 'cta_link'  => '/rooms',
             ],
             [
-                'image_url' => 'https://placehold.co/1920x1080?text=Dining+Experience',
-                'title'     => 'World-Class Dining',
-                'subtitle'  => 'Savor fresh local cuisine with a stunning waterfront backdrop',
+                'image_url' => '/images/page_6_img_26.jpeg',
+                'title'     => 'Unforgettable Moments',
+                'subtitle'  => 'Savor the magic of starlit evenings on the waterfront',
                 'cta_link'  => '/contact',
             ],
         ];
@@ -115,8 +119,8 @@ class ContentSeeder extends Seeder
                 'total_rooms' => 15,
                 'amenities'   => array_slice($amenityIds, 0, 5),
                 'images'      => [
-                    'https://placehold.co/800x600?text=Standard+Room',
-                    'https://placehold.co/800x600?text=Standard+Bath',
+                    '/images/page_6_img_44.jpeg',
+                    '/images/page_5_img_1.jpeg',
                 ],
             ],
             [
@@ -129,9 +133,9 @@ class ContentSeeder extends Seeder
                 'total_rooms' => 10,
                 'amenities'   => array_slice($amenityIds, 0, 7),
                 'images'      => [
-                    'https://placehold.co/800x600?text=Deluxe+Ocean',
-                    'https://placehold.co/800x600?text=Deluxe+Balcony',
-                    'https://placehold.co/800x600?text=Deluxe+Bath',
+                    '/images/page_6_img_17.jpeg',
+                    '/images/page_1_img_1.jpeg',
+                    '/images/page_6_img_31.jpeg',
                 ],
             ],
             [
@@ -144,8 +148,9 @@ class ContentSeeder extends Seeder
                 'total_rooms' => 8,
                 'amenities'   => array_slice($amenityIds, 0, 8),
                 'images'      => [
-                    'https://placehold.co/800x600?text=Family+Living',
-                    'https://placehold.co/800x600?text=Family+Bedroom',
+                    '/images/page_6_img_6.jpeg',
+                    '/images/page_6_img_29.jpeg',
+                    '/images/page_6_img_44.jpeg',
                 ],
             ],
             [
@@ -158,9 +163,9 @@ class ContentSeeder extends Seeder
                 'total_rooms' => 5,
                 'amenities'   => $amenityIds,
                 'images'      => [
-                    'https://placehold.co/800x600?text=Exec+Suite',
-                    'https://placehold.co/800x600?text=Exec+Jacuzzi',
-                    'https://placehold.co/800x600?text=Exec+View',
+                    '/images/page_6_img_17.jpeg',
+                    '/images/page_6_img_26.jpeg',
+                    '/images/page_5_img_1.jpeg',
                 ],
             ],
             [
@@ -173,9 +178,9 @@ class ContentSeeder extends Seeder
                 'total_rooms' => 2,
                 'amenities'   => $amenityIds,
                 'images'      => [
-                    'https://placehold.co/800x600?text=Villa+Pool',
-                    'https://placehold.co/800x600?text=Villa+Living',
-                    'https://placehold.co/800x600?text=Villa+View',
+                    '/images/page_6_img_6.jpeg',
+                    '/images/page_6_img_17.jpeg',
+                    '/images/page_6_img_1.jpeg',
                 ],
             ],
         ];
@@ -284,7 +289,7 @@ class ContentSeeder extends Seeder
                 'description' => 'Where the mighty Volta River meets the Atlantic Ocean, creating a breathtaking natural wonder.',
                 'content'     => 'The Ada Estuary is one of Ghana\'s most spectacular natural attractions. The meeting point of the Volta River and the Atlantic Ocean creates a unique ecosystem rich in birdlife and marine biodiversity. Take a boat cruise at sunset for an unforgettable experience.',
                 'rating'      => 4.8,
-                'image_url'   => 'https://placehold.co/800x600?text=Ada+Estuary',
+                'image_url'   => '/images/page_1_img_1.jpeg',
             ],
             [
                 'title'       => 'Laboma Beach',
@@ -292,7 +297,7 @@ class ContentSeeder extends Seeder
                 'description' => 'A pristine stretch of white sand beach perfect for sunbathing and water sports.',
                 'content'     => 'Laboma Beach offers crystal-clear waters and golden sands stretching for miles. Popular activities include swimming, beach volleyball, and sandcastle building. The beach is lined with palm trees offering natural shade.',
                 'rating'      => 4.6,
-                'image_url'   => 'https://placehold.co/800x600?text=Laboma+Beach',
+                'image_url'   => '/images/page_6_img_44.jpeg',
             ],
             [
                 'title'       => 'Volta River Bridge',
@@ -300,7 +305,7 @@ class ContentSeeder extends Seeder
                 'description' => 'An iconic infrastructure landmark spanning the Volta River with panoramic views.',
                 'content'     => 'The Volta River Bridge is not just a transport link but a vantage point for stunning river and delta views. Photographers and tourists flock here for sunrise and sunset shots.',
                 'rating'      => 4.2,
-                'image_url'   => 'https://placehold.co/800x600?text=Volta+Bridge',
+                'image_url'   => '/images/page_6_img_4.jpeg',
             ],
             [
                 'title'       => 'Keta Lagoon',
@@ -308,7 +313,7 @@ class ContentSeeder extends Seeder
                 'description' => 'A tranquil lagoon teeming with flamingos, pelicans and other migratory birds.',
                 'content'     => 'Keta Lagoon is a Ramsar-listed wetland and one of West Africa\'s most important bird sanctuaries. Bird watching tours depart daily from the hotel.',
                 'rating'      => 4.5,
-                'image_url'   => 'https://placehold.co/800x600?text=Keta+Lagoon',
+                'image_url'   => '/images/page_6_img_30.jpeg',
             ],
         ];
 
@@ -323,32 +328,32 @@ class ContentSeeder extends Seeder
             [
                 'title'       => 'Jet Skiing',
                 'description' => 'Feel the adrenaline rush as you race across the water on a high-powered jet ski. Suitable for beginners and experienced riders alike.',
-                'image_url'   => 'https://placehold.co/800x600?text=Jet+Ski',
+                'image_url'   => '/images/page_6_img_1.jpeg',
             ],
             [
                 'title'       => 'Sunset Boat Cruise',
                 'description' => 'Glide along the Ada Estuary at sunset on a traditional wooden boat while enjoying drinks and live music.',
-                'image_url'   => 'https://placehold.co/800x600?text=Boat+Cruise',
+                'image_url'   => '/images/page_6_img_26.jpeg',
             ],
             [
                 'title'       => 'Kayaking',
                 'description' => 'Explore the mangroves and estuary channels at your own pace on a guided or self-guided kayaking tour.',
-                'image_url'   => 'https://placehold.co/800x600?text=Kayaking',
+                'image_url'   => '/images/page_5_img_1.jpeg',
             ],
             [
                 'title'       => 'Beach Volleyball',
                 'description' => 'Join a friendly game of beach volleyball on our private beach court. Equipment provided free of charge.',
-                'image_url'   => 'https://placehold.co/800x600?text=Volleyball',
+                'image_url'   => '/images/page_6_img_44.jpeg',
             ],
             [
                 'title'       => 'Deep Sea Fishing',
                 'description' => 'Set out early morning with experienced local fishermen for a deep sea fishing adventure. Catch of the day cooked by our chefs.',
-                'image_url'   => 'https://placehold.co/800x600?text=Fishing',
+                'image_url'   => '/images/page_1_img_9.jpeg',
             ],
             [
                 'title'       => 'Cultural Village Tour',
                 'description' => 'Visit local Ada fishing communities, learn about traditional fishing techniques, and experience authentic Ghanaian hospitality.',
-                'image_url'   => 'https://placehold.co/800x600?text=Village+Tour',
+                'image_url'   => '/images/page_2_img_1.jpeg',
             ],
         ];
 
@@ -363,22 +368,22 @@ class ContentSeeder extends Seeder
             [
                 'title'       => 'Excellence',
                 'description' => 'We hold ourselves to the highest standards, ensuring every detail of your stay exceeds expectations.',
-                'icon_url'    => 'https://placehold.co/100x100?text=Star',
+                'icon_url'    => '/images/page_6_img_7.jpeg',
             ],
             [
                 'title'       => 'Integrity',
                 'description' => 'Honest, transparent service is at the core of everything we do — from pricing to guest relations.',
-                'icon_url'    => 'https://placehold.co/100x100?text=Shield',
+                'icon_url'    => '/images/page_6_img_9.jpeg',
             ],
             [
                 'title'       => 'Warmth',
                 'description' => 'Our team treats every guest like family, delivering heartfelt hospitality rooted in Ghanaian culture.',
-                'icon_url'    => 'https://placehold.co/100x100?text=Heart',
+                'icon_url'    => '/images/page_6_img_48.jpeg',
             ],
             [
                 'title'       => 'Sustainability',
                 'description' => 'We are committed to protecting the Ada Estuary ecosystem for future generations through eco-friendly practices.',
-                'icon_url'    => 'https://placehold.co/100x100?text=Leaf',
+                'icon_url'    => '/images/page_6_img_30.jpeg',
             ],
         ];
 
@@ -395,35 +400,35 @@ class ContentSeeder extends Seeder
                 'role'      => 'Business Traveler',
                 'feedback'  => 'Absolutely stunning resort. The ocean view room was worth every penny. The staff were incredibly attentive and the food was exceptional.',
                 'rating'    => 5,
-                'image_url' => 'https://placehold.co/100x100?text=Alice',
+                'image_url' => '/images/page_6_img_45.jpeg',
             ],
             [
                 'name'      => 'Kwame Asante',
                 'role'      => 'Family Vacationer',
                 'feedback'  => 'Brought my family here for the holidays. The kids loved the pool and the beach activities. We will definitely be back next year!',
                 'rating'    => 5,
-                'image_url' => 'https://placehold.co/100x100?text=Kwame',
+                'image_url' => '/images/page_6_img_2.jpeg',
             ],
             [
                 'name'      => 'Sophie Müller',
                 'role'      => 'Honeymoon Guest',
                 'feedback'  => 'A magical place for a honeymoon. The sunset boat cruise was unforgettable and the suite was beautifully decorated.',
                 'rating'    => 5,
-                'image_url' => 'https://placehold.co/100x100?text=Sophie',
+                'image_url' => '/images/page_6_img_3.jpeg',
             ],
             [
                 'name'      => 'David Mensah',
                 'role'      => 'Weekend Traveler',
                 'feedback'  => 'Great value for money. The standard room was clean and comfortable. The jet skiing activity was a highlight.',
                 'rating'    => 4,
-                'image_url' => 'https://placehold.co/100x100?text=David',
+                'image_url' => '/images/page_6_img_45.jpeg',
             ],
             [
                 'name'      => 'Maria Garcia',
                 'role'      => 'Solo Traveler',
                 'feedback'  => 'I loved the peaceful atmosphere. The cultural village tour was an eye-opener and the staff were so welcoming.',
                 'rating'    => 4,
-                'image_url' => 'https://placehold.co/100x100?text=Maria',
+                'image_url' => '/images/page_6_img_1.jpeg',
             ],
         ];
 
@@ -440,7 +445,7 @@ class ContentSeeder extends Seeder
                 'author'       => 'Ynovee Team',
                 'category'     => 'Travel',
                 'content'      => '<p>Ada Foah is one of Ghana\'s best kept secrets. From the stunning estuary to lively beach bars, there is something for everyone. Here are our top 10 picks for your visit...</p><p>1. Sunset boat cruise on the Volta Estuary<br>2. Jet skiing at Laboma Beach<br>3. Kayaking through the mangroves<br>4. Deep sea fishing at dawn<br>5. Cultural tour of Ada fishing villages...</p>',
-                'image_url'    => 'https://placehold.co/800x600?text=Ada+Guide',
+                'image_url'    => '/images/page_6_img_31.jpeg',
                 'published_at' => '2025-01-15 09:00:00',
             ],
             [
@@ -448,7 +453,7 @@ class ContentSeeder extends Seeder
                 'author'       => 'Chef Emmanuel Tetteh',
                 'category'     => 'Food',
                 'content'      => '<p>Ghana\'s coastline offers some of the most vibrant and flavourful dishes in West Africa. From fresh grilled tilapia to kontomire stew, the coastal kitchen is a treasure trove for food lovers...</p>',
-                'image_url'    => 'https://placehold.co/800x600?text=Ghanaian+Food',
+                'image_url'    => '/images/page_6_img_48.jpeg',
                 'published_at' => '2025-02-20 10:00:00',
             ],
             [
@@ -456,7 +461,7 @@ class ContentSeeder extends Seeder
                 'author'       => 'Ynovee Team',
                 'category'     => 'Travel',
                 'content'      => '<p>Couples from across the globe are discovering Ada Foah as the perfect destination for romance. The tranquil estuary, world-class spa treatments, and candlelit beachfront dinners make it truly special...</p>',
-                'image_url'    => 'https://placehold.co/800x600?text=Romance',
+                'image_url'    => '/images/page_6_img_26.jpeg',
                 'published_at' => '2025-03-10 08:30:00',
             ],
             [
@@ -464,7 +469,7 @@ class ContentSeeder extends Seeder
                 'author'       => 'Ynovee Management',
                 'category'     => 'Sustainability',
                 'content'      => '<p>At Ynovee, we believe luxury and environmental responsibility go hand in hand. Learn how we are reducing our carbon footprint and supporting local conservation efforts at the Ada Estuary...</p>',
-                'image_url'    => 'https://placehold.co/800x600?text=Eco+Resort',
+                'image_url'    => '/images/page_6_img_9.jpeg',
                 'published_at' => '2025-04-05 11:00:00',
             ],
         ];
@@ -511,6 +516,228 @@ class ContentSeeder extends Seeder
 
         foreach ($emails as $email) {
             Subscriber::updateOrCreate(['email' => $email]);
+        }
+    }
+
+    private function seedTours(): array
+    {
+        $tours = [
+            [
+                'title'       => 'Ada Estuary Sunset Cruise',
+                'description' => 'Glide along the magical Ada Estuary at golden hour aboard a traditional wooden boat. Watch the sun sink into the Volta River while enjoying chilled drinks and live highlife music. One of the most iconic experiences on the Ghanaian coast.',
+                'location'    => 'Ada Foah, Ghana',
+                'duration'    => '3 hours',
+                'price_usd'   => 45.00,
+                'price_eur'   => 42.00,
+                'price_ghs'   => 650.00,
+                'max_guests'  => 12,
+                'category'    => 'Nature',
+                'inclusions'  => ['Boat ride', 'Welcome drink', 'Live music', 'Life jackets', 'Professional guide'],
+                'exclusions'  => ['Personal insurance', 'Additional beverages', 'Gratuities'],
+                'images'      => [
+                    '/images/page_6_img_31.jpeg',
+                    '/images/page_6_img_26.jpeg',
+                ],
+                'is_featured' => true,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Accra City Heritage Walk',
+                'description' => 'Explore the vibrant heart of Accra on a guided heritage walk through Jamestown, the National Museum, and Makola Market. Discover colonial-era landmarks, street art, and the sounds and smells of an authentic West African capital city.',
+                'location'    => 'Accra, Ghana',
+                'duration'    => '5 hours',
+                'price_usd'   => 35.00,
+                'price_eur'   => 32.00,
+                'price_ghs'   => 500.00,
+                'max_guests'  => 15,
+                'category'    => 'Culture',
+                'inclusions'  => ['Expert local guide', 'Museum entry fees', 'Traditional snack tasting', 'Hotel pickup'],
+                'exclusions'  => ['Lunch', 'Personal shopping', 'Tips'],
+                'images'      => [
+                    '/images/page_1_img_12.jpeg',
+                    '/images/page_6_img_7.jpeg',
+                ],
+                'is_featured' => true,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Kakum Canopy Walk Adventure',
+                'description' => 'Walk above the rainforest canopy on a series of hanging bridges suspended 30 metres above the jungle floor in Kakum National Park. Spot rare birds, butterflies, and lush tropical flora on this thrilling eco-adventure.',
+                'location'    => 'Kakum National Park, Cape Coast',
+                'duration'    => 'Full Day (8 hours)',
+                'price_usd'   => 75.00,
+                'price_eur'   => 70.00,
+                'price_ghs'   => 1100.00,
+                'max_guests'  => 10,
+                'category'    => 'Adventure',
+                'inclusions'  => ['Round-trip transport from Ada', 'Park entry fee', 'Canopy walk fee', 'Packed lunch', 'Ranger-guided nature walk'],
+                'exclusions'  => ['Personal travel insurance', 'Souvenirs', 'Additional meals'],
+                'images'      => [
+                    '/images/page_3_img_1.jpeg',
+                    '/images/page_6_img_2.jpeg',
+                ],
+                'is_featured' => true,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Cape Coast Castle & Slave Route',
+                'description' => 'A deeply moving and historically significant journey through Cape Coast Castle and the Door of No Return — a UNESCO World Heritage Site. Led by a knowledgeable historian, this tour honours the legacy of the transatlantic slave trade.',
+                'location'    => 'Cape Coast, Ghana',
+                'duration'    => 'Full Day (9 hours)',
+                'price_usd'   => 65.00,
+                'price_eur'   => 60.00,
+                'price_ghs'   => 950.00,
+                'max_guests'  => 20,
+                'category'    => 'Culture',
+                'inclusions'  => ['Transport from Ada', 'Castle entry & guided tour', 'Historian commentary', 'Lunch at local restaurant'],
+                'exclusions'  => ['Personal purchases', 'Additional snacks', 'Tips'],
+                'images'      => [
+                    '/images/page_1_img_10.jpeg',
+                    '/images/page_6_img_8.jpeg',
+                ],
+                'is_featured' => false,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Mangrove Kayaking Expedition',
+                'description' => 'Paddle through the enchanting mangrove forests bordering the Ada Estuary on a guided kayaking expedition. Spot kingfishers, monitor lizards, and unique mangrove flora on this peaceful, immersive nature experience.',
+                'location'    => 'Ada Foah, Ghana',
+                'duration'    => '2.5 hours',
+                'price_usd'   => 30.00,
+                'price_eur'   => 28.00,
+                'price_ghs'   => 430.00,
+                'max_guests'  => 8,
+                'category'    => 'Adventure',
+                'inclusions'  => ['Kayak and paddle', 'Life jacket', 'Waterproof bag', 'Expert nature guide'],
+                'exclusions'  => ['Swimming gear', 'Sunscreen', 'Personal valuables'],
+                'images'      => [
+                    '/images/page_5_img_1.jpeg',
+                    '/images/page_6_img_31.jpeg',
+                ],
+                'is_featured' => false,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Volta Region Hot Springs & Waterfalls',
+                'description' => 'Escape to the lush Volta Region to soak in natural hot springs and hike to the spectacular Wli Waterfalls — the highest waterfall in West Africa. A perfect blend of relaxation and natural wonder.',
+                'location'    => 'Volta Region, Ghana',
+                'duration'    => 'Full Day (10 hours)',
+                'price_usd'   => 85.00,
+                'price_eur'   => 79.00,
+                'price_ghs'   => 1250.00,
+                'max_guests'  => 12,
+                'category'    => 'Nature',
+                'inclusions'  => ['Air-conditioned transport', 'Waterfall entry', 'Hot springs access', 'Packed lunch & refreshments', 'Hiking guide'],
+                'exclusions'  => ['Personal travel insurance', 'Swimwear', 'Towels', 'Tips'],
+                'images'      => [
+                    '/images/page_6_img_30.jpeg',
+                    '/images/page_6_img_4.jpeg',
+                ],
+                'is_featured' => true,
+                'status'      => 'active',
+            ],
+            [
+                'title'       => 'Spa & Wellness Retreat Day',
+                'description' => 'Indulge in a full day of pampering at our on-site spa. Choose from a menu of treatments including deep-tissue massage, traditional shea butter body wrap, and reflexology, followed by a healthy gourmet lunch by the pool.',
+                'location'    => 'Ynovee Hotel, Ada Foah',
+                'duration'    => '6 hours',
+                'price_usd'   => 120.00,
+                'price_eur'   => 112.00,
+                'price_ghs'   => 1800.00,
+                'max_guests'  => 4,
+                'category'    => 'Relaxation',
+                'inclusions'  => ['60-min massage', 'Body wrap treatment', 'Reflexology session', 'Healthy gourmet lunch', 'Use of pool & steam room'],
+                'exclusions'  => ['Additional spa treatments', 'Gratuities', 'External transport'],
+                'images'      => [
+                    '/images/page_6_img_17.jpeg',
+                    '/images/page_6_img_26.jpeg',
+                ],
+                'is_featured' => false,
+                'status'      => 'active',
+            ],
+        ];
+
+        $created = [];
+        foreach ($tours as $data) {
+            $created[] = Tour::create($data);
+        }
+        return $created;
+    }
+
+    private function seedTourBookings(array $tours): void
+    {
+        $bookings = [
+            [
+                'tour'           => $tours[0], // Ada Estuary Sunset Cruise
+                'booking_date'   => '2026-04-15',
+                'guests_count'   => 2,
+                'customer_name'  => 'Alice Johnson',
+                'customer_email' => 'alice@example.com',
+                'customer_phone' => '+1 202 555 0101',
+                'currency'       => 'USD',
+                'status'         => 'confirmed',
+            ],
+            [
+                'tour'           => $tours[0],
+                'booking_date'   => '2026-04-20',
+                'guests_count'   => 4,
+                'customer_name'  => 'Kwame Asante',
+                'customer_email' => 'kwame@example.com',
+                'customer_phone' => '+233 50 123 4567',
+                'currency'       => 'GHS',
+                'status'         => 'confirmed',
+            ],
+            [
+                'tour'           => $tours[1], // Accra City Heritage Walk
+                'booking_date'   => '2026-04-18',
+                'guests_count'   => 3,
+                'customer_name'  => 'Sophie Müller',
+                'customer_email' => 'sophie@example.com',
+                'customer_phone' => '+49 30 1234567',
+                'currency'       => 'EUR',
+                'status'         => 'pending',
+            ],
+            [
+                'tour'           => $tours[2], // Kakum Canopy Walk
+                'booking_date'   => '2026-05-02',
+                'guests_count'   => 2,
+                'customer_name'  => 'James Osei',
+                'customer_email' => 'james@example.com',
+                'customer_phone' => '+233 24 987 6543',
+                'currency'       => 'USD',
+                'status'         => 'confirmed',
+            ],
+            [
+                'tour'           => $tours[4], // Mangrove Kayaking
+                'booking_date'   => '2026-04-25',
+                'guests_count'   => 2,
+                'customer_name'  => 'Maria Garcia',
+                'customer_email' => 'maria@example.com',
+                'customer_phone' => '+34 91 555 0022',
+                'currency'       => 'EUR',
+                'status'         => 'pending',
+            ],
+        ];
+
+        foreach ($bookings as $data) {
+            $tour = $data['tour'];
+            $pricePerGuest = match ($data['currency']) {
+                'EUR'   => $tour->price_eur,
+                'GHS'   => $tour->price_ghs,
+                default => $tour->price_usd,
+            };
+
+            TourBooking::create([
+                'tour_id'        => $tour->id,
+                'booking_date'   => $data['booking_date'],
+                'guests_count'   => $data['guests_count'],
+                'customer_name'  => $data['customer_name'],
+                'customer_email' => $data['customer_email'],
+                'customer_phone' => $data['customer_phone'],
+                'total_price'    => $pricePerGuest * $data['guests_count'],
+                'currency'       => $data['currency'],
+                'status'         => $data['status'],
+            ]);
         }
     }
 }

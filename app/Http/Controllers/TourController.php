@@ -16,9 +16,28 @@ class TourController extends Controller
      *     @OA\Response(response=200, description="List of tours", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Tour")))
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Tour::all(), 200, [], JSON_UNESCAPED_SLASHES);
+        $query = Tour::query();
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->location . '%');
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%')
+                  ->orWhere('location', 'like', '%' . $search . '%');
+            });
+        }
+
+        return response()->json($query->get(), 200, [], JSON_UNESCAPED_SLASHES);
     }
 
     /**
