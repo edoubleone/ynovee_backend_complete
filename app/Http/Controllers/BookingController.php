@@ -65,9 +65,10 @@ class BookingController extends Controller
 
         $roomType = RoomType::findOrFail($validated['room_type_id']);
 
-        // Availability Check
+        // Availability Check — only confirmed/checked_in bookings block the room.
+        // Pending bookings are reviewed by admin; only confirmed ones occupy the room.
         $overlappingBookings = Booking::where('room_type_id', $roomType->id)
-            ->where('status', '!=', 'cancelled')
+            ->whereIn('status', ['confirmed', 'checked_in'])
             ->where('check_in', '<', $validated['check_out'])
             ->where('check_out', '>', $validated['check_in'])
             ->count();

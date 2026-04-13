@@ -43,8 +43,10 @@ class RoomController extends Controller
             // to avoid complex SQL group by having logic, unless dataset is huge.
             // For a hotel with < 50 room types, PHP filtering is fine.
             
+            // Only confirmed/checked_in bookings block room availability.
+            // Pending bookings do not block — admin approves/rejects as needed.
             $roomTypes = $query->withCount(['bookings' => function (Builder $query) use ($startDate, $endDate) {
-                $query->where('status', '!=', 'cancelled')
+                $query->whereIn('status', ['confirmed', 'checked_in'])
                       ->where('check_in', '<', $endDate)
                       ->where('check_out', '>', $startDate);
             }])->get();

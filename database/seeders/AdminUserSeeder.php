@@ -18,7 +18,8 @@ class AdminUserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'ynovee@gmail.com',
-                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+                'password' => \Illuminate\Support\Facades\Hash::make('password123
+                '),
             ]
         );
     }

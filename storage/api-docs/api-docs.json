@@ -1258,6 +1258,75 @@
                 }
             }
         },
+        "/api/create-tour-payment-intent": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Create Stripe payment intent for a tour",
+                "operationId": "1cc60d099553d0b56c2d684ddebe66c1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tour_id",
+                                    "guests",
+                                    "currency"
+                                ],
+                                "properties": {
+                                    "tour_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "guests": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "example": "USD",
+                                        "enum": [
+                                            "USD",
+                                            "EUR",
+                                            "GHS"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Payment intent created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "clientSecret": {
+                                            "type": "string"
+                                        },
+                                        "amount": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Stripe error"
+                    }
+                }
+            }
+        },
         "/api/places": {
             "get": {
                 "tags": [
