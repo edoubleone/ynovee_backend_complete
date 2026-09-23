@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\RoomType;
+use App\Services\NextaflowService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -109,6 +110,20 @@ class BookingController extends Controller
         $validated['images'] = $imageLinks;
 
         $booking = Booking::create($validated);
+
+        dispatch(fn () => app(NextaflowService::class)->submitForm('Room Booking', [
+            'name' => $validated['customer_name'],
+            'email' => $validated['customer_email'],
+            'phone' => $validated['customer_phone'],
+        ], [
+            'Booking ID' => $booking->id,
+            'Room' => $roomType->name,
+            'Check-in' => $validated['check_in'],
+            'Check-out' => $validated['check_out'],
+            'Guests' => $validated['guests_count'],
+            'Total' => $validated['total_price'] . ' ' . $validated['currency'],
+            'Images' => $imageLinks,
+        ]))->afterResponse();
 
         // Email Notification Dummy
         Log::info('Sending confirmation email to ' . $validated['customer_email']);

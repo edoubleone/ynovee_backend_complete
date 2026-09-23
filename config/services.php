@@ -28,6 +28,13 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'nextaflow' => [
+        'api_key' => env('NEXTAFLOW_API_KEY'),
+        'location_id' => env('NEXTAFLOW_LOCATION_ID'),
+        'base_url' => env('NEXTAFLOW_BASE_URL', 'https://services.leadconnectorhq.com'),
+        'version' => env('NEXTAFLOW_API_VERSION', '2021-07-28'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

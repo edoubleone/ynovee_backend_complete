@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use App\Models\TourBooking;
+use App\Services\NextaflowService;
 use Illuminate\Http\Request;
 
 class TourBookingController extends Controller
@@ -45,6 +46,18 @@ class TourBookingController extends Controller
 
         $booking = TourBooking::create($validated);
         $booking->load('tour');
+
+        dispatch(fn () => app(NextaflowService::class)->submitForm('Tour Booking', [
+            'name' => $validated['customer_name'],
+            'email' => $validated['customer_email'],
+            'phone' => $validated['customer_phone'],
+        ], [
+            'Booking ID' => $booking->id,
+            'Tour' => $tour->title,
+            'Date' => $validated['booking_date'],
+            'Guests' => $validated['guests_count'],
+            'Total' => $validated['total_price'] . ' ' . $validated['currency'],
+        ]))->afterResponse();
 
         return response()->json($booking, 201);
     }

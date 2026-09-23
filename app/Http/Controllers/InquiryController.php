@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
+use App\Services\NextaflowService;
 use Illuminate\Http\Request;
 
 class InquiryController extends Controller
@@ -37,6 +38,11 @@ class InquiryController extends Controller
         ]);
 
         $inquiry = Inquiry::create($validated);
+
+        dispatch(fn () => app(NextaflowService::class)->submitForm('Contact Inquiry', $validated, [
+            'Message' => $validated['message'],
+        ]))->afterResponse();
+
         return response()->json($inquiry, 201);
     }
 
