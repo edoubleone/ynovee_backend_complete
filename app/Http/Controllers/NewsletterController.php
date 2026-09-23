@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
+use App\Services\NextaflowService;
 use Illuminate\Http\Request;
 
 class NewsletterController extends Controller
@@ -33,6 +34,9 @@ class NewsletterController extends Controller
         ]);
 
         $subscriber = Subscriber::create($validated);
+
+        dispatch(fn () => app(NextaflowService::class)->submitForm('Newsletter', $validated))->afterResponse();
+
         return response()->json($subscriber, 201);
     }
 }
